@@ -33,6 +33,11 @@
             android:label="@string/title_activity_contact"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".WifiSettings"
+            android:label="@string/title_activity_wifi_settings"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
