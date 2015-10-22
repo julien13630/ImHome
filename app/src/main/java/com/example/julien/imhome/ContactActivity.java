@@ -1,6 +1,7 @@
 package com.example.julien.imhome;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -11,12 +12,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ListView;
 
+import com.example.julien.imhome.Adapter.AdapterAvert;
 import com.example.julien.imhome.Data.Avert;
 
 import java.util.ArrayList;
 
-public class ContactActivity extends AppCompatActivity {
+public class ContactActivity extends ListActivity {
 
     // List d'Avert qui nous servira pour stocker les contact
     private ArrayList<Avert> avertList = new ArrayList<Avert>();
@@ -25,8 +28,10 @@ public class ContactActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);*/
+
+        //On set de titre de la page
         this.setTitle("Sélectionnez les contacts à prévenir");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -66,17 +71,18 @@ public class ContactActivity extends AppCompatActivity {
                             String number = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                             // TODO Verifier qu'il y ai au moins un numero et pop up de selection si plusieurs
 
-                            Snackbar.make(ContactActivity.this.findViewById(android.R.id.content), number.toString(), Snackbar.LENGTH_LONG)
-                                    .show();
+                            //Snackbar.make(ContactActivity.this.findViewById(android.R.id.content), number.toString(), Snackbar.LENGTH_LONG)
+                            //        .show();
 
                             tmpAvert.setContactNumber(number); //Set le numero
                             avertList.add(tmpAvert); // Stock le contact dans le tableau
                         }
                         phones.close();
-                        // TODO Mettre a jour la listeView de contact avec le avertList
 
+                        AdapterAvert adapter = new AdapterAvert(ContactActivity.this, 0, avertList);
+                        ContactActivity.this.setListAdapter(adapter);
                     }
-                    }
+                }
 
             break;
         }
