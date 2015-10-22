@@ -1,8 +1,7 @@
 package com.example.julien.imhome;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
@@ -11,12 +10,9 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
+import com.example.julien.imhome.Adapter.AdapterWifi;
 import com.example.julien.imhome.Data.Wifi;
 import com.example.julien.imhome.Data.WifiDataSource;
 
@@ -24,7 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WifiSettings extends AppCompatActivity {
+public class WifiSettings extends ListActivity {
 
     private List<Wifi> wifiList;
 
@@ -32,8 +28,7 @@ public class WifiSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi_settings);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +66,10 @@ public class WifiSettings extends AppCompatActivity {
         } finally {
             wds.close();
         }
+
+        ArrayList<Wifi> arrayListWifi = (ArrayList<Wifi>)wifiList;
+        AdapterWifi adapter = new AdapterWifi(WifiSettings.this, 0, arrayListWifi);
+        WifiSettings.this.setListAdapter(adapter);
     }
 
     public void showAddWifiDialog(final NetworkInfo info)
@@ -96,7 +95,11 @@ public class WifiSettings extends AppCompatActivity {
                             }
                             wds.addWifi(ssid, ssid, info.getExtraInfo().hashCode(), false);
                             wifiList = wds.getAllWifi();
-                            //TODO Recharger la liste ICI
+
+                            ArrayList<Wifi> arrayListWifi = (ArrayList<Wifi>)wifiList;
+                            AdapterWifi adapter = new AdapterWifi(WifiSettings.this, 0, arrayListWifi);
+                            WifiSettings.this.setListAdapter(adapter);
+
                         } catch (SQLException e) {
                             e.printStackTrace();
                         } finally {
