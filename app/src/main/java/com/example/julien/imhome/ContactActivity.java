@@ -8,11 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ListView;
 
 import com.example.julien.imhome.Adapter.AdapterAvert;
 import com.example.julien.imhome.Data.Avert;
@@ -43,6 +39,8 @@ public class ContactActivity extends ListActivity {
                 startActivityForResult(intent, 1);
             }
         });
+
+       
     }
 
     @Override
@@ -81,6 +79,8 @@ public class ContactActivity extends ListActivity {
 
                         AdapterAvert adapter = new AdapterAvert(ContactActivity.this, 0, avertList);
                         ContactActivity.this.setListAdapter(adapter);
+
+
                     }
                 }
 
