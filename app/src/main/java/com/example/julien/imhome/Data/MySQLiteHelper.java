@@ -43,7 +43,6 @@ import android.util.Log;
             "`ssid` MEDIUMTEXT NULL DEFAULT NULL,"+
             "`hashcode` INTEGER NOT NULL DEFAULT NULL,"+
             "`adddate` DATE NULL DEFAULT NULL,"+
-            "`new field` INTEGER NULL DEFAULT NULL,"+
             "`contactname` MEDIUMTEXT NOT NULL DEFAULT 'NULL',"+
             "`contactnumber` MEDIUMTEXT NOT NULL DEFAULT 'NULL'"+
             " );";

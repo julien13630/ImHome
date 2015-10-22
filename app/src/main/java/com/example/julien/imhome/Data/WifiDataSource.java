@@ -51,6 +51,23 @@ public class WifiDataSource {
         return newWifi;
     }
 
+    public Wifi addWifi(Wifi wifi) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_W_LIBELLE, wifi.getLibelle());
+        values.put(MySQLiteHelper.COLUMN_W_SSID, wifi.getSsid());
+        values.put(MySQLiteHelper.COLUMN_W_HASHCODE, wifi.getHashcode());
+        values.put(MySQLiteHelper.COLUMN_W_FAVORIT, wifi.isFavorite());
+        long insertId = database.insert(MySQLiteHelper.TABLE_WIFI, null,
+                values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_WIFI,
+                allColumns, MySQLiteHelper.COLUMN_W_HASHCODE + " = " + wifi.getHashcode(), null,
+                null, null, null);
+        cursor.moveToFirst();
+        Wifi newWifi = cursorToWifi(cursor);
+        cursor.close();
+        return newWifi;
+    }
+
     public void deleteComment(Wifi comment) {
         int id = comment.getHashcode();
         System.out.println("Comment deleted with hascode: " + id);
