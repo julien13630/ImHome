@@ -40,7 +40,7 @@ public class ContactActivity extends ListActivity {
             }
         });
 
-       
+
     }
 
     @Override

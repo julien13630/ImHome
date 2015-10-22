@@ -30,7 +30,7 @@ import android.util.Log;
 
         // Commande sql pour la création de la base de données
         private static final String DATABASE_CREATE_WIFI = "CREATE TABLE `wifi` (" +
-                " `libelle` MEDIUMTEXT NULL AUTO_INCREMENT DEFAULT NULL," +
+                " `libelle` MEDIUMTEXT NULL DEFAULT NULL," +
                 " `ssid` MEDIUMTEXT NULL DEFAULT NULL," +
                 " `hashcode` INTEGER NOT NULL DEFAULT NULL, " +
                 " `favorite` bit NULL DEFAULT NULL, " +
@@ -39,7 +39,7 @@ import android.util.Log;
 
         // Commande sql pour la création de la base de données
         private static final String DATABASE_CREATE_AVERT = "CREATE TABLE `avert` ("+
-            "`libelle` MEDIUMTEXT NULL AUTO_INCREMENT DEFAULT NULL,"+
+            "`libelle` MEDIUMTEXT NULL DEFAULT NULL,"+
             "`ssid` MEDIUMTEXT NULL DEFAULT NULL,"+
             "`hashcode` INTEGER NOT NULL DEFAULT NULL,"+
             "`adddate` DATE NULL DEFAULT NULL,"+
@@ -56,7 +56,7 @@ import android.util.Log;
         @Override
         public void onCreate(SQLiteDatabase database) {
             database.execSQL(DATABASE_CREATE_WIFI);
-            database.execSQL(DATABASE_CREATE_WIFI);
+            database.execSQL(DATABASE_CREATE_AVERT);
         }
 
         @Override
