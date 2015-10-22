@@ -96,6 +96,7 @@ public class WifiSettings extends AppCompatActivity {
                             }
                             wds.addWifi(ssid, ssid, info.getExtraInfo().hashCode(), false);
                             wifiList = wds.getAllWifi();
+                            //TODO Recharger la liste ICI
                         } catch (SQLException e) {
                             e.printStackTrace();
                         } finally {
