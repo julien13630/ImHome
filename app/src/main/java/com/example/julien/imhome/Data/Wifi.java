@@ -8,7 +8,7 @@ package com.example.julien.imhome.Data;
 public class Wifi {
 
     private String libelle, ssid;
-    private int hascode;
+    private int hashcode;
     private boolean favorite;
 
 
@@ -28,12 +28,12 @@ public class Wifi {
         this.ssid = ssid;
     }
 
-    public int getHascode() {
-        return hascode;
+    public int getHashcode() {
+        return hashcode;
     }
 
-    public void setHascode(int hascode) {
-        this.hascode = hascode;
+    public void setHashcode(int hashcode) {
+        this.hashcode = hashcode;
     }
 
     public boolean isFavorite() {

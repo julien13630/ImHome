@@ -5,8 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import org.w3c.dom.Comment;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +52,7 @@ public class WifiDataSource {
     }
 
     public void deleteComment(Wifi comment) {
-        int id = comment.getHascode();
+        int id = comment.getHashcode();
         System.out.println("Comment deleted with hascode: " + id);
         database.delete(MySQLiteHelper.TABLE_WIFI, MySQLiteHelper.COLUMN_W_HASHCODE
                 + " = " + id, null);
@@ -80,7 +78,7 @@ public class WifiDataSource {
     private Wifi cursorToWifi(Cursor cursor) {
         Wifi wifi = new Wifi();
         wifi.setFavorite(cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_W_FAVORIT))!= 0);
-        wifi.setHascode(cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_W_HASHCODE)));
+        wifi.setHashcode(cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_W_HASHCODE)));
         wifi.setLibelle(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_W_LIBELLE)));
         wifi.setSsid(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_W_SSID)));
         return wifi;
