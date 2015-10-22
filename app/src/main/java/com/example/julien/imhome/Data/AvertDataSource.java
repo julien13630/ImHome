@@ -61,6 +61,26 @@ public class AvertDataSource {
         return newAvert;
     }
 
+    public Avert addAvert(Avert avert) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_A_LIBELLE, avert.getLibelle());
+        values.put(MySQLiteHelper.COLUMN_A_SSID, avert.getSsid());
+        values.put(MySQLiteHelper.COLUMN_A_HASHCODE, avert.getHashcode());
+        values.put(MySQLiteHelper.COLUMN_A_DATE, avert.getAddDate().toString());
+        values.put(MySQLiteHelper.COLUMN_A_CONTACTNAME, avert.getContactName());
+        values.put(MySQLiteHelper.COLUMN_A_CONTACTNUMBER, avert.getContactNumber());
+
+        long insertId = database.insert(MySQLiteHelper.TABLE_AVERT, null,
+                values);
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_AVERT,
+                allColumns, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = " + avert.getContactNumber() + " AND " +
+                        MySQLiteHelper.COLUMN_A_DATE + " = " + avert.getAddDate().toString()  , null,
+                null, null, null);
+        cursor.moveToFirst();
+        cursor.close();
+        return avert;
+    }
+
     public void deleteAvert(Avert avert) {
         Date date = avert.getAddDate();
         String contactNumber = avert.getContactNumber();
@@ -69,7 +89,7 @@ public class AvertDataSource {
                 MySQLiteHelper.COLUMN_A_DATE + " = " + date.toString(), null);
     }
 
-    public List<Avert> getAllWifi() {
+    public List<Avert> getAllAvert() {
         List<Avert> averts = new ArrayList<Avert>();
 
         Cursor cursor = database.query(MySQLiteHelper.TABLE_WIFI,
