@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:paddingTop="5dp"
-        android:layout_below="@id/listContactName"
+        android:layout_below="@id/listWifiSSID"
         android:textColor="#8B8378"/>
 
 </RelativeLayout>
