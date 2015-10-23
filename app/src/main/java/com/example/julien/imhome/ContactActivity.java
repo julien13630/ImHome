@@ -29,7 +29,7 @@ public class ContactActivity extends ListActivity {
         setSupportActionBar(toolbar);*/
 
         //On set de titre de la page
-        this.setTitle("Sélectionnez les contacts à prévenir");
+        //this.setTitle("Sélectionnez les contacts à prévenir");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -46,8 +46,8 @@ public class ContactActivity extends ListActivity {
             @Override
             public void onClick(View view) {
                 //Contact activity
-                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                startActivityForResult(intent, 1);
+                Intent intent = new Intent(ContactActivity.this, WifiSelectionActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -101,7 +101,6 @@ public class ContactActivity extends ListActivity {
 
                         AdapterAvert adapter = new AdapterAvert(ContactActivity.this, 0, avertList);
                         ContactActivity.this.setListAdapter(adapter);
-
 
                     }
                 }
