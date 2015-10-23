@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".ContactActivity">
+    <item android:id="@+id/action_validate"
+        android:title="validate"
+        android:icon="@drawable/ic_done_white_24dp" />
+</menu>
