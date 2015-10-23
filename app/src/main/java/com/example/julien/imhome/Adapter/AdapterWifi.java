@@ -68,9 +68,9 @@ public class AdapterWifi extends ArrayAdapter<Wifi> {
                 holder = (ViewHolder) vi.getTag();
             }
 
-            //Si le ssid et le libelle sont égaux, on ne set que le ssid.
-            //NE FONCTIONNE PAS
-            if (lWifi.get(position).getSsid() != lWifi.get(position).getLibelle()){
+            //On vérifie que le SSID n'est pas égal au libelle
+            //Si oui, on ne set que le SSID à l'affichage
+            if (!lWifi.get(position).getSsid().equals(lWifi.get(position).getLibelle())){
                 holder.display_libelle.setText(lWifi.get(position).getLibelle());
             }
             holder.display_ssid.setText(lWifi.get(position).getSsid());
