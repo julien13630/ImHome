@@ -47,6 +47,7 @@ public class ContactActivity extends ListActivity {
             public void onClick(View view) {
                 //Contact activity
                 Intent intent = new Intent(ContactActivity.this, WifiSelectionActivity.class);
+                intent.putExtra("avertList", avertList);
                 startActivity(intent);
             }
         });

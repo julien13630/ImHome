@@ -20,6 +20,7 @@ import android.util.Log;
         public static final String TABLE_AVERT = "avert";
         public static final String COLUMN_A_CONTACTNAME = "contactname";
         public static final String COLUMN_A_CONTACTNUMBER = "contactnumber";
+        public static final String COLUMN_A_MESSAGETEXT = "messagetext";
         public static final String COLUMN_A_HASHCODE = "hashcode";
         public static final String COLUMN_A_SSID = "ssid";
         public static final String COLUMN_A_LIBELLE = "libelle";
@@ -41,6 +42,7 @@ import android.util.Log;
         private static final String DATABASE_CREATE_AVERT = "CREATE TABLE `avert` ("+
             "`libelle` MEDIUMTEXT NULL DEFAULT NULL,"+
             "`ssid` MEDIUMTEXT NULL DEFAULT NULL,"+
+                "`messagetext` MEDIUMTEXT NULL DEFAULT NULL,"+
             "`hashcode` INTEGER NOT NULL DEFAULT NULL,"+
             "`adddate` DATE NULL DEFAULT NULL,"+
             "`contactname` MEDIUMTEXT NOT NULL DEFAULT 'NULL',"+

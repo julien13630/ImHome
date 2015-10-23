@@ -22,6 +22,7 @@ public class AvertDataSource {
     private MySQLiteHelper dbHelper;
     private String[] allColumns = { MySQLiteHelper.COLUMN_A_LIBELLE,
             MySQLiteHelper.COLUMN_A_SSID,
+            MySQLiteHelper.COLUMN_A_MESSAGETEXT,
             MySQLiteHelper.COLUMN_A_HASHCODE,
             MySQLiteHelper.COLUMN_A_DATE,
             MySQLiteHelper.COLUMN_A_CONTACTNAME,
@@ -40,10 +41,11 @@ public class AvertDataSource {
         dbHelper.close();
     }
 
-    public Avert addAvert(String libelle, String ssid, int hashcode,  Date date, String contactName, String contactNumber) {
+    public Avert addAvert(String libelle, String ssid,String messageText, int hashcode,  Date date, String contactName, String contactNumber) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_A_LIBELLE, libelle);
         values.put(MySQLiteHelper.COLUMN_A_SSID, ssid);
+        values.put(MySQLiteHelper.COLUMN_A_MESSAGETEXT, messageText);
         values.put(MySQLiteHelper.COLUMN_A_HASHCODE, hashcode);
         values.put(MySQLiteHelper.COLUMN_A_DATE, date.toString());
         values.put(MySQLiteHelper.COLUMN_A_CONTACTNAME, contactName);
@@ -52,8 +54,8 @@ public class AvertDataSource {
         long insertId = database.insert(MySQLiteHelper.TABLE_AVERT, null,
                 values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_AVERT,
-                allColumns, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = " + contactNumber + " AND " +
-                        MySQLiteHelper.COLUMN_A_DATE + " = " + date.toString()  , null,
+                allColumns, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
+                        MySQLiteHelper.COLUMN_A_DATE + " = '" + date.toString() + "'"  , null,
                 null, null, null);
         cursor.moveToFirst();
         Avert newAvert = cursorToAvert(cursor);
@@ -65,6 +67,7 @@ public class AvertDataSource {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_A_LIBELLE, avert.getLibelle());
         values.put(MySQLiteHelper.COLUMN_A_SSID, avert.getSsid());
+        values.put(MySQLiteHelper.COLUMN_A_MESSAGETEXT, avert.getMessageText());
         values.put(MySQLiteHelper.COLUMN_A_HASHCODE, avert.getHashcode());
         values.put(MySQLiteHelper.COLUMN_A_DATE, avert.getAddDate().toString());
         values.put(MySQLiteHelper.COLUMN_A_CONTACTNAME, avert.getContactName());
@@ -115,6 +118,7 @@ public class AvertDataSource {
         avert.setLibelle(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_LIBELLE)));
         avert.setSsid(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_SSID)));
         avert.setContactNumber(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_CONTACTNUMBER)));
+        avert.setMessageText(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_MESSAGETEXT)));
         avert.setAddDate(tmpDate);
         avert.setContactName(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_CONTACTNAME)));
         return avert;
