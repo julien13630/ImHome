@@ -19,6 +19,7 @@ public class ContactActivity extends ListActivity {
 
     // List d'Avert qui nous servira pour stocker les contact
     private ArrayList<Avert> avertList = new ArrayList<Avert>();
+    private FloatingActionButton fabOk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,21 @@ public class ContactActivity extends ListActivity {
             }
         });
 
+        fabOk = (FloatingActionButton) findViewById(R.id.fabOk);
+        fabOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Contact activity
+                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+        if (avertList.isEmpty()){
+            fabOk.setVisibility(View.INVISIBLE);
+        }else{
+            fabOk.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -74,6 +90,12 @@ public class ContactActivity extends ListActivity {
 
                             tmpAvert.setContactNumber(number); //Set le numero
                             avertList.add(tmpAvert); // Stock le contact dans le tableau
+
+                            if (avertList.isEmpty()){
+                                fabOk.setVisibility(View.INVISIBLE);
+                            }else{
+                                fabOk.setVisibility(View.VISIBLE);
+                            }
                         }
                         phones.close();
 
