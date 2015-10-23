@@ -3,4 +3,5 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_contact">ContactActivity</string>
     <string name="title_activity_wifi_settings">WifiSettings</string>
+    <string name="title_activity_wifi_selection">WifiSelectionActivity</string>
 </resources>
