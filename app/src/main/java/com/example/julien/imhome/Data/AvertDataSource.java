@@ -75,21 +75,18 @@ public class AvertDataSource {
 
         long insertId = database.insert(MySQLiteHelper.TABLE_AVERT, null,
                 values);
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_AVERT,
-                allColumns, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + avert.getContactNumber() + "' AND " +
-                        MySQLiteHelper.COLUMN_A_DATE + " = '" + avert.getAddDate().toString() +"'" , null,
-                null, null, null);
-        cursor.moveToFirst();
-        cursor.close();
+
         return avert;
     }
 
     public void deleteAvert(Avert avert) {
         Date date = avert.getAddDate();
         String contactNumber = avert.getContactNumber();
-        System.out.println("Avert deleted : " + avert.toString());
+
         database.delete(MySQLiteHelper.TABLE_AVERT, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
-                MySQLiteHelper.COLUMN_A_DATE + " = '" + date.toString() +"'", null);
+                MySQLiteHelper.COLUMN_A_HASHCODE + " = '" + avert.getHashcode() +"'", null);
+
+        System.out.println("Avert deleted : " + avert.getContactName());
     }
 
     public List<Avert> getAllAvert() {
