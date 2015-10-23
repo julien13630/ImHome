@@ -14,9 +14,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.julien.imhome.Adapter.AdapterMain;
+import com.example.julien.imhome.Data.Avert;
+import com.example.julien.imhome.Data.AvertDataSource;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    private List<Avert> avertList;
 
 
     @Override
@@ -37,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    WifiReceiver wifi = new WifiReceiver();
+        WifiReceiver wifi = new WifiReceiver();
+        getDataSetList();
     }
 
     @Override
@@ -62,4 +74,28 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getDataSetList();
+    }
+
+    private void getDataSetList(){
+        AvertDataSource avertDT = new AvertDataSource(MainActivity.this);
+        try {
+            avertDT.open();
+            avertList = avertDT.getAllAvert();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            avertDT.close();
+        }
+
+        AdapterMain adapter = new AdapterMain(MainActivity.this, 0, (ArrayList<Avert>)avertList);
+        ListView list = (ListView)findViewById(R.id.listMain);
+        list.setAdapter(adapter);
+    }
+
 }

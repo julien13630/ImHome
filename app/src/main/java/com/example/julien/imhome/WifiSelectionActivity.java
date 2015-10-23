@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
@@ -85,23 +86,20 @@ public class WifiSelectionActivity extends ListActivity {
                             ads.close();
                         }
 
-
+                        Intent intent=new Intent(WifiSelectionActivity.this,MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
 
                         }
                     }
 
-                    )
-                            .
-
-                    setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                    ).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     // User cancelled the dialog
                                 }
                             }
 
-                    ).
-
-                setView(et);
+                    ).setView(et);
 
                     // Create the AlertDialog object and return it
                     builder.create().
