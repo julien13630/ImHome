@@ -88,7 +88,7 @@ public class AvertDataSource {
         Date date = avert.getAddDate();
         String contactNumber = avert.getContactNumber();
         System.out.println("Avert deleted : " + avert.toString());
-        database.delete(MySQLiteHelper.TABLE_WIFI, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
+        database.delete(MySQLiteHelper.TABLE_AVERT, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
                 MySQLiteHelper.COLUMN_A_DATE + " = '" + date.toString() +"'", null);
     }
 
