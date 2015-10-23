@@ -62,7 +62,6 @@ public class WifiSelectionActivity extends ListActivity {
     {
         final EditText et = new EditText(WifiSelectionActivity.this);
         final AvertDataSource ads = new AvertDataSource(WifiSelectionActivity.this);
-
         et.setText("Je suis arrivé :)", TextView.BufferType.EDITABLE);
         AlertDialog.Builder builder = new AlertDialog.Builder(WifiSelectionActivity.this);
         builder.setMessage("Saisissez le texte à envoyer : ")
