@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.julien.imhome" >
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-
 
     <application
         android:allowBackup="true"
@@ -37,6 +37,11 @@
         <activity
             android:name=".WifiSettings"
             android:label="@string/title_activity_wifi_settings"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".WifiSelectionActivity"
+            android:label="@string/title_activity_wifi_selection"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
