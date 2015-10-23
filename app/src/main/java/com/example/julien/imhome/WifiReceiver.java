@@ -45,6 +45,7 @@ public class WifiReceiver extends BroadcastReceiver {
                             if (a.getHashcode() == info.getExtraInfo().hashCode()) {
 
                                 SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
+                                ads.deleteAvert(a);
                             }
 
                         }
