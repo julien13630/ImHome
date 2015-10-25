@@ -17,6 +17,7 @@ import com.example.julien.imhome.Data.WifiDataSource;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by julie on 21/10/2015.
@@ -39,9 +40,11 @@ public class WifiReceiver extends BroadcastReceiver {
                     String ssid = wifiInfo.getSSID();
                     Toast.makeText(context, ssid, Toast.LENGTH_LONG);
                     AvertDataSource ads = new AvertDataSource(context);
+
                     try {
                         ads.open();
-                        for (Avert a : ads.getAllAvert()) {
+                        List<Avert> avertList = ads.getAllAvert();
+                        for (Avert a : avertList) {
                             if (a.getHashcode() == info.getExtraInfo().hashCode()) {
 
                                 SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
