@@ -38,7 +38,7 @@ public class WifiReceiver extends BroadcastReceiver {
                     WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
                     WifiInfo wifiInfo = wifiManager.getConnectionInfo();
                     String ssid = wifiInfo.getSSID();
-                    Toast.makeText(context, ssid, Toast.LENGTH_LONG);
+
                     AvertDataSource ads = new AvertDataSource(context);
 
                     try {
@@ -48,6 +48,7 @@ public class WifiReceiver extends BroadcastReceiver {
                             if (a.getHashcode() == info.getExtraInfo().hashCode()) {
 
                                 SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
+                                Toast.makeText(context, "ImHome : Message envoyé à " + a.getContactName(), Toast.LENGTH_LONG).show();
                                 ads.deleteAvert(a);
                             }
 
