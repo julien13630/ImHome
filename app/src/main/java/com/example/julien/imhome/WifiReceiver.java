@@ -1,5 +1,8 @@
 package com.example.julien.imhome;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +27,29 @@ import java.util.List;
  */
 
 public class WifiReceiver extends BroadcastReceiver {
+
+    private final void createNotification(Context context, String message){
+        //Récupération du notification Manager
+        final NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        //Création de la notification avec spécification de l'icône de la notification et le texte qui apparait à la création de la notification
+        final Notification notification = new Notification(R.drawable.ic_done_white_24dp, message, System.currentTimeMillis());
+
+        //Définition de la redirection au moment du clic sur la notification. Dans notre cas la notification redirige vers notre application
+        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0);
+
+        //Récupération du titre et description de la notification
+        final String notificationTitle = "ImHome à envoyé un message";
+        final String notificationDesc = message;
+
+        //Notification & Vibration
+
+        //notification.setLatestEventInfo(this, notificationTitle, notificationDesc, pendingIntent);
+        notification.vibrate = new long[] {0,200,100,200,100,200};
+
+        notificationManager.notify(0212, notification);
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -49,6 +75,7 @@ public class WifiReceiver extends BroadcastReceiver {
 
                                 SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
                                 Toast.makeText(context, "ImHome : Message envoyé à " + a.getContactName(), Toast.LENGTH_LONG).show();
+                               // createNotification(context,"Message envoyé à " + a.getContactName() );
                                 ads.deleteAvert(a);
                             }
 

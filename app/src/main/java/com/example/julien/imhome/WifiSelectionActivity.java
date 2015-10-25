@@ -15,6 +15,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -64,6 +65,12 @@ public class WifiSelectionActivity extends ListActivity {
         final EditText et = new EditText(WifiSelectionActivity.this);
         final AvertDataSource ads = new AvertDataSource(WifiSelectionActivity.this);
         et.setText("Je suis arrivé :)", TextView.BufferType.EDITABLE);
+
+        //On limite le text a 160 caractères
+        InputFilter[] filterArray = new InputFilter[1];
+        filterArray[0] = new InputFilter.LengthFilter(160);
+        et.setFilters(filterArray);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(WifiSelectionActivity.this);
         builder.setMessage("Saisissez le texte à envoyer : ")
                 .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
