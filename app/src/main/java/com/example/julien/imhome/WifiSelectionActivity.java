@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -56,6 +57,27 @@ public class WifiSelectionActivity extends ListActivity {
         }
 
         ArrayList<Wifi> arrayListWifi = (ArrayList<Wifi>)wifiList;
+
+        //Ajouter les wifis système
+        WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+        List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
+        for(int i = 0 ; i < list.size() ; i++){
+            Wifi temp = new Wifi();
+            temp.setSsid(list.get(i).SSID);
+            temp.setHashcode(-1);
+            temp.setLibelle(list.get(i).SSID);
+            boolean exists = false;
+            for(int j = 0 ; j < arrayListWifi.size() ; j++){
+                if(arrayListWifi.get(j).getSsid().compareTo(temp.getSsid()) == 0){
+                    exists = true;
+                    j = arrayListWifi.size();
+                }
+            }
+            if(!exists){
+                arrayListWifi.add(temp);
+            }
+        }
+
         AdapterWifi adapter = new AdapterWifi(WifiSelectionActivity.this, 0, arrayListWifi);
         WifiSelectionActivity.this.setListAdapter(adapter);
     }
