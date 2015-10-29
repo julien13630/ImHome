@@ -1,5 +1,6 @@
 package com.example.julien.imhome;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -28,26 +29,27 @@ import java.util.List;
 
 public class WifiReceiver extends BroadcastReceiver {
 
-    private final void createNotification(Context context, String message){
-        //Récupération du notification Manager
-        final NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+    private final void createNotification(Context context, String message, int notifID){
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 
-        //Création de la notification avec spécification de l'icône de la notification et le texte qui apparait à la création de la notification
-        final Notification notification = new Notification(R.drawable.ic_done_white_24dp, message, System.currentTimeMillis());
+        // prepare intent which is triggered if the
+// notification is selected
 
-        //Définition de la redirection au moment du clic sur la notification. Dans notre cas la notification redirige vers notre application
-        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, MainActivity.class), 0);
+        Intent intent = new Intent(context, MainActivity.class);
+// use System.currentTimeMillis() to have a unique ID for the pending intent
+        PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent, 0);
 
-        //Récupération du titre et description de la notification
-        final String notificationTitle = "ImHome à envoyé un message";
-        final String notificationDesc = message;
+// build notification
+// the addAction re-use the same intent to keep the example short
+        Notification n  = new Notification.Builder(context)
+                .setContentTitle("ImHome Message Envoyé")
+                .setContentText(message)
+                .setSmallIcon(R.drawable.ic_done_white_24dp)
+                .setContentIntent(pIntent)
+                .setAutoCancel(true)
+                .getNotification();
 
-        //Notification & Vibration
-
-        //notification.setLatestEventInfo(this, notificationTitle, notificationDesc, pendingIntent);
-        notification.vibrate = new long[] {0,200,100,200,100,200};
-
-        notificationManager.notify(0212, notification);
+        notificationManager.notify(notifID, n);
     }
 
     @Override
@@ -70,15 +72,17 @@ public class WifiReceiver extends BroadcastReceiver {
                     try {
                         ads.open();
                         List<Avert> avertList = ads.getAllAvert();
-                        for (Avert a : avertList) {
-                            if (a.getHashcode() == info.getExtraInfo().hashCode()) {
+                        if (avertList.size() > 0) {
+                            int notifID = avertList.get(0).getHashcode();
+                            for (Avert a : avertList) {
+                                if (a.getHashcode() == info.getExtraInfo().hashCode()) {
 
-                                SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
-                                Toast.makeText(context, "ImHome : Message envoyé à " + a.getContactName(), Toast.LENGTH_LONG).show();
-                               // createNotification(context,"Message envoyé à " + a.getContactName() );
-                                ads.deleteAvert(a);
+                                    SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
+                                    Toast.makeText(context, "ImHome : Message envoyé à " + a.getContactName(), Toast.LENGTH_LONG).show();
+                                    createNotification(context, "Message envoyé à " + a.getContactName(), notifID++);
+                                    ads.deleteAvert(a);
+                                }
                             }
-
                         }
 
                     } catch (SQLException e) {
