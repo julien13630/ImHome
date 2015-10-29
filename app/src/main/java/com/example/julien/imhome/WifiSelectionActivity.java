@@ -2,22 +2,15 @@ package com.example.julien.imhome;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.wifi.WifiConfiguration;
-import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,15 +26,36 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WifiSelectionActivity extends ListActivity {
+public class WifiSelectionActivity extends Activity {
 
     private List<Wifi> wifiList;
     private ArrayList<Avert> avertList;
+    private ArrayList<Wifi> arrayListWifiRegistered;
+    ListView lvWifiRegistered;
+    ListView lvWifi;
+
+    private AdapterView.OnItemClickListener listListenerFavorite = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                showValidWifiDialog(wifiList.get(position));
+
+
+        }
+    };
+
+    private AdapterView.OnItemClickListener listListenerRegistered = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            showValidWifiDialog(arrayListWifiRegistered.get(position));
+
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wifi_settings);
+        setContentView(R.layout.activity_wifi_selection);
 
         avertList = getIntent().getExtras().getParcelableArrayList("avertList");
 
@@ -57,6 +71,7 @@ public class WifiSelectionActivity extends ListActivity {
         }
 
         ArrayList<Wifi> arrayListWifi = (ArrayList<Wifi>)wifiList;
+        arrayListWifiRegistered = new ArrayList<Wifi>();
 
         //Ajouter les wifis système
         WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
@@ -74,12 +89,20 @@ public class WifiSelectionActivity extends ListActivity {
                 }
             }
             if(!exists){
-                arrayListWifi.add(temp);
+                arrayListWifiRegistered.add(temp);
             }
         }
 
         AdapterWifi adapter = new AdapterWifi(WifiSelectionActivity.this, 0, arrayListWifi);
-        WifiSelectionActivity.this.setListAdapter(adapter);
+        lvWifi = (ListView)findViewById(R.id.listFavorite);
+        lvWifi.setAdapter(adapter);
+
+        AdapterWifi adapterRegistered = new AdapterWifi(WifiSelectionActivity.this, 0, arrayListWifiRegistered);
+        lvWifiRegistered = (ListView)findViewById(R.id.listRegistered);
+        lvWifiRegistered.setAdapter(adapterRegistered);
+
+        lvWifi.setOnItemClickListener(listListenerFavorite);
+        lvWifiRegistered.setOnItemClickListener(listListenerRegistered);
     }
 
     public void showValidWifiDialog(final Wifi w)
@@ -135,10 +158,4 @@ public class WifiSelectionActivity extends ListActivity {
 
                     show();
                 }
-
-        @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        showValidWifiDialog(wifiList.get(position));
-    }
 }
