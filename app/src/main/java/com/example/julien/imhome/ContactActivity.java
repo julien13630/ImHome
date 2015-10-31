@@ -8,18 +8,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.julien.imhome.Adapter.AdapterAvert;
 import com.example.julien.imhome.Data.Avert;
 
 import java.util.ArrayList;
 
-public class ContactActivity extends ListActivity {
+public class ContactActivity extends Activity {
 
     // List d'Avert qui nous servira pour stocker les contact
     private ArrayList<Avert> avertList = new ArrayList<Avert>();
     private FloatingActionButton fabOk;
+    private float historicX = Float.NaN, historicY = Float.NaN;
+    private static final int DELTA = 50;
+    private enum Direction {LEFT, RIGHT;}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,35 @@ public class ContactActivity extends ListActivity {
         }else{
             fabOk.setVisibility(View.VISIBLE);
         }
+
+        ListView lvContact = (ListView) findViewById(R.id.listContact);
+
+        lvContact.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        historicX = event.getX();
+                        historicY = event.getY();
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        if (event.getX() - historicX < -DELTA) {
+                            //FunctionDeleteRowWhenSlidingLeft();
+                            Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
+                            return true;
+                        } else if (event.getX() - historicX > DELTA) {
+                            //FunctionDeleteRowWhenSlidingRight();
+                            Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
+                        break;
+                    default:
+                        return false;
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -101,7 +136,8 @@ public class ContactActivity extends ListActivity {
                         phones.close();
 
                         AdapterAvert adapter = new AdapterAvert(ContactActivity.this, 0, avertList);
-                        ContactActivity.this.setListAdapter(adapter);
+                        ListView list = (ListView)findViewById(R.id.listContact);
+                        list.setAdapter(adapter);
 
                     }
                 }

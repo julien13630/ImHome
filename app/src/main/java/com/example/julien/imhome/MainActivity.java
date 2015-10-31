@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private List<Avert> avertList;
+    private float historicX = Float.NaN, historicY = Float.NaN;
+    private static final int DELTA = 50;
+    private enum Direction {LEFT, RIGHT;}
 
 
     @Override
@@ -50,6 +54,35 @@ public class MainActivity extends AppCompatActivity {
 
         WifiReceiver wifi = new WifiReceiver();
         getDataSetList();
+
+        ListView lvMain = (ListView) findViewById(R.id.listMain);
+
+        lvMain.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        historicX = event.getX();
+                        historicY = event.getY();
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        if (event.getX() - historicX < -DELTA) {
+                            //FunctionDeleteRowWhenSlidingLeft();
+                            Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
+                            return true;
+                        } else if (event.getX() - historicX > DELTA) {
+                            //FunctionDeleteRowWhenSlidingRight();
+                            Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
+                        break;
+                    default:
+                        return false;
+                }
+                return false;
+            }
+        });
     }
 
     @Override

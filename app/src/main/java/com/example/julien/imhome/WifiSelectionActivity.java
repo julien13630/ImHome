@@ -9,11 +9,13 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.julien.imhome.Adapter.AdapterWifi;
 import com.example.julien.imhome.Data.Avert;
@@ -33,6 +35,9 @@ public class WifiSelectionActivity extends Activity {
     private ArrayList<Wifi> arrayListWifiRegistered;
     ListView lvWifiRegistered;
     ListView lvWifi;
+    private float historicX = Float.NaN, historicY = Float.NaN;
+    private static final int DELTA = 50;
+    private enum Direction {LEFT, RIGHT;}
 
     private AdapterView.OnItemClickListener listListenerFavorite = new AdapterView.OnItemClickListener() {
         @Override
@@ -103,6 +108,60 @@ public class WifiSelectionActivity extends Activity {
 
         lvWifi.setOnItemClickListener(listListenerFavorite);
         lvWifiRegistered.setOnItemClickListener(listListenerRegistered);
+
+        lvWifi.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        historicX = event.getX();
+                        historicY = event.getY();
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        if (event.getX() - historicX < -DELTA) {
+                            //FunctionDeleteRowWhenSlidingLeft();
+                            Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
+                            return true;
+                        } else if (event.getX() - historicX > DELTA) {
+                            //FunctionDeleteRowWhenSlidingRight();
+                            Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
+                        break;
+                    default:
+                        return false;
+                }
+                return false;
+            }
+        });
+
+        lvWifiRegistered.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        historicX = event.getX();
+                        historicY = event.getY();
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        if (event.getX() - historicX < -DELTA) {
+                            //FunctionDeleteRowWhenSlidingLeft();
+                            Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
+                            return true;
+                        } else if (event.getX() - historicX > DELTA) {
+                            //FunctionDeleteRowWhenSlidingRight();
+                            Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
+                            return true;
+                        }
+                        break;
+                    default:
+                        return false;
+                }
+                return false;
+            }
+        });
     }
 
     public void showValidWifiDialog(final Wifi w)
