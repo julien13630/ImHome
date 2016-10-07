@@ -119,4 +119,9 @@ public class Avert implements Parcelable {
         dest.writeInt(hashcode);
         dest.writeString(addDate.toString());
     }
+
+    @Override
+    public String toString(){
+        return this.getContactNumber();
+    }
 }
