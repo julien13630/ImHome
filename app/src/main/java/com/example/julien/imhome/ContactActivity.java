@@ -114,50 +114,49 @@ public class ContactActivity extends Activity {
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
 
-        switch (reqCode) {
-            case (1) :
-                if (resultCode == Activity.RESULT_OK) {
-                    Uri contactData = data.getData();
-                    Cursor c =  getContentResolver().query(contactData, null, null, null, null);
-                    if (c.moveToFirst()) {
+        if (resultCode == Activity.RESULT_OK) {
+            Uri contactData = data.getData();
+            Cursor c =  getContentResolver().query(contactData, null, null, null, null);
+            if (c.moveToFirst()) {
 
-                        // On creer un nouveau avert pour stocker le nom et le numero du contact
-                        Avert tmpAvert = new Avert();
+                // On creer un nouveau avert pour stocker le nom et le numero du contact
+                Avert tmpAvert = new Avert();
 
-                        String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                        String contactId =
-                                c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
+                String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                String contactId =
+                        c.getString(c.getColumnIndex(ContactsContract.Contacts._ID));
 
-                        tmpAvert.setContactName(name);//Set le nom
+                tmpAvert.setContactName(name);//Set le nom
 
-                        Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-                                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
-                        while (phones.moveToNext()) {
-                            String number = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                            // TODO Verifier qu'il y ai au moins un numero et pop up de selection si plusieurs
+                Cursor phones = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
+                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactId, null, null);
 
-                            //Snackbar.make(ContactActivity.this.findViewById(android.R.id.content), number.toString(), Snackbar.LENGTH_LONG)
-                            //        .show();
+                String number = null;
 
-                            tmpAvert.setContactNumber(number); //Set le numero
-                            avertList.add(tmpAvert); // Stock le contact dans le tableau
+                while (phones.moveToNext()) {
+                    //On verifie que le numéro n'est pas en double dans le contact recupere
+                    String tmpNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)).trim();
+                    if(!tmpNumber.equals(number)){
+                        number = tmpNumber;
+                        // TODO Verifier qu'il y ai au moins un numero et pop up de selection si plusieurs
 
-                            if (avertList.isEmpty()){
-                                fabOk.setVisibility(View.INVISIBLE);
-                            }else{
-                                fabOk.setVisibility(View.VISIBLE);
-                            }
+                        tmpAvert.setContactNumber(number); //Set le numero
+                        avertList.add(tmpAvert); // Stock le contact dans le tableau
+
+                        if (avertList.isEmpty()){
+                            fabOk.setVisibility(View.INVISIBLE);
+                        }else{
+                            fabOk.setVisibility(View.VISIBLE);
                         }
-                        phones.close();
-
-                        AdapterAvert adapter = new AdapterAvert(ContactActivity.this, 0, avertList);
-                        ListView list = (ListView)findViewById(R.id.listContact);
-                        list.setAdapter(adapter);
-
                     }
                 }
+                phones.close();
 
-            break;
+                AdapterAvert adapter = new AdapterAvert(ContactActivity.this, 0, avertList);
+                ListView list = (ListView)findViewById(R.id.listContact);
+                list.setAdapter(adapter);
+
+            }
         }
     }
 
