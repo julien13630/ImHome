@@ -1,13 +1,17 @@
 package com.example.julien.imhome;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
@@ -41,9 +45,20 @@ public class ContactActivity extends Activity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Contact activity
-                Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                startActivityForResult(intent, 1);
+                if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.READ_CONTACTS)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+                    ActivityCompat.requestPermissions(ContactActivity.this,
+                            new String[]{Manifest.permission.READ_CONTACTS}, 0);
+                }
+                if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.READ_CONTACTS)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    //Contact activity
+                    Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                    startActivityForResult(intent, 1);
+                }
             }
         });
 
