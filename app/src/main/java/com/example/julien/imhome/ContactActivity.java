@@ -51,13 +51,8 @@ public class ContactActivity extends Activity {
 
                     ActivityCompat.requestPermissions(ContactActivity.this,
                             new String[]{Manifest.permission.READ_CONTACTS}, 0);
-                }
-                if (ContextCompat.checkSelfPermission(getApplicationContext(),
-                        Manifest.permission.READ_CONTACTS)
-                        == PackageManager.PERMISSION_GRANTED) {
-                    //Contact activity
-                    Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-                    startActivityForResult(intent, 1);
+                }else{
+                    startActivityContactForResult();
                 }
             }
         });
@@ -110,6 +105,12 @@ public class ContactActivity extends Activity {
 
     }
 
+    private void startActivityContactForResult(){
+        //Contact activity
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        startActivityForResult(intent, 1);
+    }
+
     @Override
     public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
@@ -157,6 +158,16 @@ public class ContactActivity extends Activity {
                 list.setAdapter(adapter);
 
             }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        // If request is cancelled, the result arrays are empty.
+        if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            startActivityContactForResult();
         }
     }
 
