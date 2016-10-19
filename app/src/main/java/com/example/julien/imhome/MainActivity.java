@@ -124,6 +124,9 @@ public class MainActivity extends AppCompatActivity {
         getDataSetList();
     }
 
+    /**
+     * Récupère la liste des Avert a afficher
+     */
     private void getDataSetList(){
         AvertDataSource avertDT = new AvertDataSource(MainActivity.this);
         try {

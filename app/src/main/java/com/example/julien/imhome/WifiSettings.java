@@ -73,8 +73,12 @@ public class WifiSettings extends ListActivity {
     }
 
     /**
-     * 
+     * PopUp pour ajouter un Wifi
+     *
      * @param info
+     *
+     * @return boolean
+     *            return true si on a bien detecte un mouvement a droite ou gauche
      */
     public void showAddWifiDialog(final NetworkInfo info)
     {
@@ -122,6 +126,10 @@ public class WifiSettings extends ListActivity {
         builder.create().show();
     }
 
+    /**
+     * PopUp pour ajouter un Wifi si aucun wifi enregistre
+     *
+     */
     public void showNoWifiDialog()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(WifiSettings.this);
@@ -132,6 +140,9 @@ public class WifiSettings extends ListActivity {
         builder.create().show();
     }
 
+    /**
+     * Affiche que le Wifi est deja enregistre
+     */
     public void showWifiAlreadyAddedDialog()
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(WifiSettings.this);

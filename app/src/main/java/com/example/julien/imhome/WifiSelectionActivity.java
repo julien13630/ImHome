@@ -123,6 +123,14 @@ public class WifiSelectionActivity extends Activity {
         });
     }
 
+    /**
+     * Detecte dans quelle direction l'utilisateur swipe l'ecran
+     *
+     * @param event
+     *            Le MotionEvent levee lorsque l'utilisateur swipe l'ecran
+     * @return boolean
+     *            return true si on a bien detecte un mouvement a droite ou gauche
+     */
     private boolean detectSwipeDirection(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -145,7 +153,13 @@ public class WifiSelectionActivity extends Activity {
         return false;
     }
 
-    public void showValidWifiDialog(final Wifi w)
+    /**
+     * Une fois qu'un wifi valide est valide on demande quel texte envoyer
+     *
+     * @param wifi
+     *            Le wifi a detecter pour envoyer le message
+     */
+    public void showValidWifiDialog(final Wifi wifi)
     {
         final EditText et = new EditText(WifiSelectionActivity.this);
         final AvertDataSource ads = new AvertDataSource(WifiSelectionActivity.this);
@@ -165,9 +179,9 @@ public class WifiSelectionActivity extends Activity {
                             for (Avert a : avertList) {
                                 a.setAddDate(new Date());
                                 a.setMessageText(et.getText().toString());
-                                a.setSsid(w.getSsid());
-                                a.setLabel(w.getLabel());
-                                a.setHashcode(w.getHashcode());
+                                a.setSsid(wifi.getSsid());
+                                a.setLabel(wifi.getLabel());
+                                a.setHashcode(wifi.getHashcode());
 
                                 ads.addAvert(a);
 

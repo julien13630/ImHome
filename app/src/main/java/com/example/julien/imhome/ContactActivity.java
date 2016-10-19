@@ -96,6 +96,9 @@ public class ContactActivity extends Activity {
 
     }
 
+    /**
+     * Rend le bouton OK pour passer a la page suivant visible ou non
+     */
     private void setFabOkVisibility() {
         if (avertList.isEmpty()){
             fabOk.setVisibility(View.INVISIBLE);
@@ -104,6 +107,10 @@ public class ContactActivity extends Activity {
         }
     }
 
+
+    /**
+     * Ouvre la page des Contacts par defaut Android et demande de selectionner un contact
+     */
     private void startActivityContactForResult(){
         //Contact activity
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
@@ -185,6 +192,12 @@ public class ContactActivity extends Activity {
         }
     }
 
+    /**
+     * Ajotue a la liste des Avert un avert donne
+     *
+     * @param avertList
+     *            Liste des Avert deja enregistres
+     */
     private void addToContactList(ArrayList<Avert> avertList){
 
         AdapterAvert adapter = new AdapterAvert(ContactActivity.this, 0, avertList);
