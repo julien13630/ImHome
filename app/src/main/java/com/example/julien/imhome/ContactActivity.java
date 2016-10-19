@@ -146,7 +146,7 @@ public class ContactActivity extends Activity {
                 }
                 phones.close();
 
-                if(tmpAvertList.size() > 1 ){
+                if(tmpAvertList.size() > 0 ){
                     AlertDialog.Builder builderSingle = new AlertDialog.Builder(ContactActivity.this);
                     builderSingle.setIcon(R.drawable.ic_add_white_24dp);
                     builderSingle.setTitle(" Selectionner un numero : ");
