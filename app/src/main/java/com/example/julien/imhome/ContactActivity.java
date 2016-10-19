@@ -179,6 +179,7 @@ public class ContactActivity extends Activity {
                 }else if(tmpAvertList.size() == 1){
                     avertList.add(tmpAvertList.get(0));
                     addToContactList(avertList);
+                    setFabOkVisibility();
                 }
             }
         }
