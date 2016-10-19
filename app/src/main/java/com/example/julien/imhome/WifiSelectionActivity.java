@@ -111,52 +111,38 @@ public class WifiSelectionActivity extends Activity {
         lvWifi.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        historicX = event.getX();
-                        historicY = event.getY();
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        if (event.getX() - historicX < -DELTA) {
-                            Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
-                            return true;
-                        } else if (event.getX() - historicX > DELTA) {
-                            Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
-                            return true;
-                        }
-                        break;
-                    default:
-                        return false;
-                }
-                return false;
+                return detectSwipeDirection(event);
             }
         });
 
         lvWifiRegistered.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        historicX = event.getX();
-                        historicY = event.getY();
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        if (event.getX() - historicX < -DELTA) {
-                            Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
-                            return true;
-                        } else if (event.getX() - historicX > DELTA) {
-                            Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
-                            return true;
-                        }
-                        break;
-                    default:
-                        return false;
-                }
-                return false;
+                return detectSwipeDirection(event);
             }
         });
+    }
+
+    private boolean detectSwipeDirection(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                historicX = event.getX();
+                historicY = event.getY();
+                break;
+
+            case MotionEvent.ACTION_UP:
+                if (event.getX() - historicX < -DELTA) {
+                    Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
+                    return true;
+                } else if (event.getX() - historicX > DELTA) {
+                    Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+                break;
+            default:
+                return false;
+        }
+        return false;
     }
 
     public void showValidWifiDialog(final Wifi w)

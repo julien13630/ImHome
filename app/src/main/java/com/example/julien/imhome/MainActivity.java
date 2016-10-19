@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.READ_SMS}, 0);
         }
-
     }
 
     @Override
