@@ -37,7 +37,6 @@ public class WifiSelectionActivity extends Activity {
     ListView lvWifi;
     private float historicX = Float.NaN, historicY = Float.NaN;
     private static final int DELTA = 50;
-    private enum Direction {LEFT, RIGHT;}
 
     private AdapterView.OnItemClickListener listListenerFavorite = new AdapterView.OnItemClickListener() {
         @Override
@@ -120,11 +119,9 @@ public class WifiSelectionActivity extends Activity {
 
                     case MotionEvent.ACTION_UP:
                         if (event.getX() - historicX < -DELTA) {
-                            //FunctionDeleteRowWhenSlidingLeft();
                             Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
                             return true;
                         } else if (event.getX() - historicX > DELTA) {
-                            //FunctionDeleteRowWhenSlidingRight();
                             Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
                             return true;
                         }
@@ -147,11 +144,9 @@ public class WifiSelectionActivity extends Activity {
 
                     case MotionEvent.ACTION_UP:
                         if (event.getX() - historicX < -DELTA) {
-                            //FunctionDeleteRowWhenSlidingLeft();
                             Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
                             return true;
                         } else if (event.getX() - historicX > DELTA) {
-                            //FunctionDeleteRowWhenSlidingRight();
                             Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
                             return true;
                         }

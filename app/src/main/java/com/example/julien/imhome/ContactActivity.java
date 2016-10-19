@@ -3,7 +3,6 @@ package com.example.julien.imhome;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -33,17 +32,11 @@ public class ContactActivity extends Activity {
     private FloatingActionButton fabOk;
     private float historicX = Float.NaN, historicY = Float.NaN;
     private static final int DELTA = 50;
-    private enum Direction {LEFT, RIGHT;}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
-
-        //On set de titre de la page
-        //this.setTitle("Sélectionnez les contacts à prévenir");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -91,11 +84,9 @@ public class ContactActivity extends Activity {
 
                     case MotionEvent.ACTION_UP:
                         if (event.getX() - historicX < -DELTA) {
-                            //FunctionDeleteRowWhenSlidingLeft();
                             Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
                             return true;
                         } else if (event.getX() - historicX > DELTA) {
-                            //FunctionDeleteRowWhenSlidingRight();
                             Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
                             return true;
                         }

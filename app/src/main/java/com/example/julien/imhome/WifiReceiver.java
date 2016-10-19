@@ -1,6 +1,5 @@
 package com.example.julien.imhome;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,14 +12,10 @@ import android.net.wifi.WifiManager;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 
-import com.example.julien.imhome.Adapter.AdapterWifi;
 import com.example.julien.imhome.Data.Avert;
 import com.example.julien.imhome.Data.AvertDataSource;
-import com.example.julien.imhome.Data.Wifi;
-import com.example.julien.imhome.Data.WifiDataSource;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,14 +28,14 @@ public class WifiReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 
         // prepare intent which is triggered if the
-// notification is selected
+        // notification is selected
 
         Intent intent = new Intent(context, MainActivity.class);
-// use System.currentTimeMillis() to have a unique ID for the pending intent
+        // use System.currentTimeMillis() to have a unique ID for the pending intent
         PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent, 0);
 
-// build notification
-// the addAction re-use the same intent to keep the example short
+        // build notification
+        // the addAction re-use the same intent to keep the example short
         Notification n  = new Notification.Builder(context)
                 .setContentTitle("ImHome Message Envoyé")
                 .setContentText(message)

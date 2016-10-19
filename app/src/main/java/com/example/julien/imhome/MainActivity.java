@@ -1,16 +1,10 @@
 package com.example.julien.imhome;
 
 import android.Manifest;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -35,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private List<Avert> avertList;
     private float historicX = Float.NaN, historicY = Float.NaN;
     private static final int DELTA = 50;
-    private enum Direction {LEFT, RIGHT;}
 
 
     @Override
@@ -56,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        WifiReceiver wifi = new WifiReceiver();
         getDataSetList();
 
         ListView lvMain = (ListView) findViewById(R.id.listMain);
@@ -72,11 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
                     case MotionEvent.ACTION_UP:
                         if (event.getX() - historicX < -DELTA) {
-                            //FunctionDeleteRowWhenSlidingLeft();
                             Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
                             return true;
                         } else if (event.getX() - historicX > DELTA) {
-                            //FunctionDeleteRowWhenSlidingRight();
                             Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
                             return true;
                         }
