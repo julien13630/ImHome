@@ -72,7 +72,7 @@ public class AdapterMain extends ArrayAdapter<Avert> {
 
 
             holder.display_name.setText(lAvert.get(position).getContactName());
-            holder.display_wifi.setText(lAvert.get(position).getLibelle());
+            holder.display_wifi.setText(lAvert.get(position).getLabel());
 
 
         } catch (Exception e) {

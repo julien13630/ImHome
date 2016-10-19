@@ -7,17 +7,17 @@ package com.example.julien.imhome.Data;
 
 public class Wifi {
 
-    private String libelle, ssid;
+    private String label, ssid;
     private int hashcode;
     private boolean favorite;
 
 
-    public String getLibelle() {
-        return libelle;
+    public String getLabel() {
+        return label;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getSsid() {

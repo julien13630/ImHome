@@ -72,6 +72,10 @@ public class WifiSettings extends ListActivity {
         WifiSettings.this.setListAdapter(adapter);
     }
 
+    /**
+     * 
+     * @param info
+     */
     public void showAddWifiDialog(final NetworkInfo info)
     {
         WifiManager wifiManager = (WifiManager)WifiSettings.this.getSystemService(Context.WIFI_SERVICE);

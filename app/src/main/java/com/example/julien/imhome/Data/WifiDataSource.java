@@ -53,7 +53,7 @@ public class WifiDataSource {
 
     public Wifi addWifi(Wifi wifi) {
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_W_LIBELLE, wifi.getLibelle());
+        values.put(MySQLiteHelper.COLUMN_W_LIBELLE, wifi.getLabel());
         values.put(MySQLiteHelper.COLUMN_W_SSID, wifi.getSsid());
         values.put(MySQLiteHelper.COLUMN_W_HASHCODE, wifi.getHashcode());
         values.put(MySQLiteHelper.COLUMN_W_FAVORIT, wifi.isFavorite());
@@ -96,7 +96,7 @@ public class WifiDataSource {
         Wifi wifi = new Wifi();
         wifi.setFavorite(cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_W_FAVORIT))!= 0);
         wifi.setHashcode(cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_W_HASHCODE)));
-        wifi.setLibelle(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_W_LIBELLE)));
+        wifi.setLabel(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_W_LIBELLE)));
         wifi.setSsid(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_W_SSID)));
         return wifi;
     }

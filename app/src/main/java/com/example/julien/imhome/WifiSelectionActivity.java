@@ -84,7 +84,7 @@ public class WifiSelectionActivity extends Activity {
             Wifi temp = new Wifi();
             temp.setSsid(list.get(i).SSID);
             temp.setHashcode(-1);
-            temp.setLibelle(list.get(i).SSID);
+            temp.setLabel(list.get(i).SSID);
             boolean exists = false;
             for(int j = 0 ; j < arrayListWifi.size() ; j++){
                 if(arrayListWifi.get(j).getSsid().compareTo(temp.getSsid()) == 0){
@@ -166,7 +166,7 @@ public class WifiSelectionActivity extends Activity {
                                 a.setAddDate(new Date());
                                 a.setMessageText(et.getText().toString());
                                 a.setSsid(w.getSsid());
-                                a.setLibelle(w.getLibelle());
+                                a.setLabel(w.getLabel());
                                 a.setHashcode(w.getHashcode());
 
                                 ads.addAvert(a);

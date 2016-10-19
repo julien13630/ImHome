@@ -25,7 +25,7 @@ public class Avert implements Parcelable {
         }
     };
 
-    private String libelle, ssid, contactName, contactNumber, messageText;
+    private String label, ssid, contactName, contactNumber, messageText;
     private int hashcode;
     private Date addDate = new Date();
 
@@ -36,7 +36,7 @@ public class Avert implements Parcelable {
 
 
     public Avert(Parcel in) {
-        this.libelle = in.readString();
+        this.label = in.readString();
         this.ssid = in.readString();
         this.contactName = in.readString();
         this.contactNumber = in.readString();
@@ -47,12 +47,12 @@ public class Avert implements Parcelable {
         this.addDate = tmpDate ;
     }
 
-    public String getLibelle() {
-        return libelle;
+    public String getLabel() {
+        return label;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getMessageText() {
@@ -109,9 +109,8 @@ public class Avert implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags)
-    {
-        dest.writeString(libelle);
+    public void writeToParcel(Parcel dest, int flags){
+        dest.writeString(label);
         dest.writeString(ssid);
         dest.writeString(contactName);
         dest.writeString(contactNumber);

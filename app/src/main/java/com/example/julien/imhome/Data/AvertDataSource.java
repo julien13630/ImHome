@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,7 +64,7 @@ public class AvertDataSource {
 
     public Avert addAvert(Avert avert) {
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_A_LIBELLE, avert.getLibelle());
+        values.put(MySQLiteHelper.COLUMN_A_LIBELLE, avert.getLabel());
         values.put(MySQLiteHelper.COLUMN_A_SSID, avert.getSsid());
         values.put(MySQLiteHelper.COLUMN_A_MESSAGETEXT, avert.getMessageText());
         values.put(MySQLiteHelper.COLUMN_A_HASHCODE, avert.getHashcode());
@@ -112,7 +111,7 @@ public class AvertDataSource {
         android.text.format.DateFormat.format(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_DATE)),tmpDate);
 
         avert.setHashcode(cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_HASHCODE)));
-        avert.setLibelle(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_LIBELLE)));
+        avert.setLabel(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_LIBELLE)));
         avert.setSsid(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_SSID)));
         avert.setContactNumber(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_CONTACTNUMBER)));
         avert.setMessageText(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_MESSAGETEXT)));

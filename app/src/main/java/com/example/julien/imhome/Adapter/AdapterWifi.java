@@ -70,8 +70,8 @@ public class AdapterWifi extends ArrayAdapter<Wifi> {
 
             //On vérifie que le SSID n'est pas égal au libelle
             //Si oui, on ne set que le SSID à l'affichage
-            if (!lWifi.get(position).getSsid().equals(lWifi.get(position).getLibelle())){
-                holder.display_libelle.setText(lWifi.get(position).getLibelle());
+            if (!lWifi.get(position).getSsid().equals(lWifi.get(position).getLabel())){
+                holder.display_libelle.setText(lWifi.get(position).getLabel());
             }
             holder.display_ssid.setText(lWifi.get(position).getSsid());
 
