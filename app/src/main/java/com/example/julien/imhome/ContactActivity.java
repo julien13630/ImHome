@@ -65,11 +65,7 @@ public class ContactActivity extends Activity {
             }
         });
 
-        if (avertList.isEmpty()){
-            fabOk.setVisibility(View.INVISIBLE);
-        }else{
-            fabOk.setVisibility(View.VISIBLE);
-        }
+        setFabOkVisibility();
 
         ListView lvContact = (ListView) findViewById(R.id.listContact);
 
@@ -98,6 +94,14 @@ public class ContactActivity extends Activity {
             }
         });
 
+    }
+
+    private void setFabOkVisibility() {
+        if (avertList.isEmpty()){
+            fabOk.setVisibility(View.INVISIBLE);
+        }else{
+            fabOk.setVisibility(View.VISIBLE);
+        }
     }
 
     private void startActivityContactForResult(){
@@ -136,17 +140,11 @@ public class ContactActivity extends Activity {
                         tmpAvert.setContactName(name);//Set le nom
                         tmpAvert.setContactNumber(number); //Set le numero
                         tmpAvertList.add(tmpAvert);
-
-                        if (avertList.isEmpty()){
-                            fabOk.setVisibility(View.INVISIBLE);
-                        }else{
-                            fabOk.setVisibility(View.VISIBLE);
-                        }
                     }
                 }
                 phones.close();
 
-                if(tmpAvertList.size() > 0 ){
+                if(tmpAvertList.size() > 1 ){
                     AlertDialog.Builder builderSingle = new AlertDialog.Builder(ContactActivity.this);
                     builderSingle.setIcon(R.drawable.ic_add_white_24dp);
                     builderSingle.setTitle(" Selectionner un numero : ");
@@ -174,6 +172,7 @@ public class ContactActivity extends Activity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     avertList.add(arrayAdapter.getItem(which)); // Stock le contact dans le tableau
                                     addToContactList(avertList);
+                                    setFabOkVisibility();
                                 }
                             });
                     builderSingle.show();
