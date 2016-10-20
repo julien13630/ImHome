@@ -79,23 +79,8 @@ public class WifiSelectionActivity extends Activity {
 
         //Ajouter les wifis système
         WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
-        List<WifiConfiguration> list = wifiManager.getConfiguredNetworks();
-        for(int i = 0 ; i < list.size() ; i++){
-            Wifi temp = new Wifi();
-            temp.setSsid(list.get(i).SSID);
-            temp.setHashcode(-1);
-            temp.setLabel(list.get(i).SSID);
-            boolean exists = false;
-            for(int j = 0 ; j < arrayListWifi.size() ; j++){
-                if(arrayListWifi.get(j).getSsid().compareTo(temp.getSsid()) == 0){
-                    exists = true;
-                    j = arrayListWifi.size();
-                }
-            }
-            if(!exists){
-                arrayListWifiRegistered.add(temp);
-            }
-        }
+        List<WifiConfiguration> listAndroidWifi = wifiManager.getConfiguredNetworks();
+        addWifiToWifiRegistered(arrayListWifi, listAndroidWifi);
 
         AdapterWifi adapter = new AdapterWifi(WifiSelectionActivity.this, 0, arrayListWifi);
         lvWifi = (ListView)findViewById(R.id.listFavorite);
@@ -121,6 +106,27 @@ public class WifiSelectionActivity extends Activity {
                 return detectSwipeDirection(event);
             }
         });
+    }
+
+    private void addWifiToWifiRegistered(ArrayList<Wifi> arrayListWifi, List<WifiConfiguration> list) {
+        if (list == null | arrayListWifi == null )
+            return;
+        for(int i = 0 ; i < list.size() ; i++){
+            Wifi temp = new Wifi();
+            temp.setSsid(list.get(i).SSID);
+            temp.setHashcode(-1);
+            temp.setLabel(list.get(i).SSID);
+            boolean exists = false;
+            for(int j = 0 ; j < arrayListWifi.size() ; j++){
+                if(arrayListWifi.get(j).getSsid().compareTo(temp.getSsid()) == 0){
+                    exists = true;
+                    j = arrayListWifi.size();
+                }
+            }
+            if(!exists){
+                arrayListWifiRegistered.add(temp);
+            }
+        }
     }
 
     /**
