@@ -33,76 +33,107 @@ public class AvertDataSource {
     }
 
     public void open() throws SQLException {
-        database = dbHelper.getWritableDatabase();
+        if (database == null || (database != null && !database.isOpen())) {
+            database = dbHelper.getWritableDatabase();
+        }
     }
 
     public void close() {
-        dbHelper.close();
+        if (database != null){
+            database.close();
+        }
     }
 
     public Avert addAvert(String libelle, String ssid,String messageText, int hashcode,  Date date, String contactName, String contactNumber) {
-        ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_A_LIBELLE, libelle);
-        values.put(MySQLiteHelper.COLUMN_A_SSID, ssid);
-        values.put(MySQLiteHelper.COLUMN_A_MESSAGETEXT, messageText);
-        values.put(MySQLiteHelper.COLUMN_A_HASHCODE, hashcode);
-        values.put(MySQLiteHelper.COLUMN_A_DATE, date.toString());
-        values.put(MySQLiteHelper.COLUMN_A_CONTACTNAME, contactName);
-        values.put(MySQLiteHelper.COLUMN_A_CONTACTNUMBER, contactNumber);
+        try{
+            open();
+            ContentValues values = new ContentValues();
+            values.put(MySQLiteHelper.COLUMN_A_LIBELLE, libelle);
+            values.put(MySQLiteHelper.COLUMN_A_SSID, ssid);
+            values.put(MySQLiteHelper.COLUMN_A_MESSAGETEXT, messageText);
+            values.put(MySQLiteHelper.COLUMN_A_HASHCODE, hashcode);
+            values.put(MySQLiteHelper.COLUMN_A_DATE, date.toString());
+            values.put(MySQLiteHelper.COLUMN_A_CONTACTNAME, contactName);
+            values.put(MySQLiteHelper.COLUMN_A_CONTACTNUMBER, contactNumber);
 
-        long insertId = database.insert(MySQLiteHelper.TABLE_AVERT, null,
-                values);
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_AVERT,
-                allColumns, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
-                        MySQLiteHelper.COLUMN_A_DATE + " = '" + date.toString() + "'"  , null,
-                null, null, null);
-        cursor.moveToFirst();
-        Avert newAvert = cursorToAvert(cursor);
-        cursor.close();
-        return newAvert;
+            long insertId = database.insert(MySQLiteHelper.TABLE_AVERT, null,
+                    values);
+            Cursor cursor = database.query(MySQLiteHelper.TABLE_AVERT,
+                    allColumns, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
+                            MySQLiteHelper.COLUMN_A_DATE + " = '" + date.toString() + "'"  , null,
+                    null, null, null);
+            cursor.moveToFirst();
+            Avert newAvert = cursorToAvert(cursor);
+            cursor.close();
+            close();
+            return newAvert;
+        }catch (Exception e){
+            //TODO Lever une vraie exception
+            return new Avert();
+        }
     }
 
     public Avert addAvert(Avert avert) {
-        ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_A_LIBELLE, avert.getLabel());
-        values.put(MySQLiteHelper.COLUMN_A_SSID, avert.getSsid());
-        values.put(MySQLiteHelper.COLUMN_A_MESSAGETEXT, avert.getMessageText());
-        values.put(MySQLiteHelper.COLUMN_A_HASHCODE, avert.getHashcode());
-        values.put(MySQLiteHelper.COLUMN_A_DATE, avert.getAddDate().toString());
-        values.put(MySQLiteHelper.COLUMN_A_CONTACTNAME, avert.getContactName());
-        values.put(MySQLiteHelper.COLUMN_A_CONTACTNUMBER, avert.getContactNumber());
+        try{
+            open();
+            ContentValues values = new ContentValues();
+            values.put(MySQLiteHelper.COLUMN_A_LIBELLE, avert.getLabel());
+            values.put(MySQLiteHelper.COLUMN_A_SSID, avert.getSsid());
+            values.put(MySQLiteHelper.COLUMN_A_MESSAGETEXT, avert.getMessageText());
+            values.put(MySQLiteHelper.COLUMN_A_HASHCODE, avert.getHashcode());
+            values.put(MySQLiteHelper.COLUMN_A_DATE, avert.getAddDate().toString());
+            values.put(MySQLiteHelper.COLUMN_A_CONTACTNAME, avert.getContactName());
+            values.put(MySQLiteHelper.COLUMN_A_CONTACTNUMBER, avert.getContactNumber());
 
-        long insertId = database.insert(MySQLiteHelper.TABLE_AVERT, null,
-                values);
+            long insertId = database.insert(MySQLiteHelper.TABLE_AVERT, null,
+                    values);
 
-        return avert;
+            close();
+            return avert;
+        }catch (Exception e){
+            //TODO Lever une vraie exception
+            return new Avert();
+        }
     }
 
     public void deleteAvert(Avert avert) {
-        Date date = avert.getAddDate();
-        String contactNumber = avert.getContactNumber();
+        try{
+            open();
+            Date date = avert.getAddDate();
+            String contactNumber = avert.getContactNumber();
 
-        database.delete(MySQLiteHelper.TABLE_AVERT, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
-                MySQLiteHelper.COLUMN_A_HASHCODE + " = '" + avert.getHashcode() +"'", null);
+            database.delete(MySQLiteHelper.TABLE_AVERT, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
+                    MySQLiteHelper.COLUMN_A_HASHCODE + " = '" + avert.getHashcode() +"'", null);
 
-        System.out.println("Avert deleted : " + avert.getContactName());
+            close();
+            System.out.println("Avert deleted : " + avert.getContactName());
+        }catch(Exception e) {
+            //TODO Lever une vraie exception
+        }
     }
 
     public List<Avert> getAllAvert() {
-        List<Avert> averts = new ArrayList<Avert>();
+        try{
+            open();
+            List<Avert> averts = new ArrayList<Avert>();
 
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_AVERT,
-                allColumns, null, null, null, null, null);
+            Cursor cursor = database.query(MySQLiteHelper.TABLE_AVERT,
+                    allColumns, null, null, null, null, null);
 
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Avert avert = cursorToAvert(cursor);
-            averts.add(avert);
-            cursor.moveToNext();
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Avert avert = cursorToAvert(cursor);
+                averts.add(avert);
+                cursor.moveToNext();
+            }
+            // assurez-vous de la fermeture du curseur
+            cursor.close();
+            close();
+            return averts;
+        }catch (Exception e){
+            //TODO Lever une vraie exception
+            return new ArrayList<Avert>();
         }
-        // assurez-vous de la fermeture du curseur
-        cursor.close();
-        return averts;
     }
 
     private Avert cursorToAvert(Cursor cursor) {
