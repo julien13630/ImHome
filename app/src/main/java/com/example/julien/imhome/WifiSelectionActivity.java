@@ -30,6 +30,7 @@ import java.util.List;
 
 public class WifiSelectionActivity extends Activity {
 
+    public WifiManager wifiManager;
     private List<Wifi> wifiList;
     private ArrayList<Avert> avertList;
     private ArrayList<Wifi> arrayListWifiRegistered;
@@ -79,6 +80,10 @@ public class WifiSelectionActivity extends Activity {
 
         //Ajouter les wifis système
         WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+        if (!wifiManager.isWifiEnabled()){
+            //wifiManager.setWifiEnabled(true);
+            showDialogWifiChoice("Veuillez activer le wifi");
+        }
         List<WifiConfiguration> listAndroidWifi = wifiManager.getConfiguredNetworks();
         addWifiToWifiRegistered(arrayListWifi, listAndroidWifi);
 
@@ -157,6 +162,32 @@ public class WifiSelectionActivity extends Activity {
                 return false;
         }
         return false;
+    }
+
+    private void showDialogWifiChoice(String title) {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+        builderSingle.setIcon(R.drawable.ic_add_white_24dp);
+        builderSingle.setTitle(title);
+
+        builderSingle.setNegativeButton(
+                "Annuler",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+        builderSingle.setPositiveButton(
+                "Valider",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        wifiManager.setWifiEnabled(true);
+                        dialog.dismiss();
+                    }
+                });
+        builderSingle.show();
     }
 
     /**
