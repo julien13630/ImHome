@@ -31,6 +31,8 @@ import java.util.List;
 public class WifiSelectionActivity extends Activity {
 
     public WifiManager wifiManager;
+    List<WifiConfiguration> listAndroidWifi;
+    ArrayList<Wifi> arrayListWifi;
     private List<Wifi> wifiList;
     private ArrayList<Avert> avertList;
     private ArrayList<Wifi> arrayListWifiRegistered;
@@ -75,16 +77,16 @@ public class WifiSelectionActivity extends Activity {
             wds.close();
         }
 
-        ArrayList<Wifi> arrayListWifi = (ArrayList<Wifi>)wifiList;
+        arrayListWifi = (ArrayList<Wifi>)wifiList;
         arrayListWifiRegistered = new ArrayList<Wifi>();
 
         //Ajouter les wifis système
-        WifiManager wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+        this.wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
         if (!wifiManager.isWifiEnabled()){
             //wifiManager.setWifiEnabled(true);
-            showDialogWifiChoice("Veuillez activer le wifi");
+            showDialogWifiChoice("Veuillez activer le wifi", this);
         }
-        List<WifiConfiguration> listAndroidWifi = wifiManager.getConfiguredNetworks();
+        listAndroidWifi = wifiManager.getConfiguredNetworks();
         addWifiToWifiRegistered(arrayListWifi, listAndroidWifi);
 
         AdapterWifi adapter = new AdapterWifi(WifiSelectionActivity.this, 0, arrayListWifi);
@@ -164,7 +166,7 @@ public class WifiSelectionActivity extends Activity {
         return false;
     }
 
-    private void showDialogWifiChoice(String title) {
+    private void showDialogWifiChoice(String title, final WifiSelectionActivity wifi) {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
         builderSingle.setIcon(R.drawable.ic_add_white_24dp);
         builderSingle.setTitle(title);
@@ -183,7 +185,9 @@ public class WifiSelectionActivity extends Activity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        wifiManager.setWifiEnabled(true);
+                        wifi.wifiManager.setWifiEnabled(true);
+                        wifi.listAndroidWifi = wifi.wifiManager.getConfiguredNetworks();
+                        addWifiToWifiRegistered(wifi.arrayListWifi, wifi.listAndroidWifi);
                         dialog.dismiss();
                     }
                 });
