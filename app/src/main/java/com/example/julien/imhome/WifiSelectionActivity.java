@@ -85,7 +85,12 @@ public class WifiSelectionActivity extends Activity {
         if (!wifiManager.isWifiEnabled()){
             //wifiManager.setWifiEnabled(true);
             showDialogWifiChoice("Veuillez activer le wifi", this);
+        }else {
+            initListsWifi();
         }
+    }
+
+    private void initListsWifi() {
         listAndroidWifi = wifiManager.getConfiguredNetworks();
         addWifiToWifiRegistered(arrayListWifi, listAndroidWifi);
 
@@ -186,8 +191,7 @@ public class WifiSelectionActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         wifi.wifiManager.setWifiEnabled(true);
-                        wifi.listAndroidWifi = wifi.wifiManager.getConfiguredNetworks();
-                        addWifiToWifiRegistered(wifi.arrayListWifi, wifi.listAndroidWifi);
+                        initListsWifi();
                         dialog.dismiss();
                     }
                 });
