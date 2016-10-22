@@ -90,9 +90,12 @@ public class WifiSelectionActivity extends Activity {
         }
     }
 
+    /**
+     * Initialise la liste des wifi a afficher
+     */
     private void initListsWifi() {
         listAndroidWifi = wifiManager.getConfiguredNetworks();
-        addWifiToWifiRegistered(arrayListWifi, listAndroidWifi);
+        addWifiToWifiRegistered();
 
         AdapterWifi adapter = new AdapterWifi(WifiSelectionActivity.this, 0, arrayListWifi);
         lvWifi = (ListView)findViewById(R.id.listFavorite);
@@ -120,14 +123,15 @@ public class WifiSelectionActivity extends Activity {
         });
     }
 
-    private void addWifiToWifiRegistered(ArrayList<Wifi> arrayListWifi, List<WifiConfiguration> list) {
-        if (list == null | arrayListWifi == null )
+
+    private void addWifiToWifiRegistered() {
+        if (listAndroidWifi == null | arrayListWifi == null )
             return;
-        for(int i = 0 ; i < list.size() ; i++){
+        for(int i = 0 ; i < listAndroidWifi.size() ; i++){
             Wifi temp = new Wifi();
-            temp.setSsid(list.get(i).SSID);
+            temp.setSsid(listAndroidWifi.get(i).SSID);
             temp.setHashcode(-1);
-            temp.setLabel(list.get(i).SSID);
+            temp.setLabel(listAndroidWifi.get(i).SSID);
             boolean exists = false;
             for(int j = 0 ; j < arrayListWifi.size() ; j++){
                 if(arrayListWifi.get(j).getSsid().compareTo(temp.getSsid()) == 0){
@@ -171,6 +175,11 @@ public class WifiSelectionActivity extends Activity {
         return false;
     }
 
+    /**
+     * Affiche title a l'utilisateur lui donnant le choix d'activer le wifi
+     * @param title Affiche dans le popup
+     * @param wifi
+     */
     private void showDialogWifiChoice(String title, final WifiSelectionActivity wifi) {
         AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
         builderSingle.setIcon(R.drawable.ic_add_white_24dp);
