@@ -129,9 +129,10 @@ public class WifiSelectionActivity extends Activity {
             return;
         for(int i = 0 ; i < listAndroidWifi.size() ; i++){
             Wifi temp = new Wifi();
-            temp.setSsid(listAndroidWifi.get(i).SSID);
+            //we need the substring to remove the double quotes from SSIDs
+            temp.setSsid(listAndroidWifi.get(i).SSID.substring(1, listAndroidWifi.get(i).SSID.length() - 1));
             temp.setHashcode(-1);
-            temp.setLabel(listAndroidWifi.get(i).SSID);
+            temp.setLabel(listAndroidWifi.get(i).SSID.substring(1, listAndroidWifi.get(i).SSID.length() - 1));
             boolean exists = false;
             for(int j = 0 ; j < arrayListWifi.size() ; j++){
                 if(arrayListWifi.get(j).getSsid().compareTo(temp.getSsid()) == 0){
