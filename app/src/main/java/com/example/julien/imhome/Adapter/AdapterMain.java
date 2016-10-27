@@ -2,6 +2,7 @@ package com.example.julien.imhome.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class AdapterMain extends ArrayAdapter<Avert> {
     private Activity activity;
     private ArrayList<Avert> lAvert;
     private static LayoutInflater inflater = null;
+    private String[] colors = new String[] { "#FFFFFF", "#F4F4F4" };
 
     public AdapterMain (Activity activity, int textViewResourceId,ArrayList<Avert> _lAvert) {
         super(activity, textViewResourceId, _lAvert);
@@ -69,11 +71,11 @@ public class AdapterMain extends ArrayAdapter<Avert> {
                 holder = (ViewHolder) vi.getTag();
             }
 
-
-
             holder.display_name.setText(lAvert.get(position).getContactName());
             holder.display_wifi.setText(lAvert.get(position).getLabel());
 
+            int colorPos = position % colors.length;
+            vi.setBackgroundColor(Color.parseColor(colors[colorPos]));
 
         } catch (Exception e) {
 
