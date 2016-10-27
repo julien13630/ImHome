@@ -4,4 +4,5 @@
     <string name="title_activity_contact">ContactActivity</string>
     <string name="title_activity_wifi_settings">WifiSettings</string>
     <string name="title_activity_wifi_selection">WifiSelectionActivity</string>
+    <string name="tvMessagesEnAttente">Messages en attente d\'envoi :</string>
 </resources>
