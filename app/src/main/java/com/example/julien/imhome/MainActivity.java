@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.julien.imhome.Adapter.AdapterMain;
 import com.example.julien.imhome.Data.Avert;
 import com.example.julien.imhome.Data.AvertDataSource;
+import com.example.julien.imhome.Interface.BtnClickListener;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Avert> avertList;
     private float historicX = Float.NaN, historicY = Float.NaN;
     private static final int DELTA = 50;
+    private AdapterMain adapter = null;
 
 
     @Override
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
      * Récupère la liste des Avert a afficher
      */
     private void getDataSetList(){
-        AvertDataSource avertDT = new AvertDataSource(MainActivity.this);
+        final AvertDataSource avertDT = new AvertDataSource(MainActivity.this);
         try {
             avertDT.open();
             avertList = avertDT.getAllAvert();
@@ -138,7 +140,18 @@ public class MainActivity extends AppCompatActivity {
             avertDT.close();
         }
 
-        AdapterMain adapter = new AdapterMain(MainActivity.this, 0, (ArrayList<Avert>)avertList);
+        BtnClickListener btnListener = new BtnClickListener() {
+            @Override
+            public void onBtnClick(int position) {
+                //TODO la suppression
+                avertDT.deleteAvert(avertList.get(position));
+                avertList.remove(avertList.get(position));
+                adapter.notifyDataSetChanged();
+            }
+        };
+
+
+        adapter = new AdapterMain(MainActivity.this, 0, (ArrayList<Avert>) avertList, btnListener);
         ListView list = (ListView)findViewById(R.id.listMain);
         list.setAdapter(adapter);
     }
