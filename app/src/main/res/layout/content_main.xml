@@ -20,9 +20,31 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listMain"
+        android:id="@android:id/list"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tvMessagesEnAttente"></ListView>
+
+    <RelativeLayout android:id="@android:id/empty"
+        android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imEmptyList"
+            android:src="@drawable/ic_empty_list"
+            android:layout_centerInParent="true"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+        <TextView
+            android:id="@+id/tvEmptyList"
+            android:layout_below="@id/imEmptyList"
+            android:layout_centerHorizontal="true"
+            android:text="Pas de messages !"
+            android:textSize="30dp"
+            android:textColor="#DBDBDB"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

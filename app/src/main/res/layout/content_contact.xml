@@ -13,9 +13,31 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listContact"
+        android:id="@android:id/list"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <RelativeLayout android:id="@android:id/empty"
+        android:layout_width="match_parent" android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imEmptyListContact"
+            android:src="@drawable/ic_empty_list"
+            android:layout_centerInParent="true"
+            android:layout_width="150dp"
+            android:layout_height="150dp" />
+        <TextView
+            android:id="@+id/tvEmptyListContact"
+            android:layout_below="@id/imEmptyListContact"
+            android:layout_centerHorizontal="true"
+            android:text="Pas de destinataires !"
+            android:textSize="30dp"
+            android:textColor="#DBDBDB"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

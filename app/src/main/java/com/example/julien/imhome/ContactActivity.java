@@ -3,6 +3,7 @@ package com.example.julien.imhome;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,7 +25,7 @@ import com.example.julien.imhome.Data.Avert;
 
 import java.util.ArrayList;
 
-public class ContactActivity extends Activity {
+public class ContactActivity extends ListActivity {
 
     // List d'Avert qui nous servira pour stocker les contact
     private ArrayList<Avert> avertList = new ArrayList<Avert>();
@@ -67,9 +68,7 @@ public class ContactActivity extends Activity {
 
         setFabOkVisibility();
 
-        ListView lvContact = (ListView) findViewById(R.id.listContact);
-
-        lvContact.setOnTouchListener(new View.OnTouchListener() {
+        this.getListView().setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -201,8 +200,8 @@ public class ContactActivity extends Activity {
     private void addToContactList(ArrayList<Avert> avertList){
 
         AdapterAvert adapter = new AdapterAvert(ContactActivity.this, 0, avertList);
-        ListView list = (ListView)findViewById(R.id.listContact);
-        list.setAdapter(adapter);
+        //ListView list = (ListView)findViewById(R.id.listContact);
+        this.setListAdapter(adapter);
 
     }
 

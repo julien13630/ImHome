@@ -68,11 +68,8 @@ public class AdapterAvert extends ArrayAdapter<Avert> {
                 holder = (ViewHolder) vi.getTag();
             }
 
-
-
             holder.display_name.setText(lAvert.get(position).getContactName());
             holder.display_number.setText(lAvert.get(position).getContactNumber());
-
 
         } catch (Exception e) {
 

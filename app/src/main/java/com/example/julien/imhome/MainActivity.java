@@ -1,6 +1,8 @@
 package com.example.julien.imhome;
 
 import android.Manifest;
+import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -9,11 +11,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.julien.imhome.Adapter.AdapterMain;
@@ -21,16 +26,19 @@ import com.example.julien.imhome.Data.Avert;
 import com.example.julien.imhome.Data.AvertDataSource;
 import com.example.julien.imhome.Interface.BtnClickListener;
 
+import org.w3c.dom.Text;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ListActivity {
 
     private List<Avert> avertList;
     private float historicX = Float.NaN, historicY = Float.NaN;
     private static final int DELTA = 50;
     private AdapterMain adapter = null;
+    private static LayoutInflater inflater = null;
 
 
     @Override
@@ -38,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        this.setTitle("ImHome");
+        //setSupportActionBar(toolbar);
+        setTitle("ImHome");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -53,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
         getDataSetList();
 
-        ListView lvMain = (ListView) findViewById(R.id.listMain);
+        //ListView lvMain = (ListView) findViewById(R.id.listMain);
 
-        lvMain.setOnTouchListener(new View.OnTouchListener() {
+        this.getListView().setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -79,6 +87,14 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        /*View emptyView = new View(getApplicationContext());
+        inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        emptyView = inflater.inflate(R.layout.empty_list_layout, (ViewGroup)lvMain.getParent());
+        emptyView.setVisibility(View.GONE);
+        TextView tvEmptyList = (TextView)emptyView.findViewById(R.id.tvEmptyList);
+        tvEmptyList.setText("Pas de messages !");
+        lvMain.setEmptyView(emptyView);*/
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS)
@@ -152,8 +168,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         adapter = new AdapterMain(MainActivity.this, 0, (ArrayList<Avert>) avertList, btnListener);
-        ListView list = (ListView)findViewById(R.id.listMain);
-        list.setAdapter(adapter);
+        //ListView list = (ListView)findViewById(R.id.listMain);
+        this.setListAdapter(adapter);
     }
 
 }
