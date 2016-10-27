@@ -15,8 +15,9 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:id="@+id/imGpsWifi"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:src="@drawable/ic_location_wifi" />
     </LinearLayout>
@@ -31,7 +32,7 @@
             android:id="@+id/listMainName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_weight="1"
             android:paddingTop="5dp"/>
@@ -40,31 +41,35 @@
             android:id="@+id/listMainWifi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:paddingTop="5dp"
+            android:textSize="15sp"
+            android:layout_marginTop="2dp"
             android:layout_weight="1"
             android:layout_below="@id/listMainName"
             android:textColor="#8B8378"/>
         <LinearLayout
             android:id="@+id/btEditDeleteLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/listMainWifi"
+            android:layout_gravity="right"
             android:orientation="horizontal"
             android:layout_weight="10"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="-25dp"
+            android:layout_marginBottom="5dp"
             android:paddingTop="5dp">
             <ImageButton
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:scaleType="fitStart"
                 android:src="@drawable/ic_edit"
                 android:id="@+id/imageButton"
                 android:background="@android:color/background_light" />
 
             <ImageButton
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
                 android:scaleType="fitStart"
                 android:src="@drawable/ic_delete_black_24dp"
                 android:id="@+id/imageButton2"
