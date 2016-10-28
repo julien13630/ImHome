@@ -70,7 +70,7 @@ public class WifiReceiver extends BroadcastReceiver {
                         if (avertList.size() > 0) {
                             int notifID = avertList.get(0).getHashcode();
                             for (Avert a : avertList) {
-                                if (a.getSsid().compareTo(ssid) == 0) {
+                                if (a.getSsid().compareTo(ssid.substring(1, ssid.length() - 1)) == 0) {
 
                                     SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
                                     Toast.makeText(context, "ImHome : Message envoyé à " + a.getContactName(), Toast.LENGTH_LONG).show();
