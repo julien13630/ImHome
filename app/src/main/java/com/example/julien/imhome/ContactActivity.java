@@ -14,10 +14,13 @@ import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.julien.imhome.Adapter.AdapterAvert;
@@ -25,7 +28,7 @@ import com.example.julien.imhome.Data.Avert;
 
 import java.util.ArrayList;
 
-public class ContactActivity extends ListActivity {
+public class ContactActivity extends AppCompatActivity {
 
     // List d'Avert qui nous servira pour stocker les contact
     private ArrayList<Avert> avertList = new ArrayList<Avert>();
@@ -33,11 +36,16 @@ public class ContactActivity extends ListActivity {
     private FloatingActionButton fabOk;
     private float historicX = Float.NaN, historicY = Float.NaN;
     private static final int DELTA = 50;
+    private ListView lvContact;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("ImHome");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +76,14 @@ public class ContactActivity extends ListActivity {
 
         setFabOkVisibility();
 
-        this.getListView().setOnTouchListener(new View.OnTouchListener() {
+        lvContact = (ListView)findViewById(R.id.listContact);
+
+        TextView tvEmptyText = (TextView)findViewById(R.id.tvEmptyListContact);
+        tvEmptyText.setText("Pas de destinataires !");
+
+        lvContact.setEmptyView(findViewById(R.id.emptyListContact));
+
+        lvContact.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
@@ -200,8 +215,7 @@ public class ContactActivity extends ListActivity {
     private void addToContactList(ArrayList<Avert> avertList){
 
         AdapterAvert adapter = new AdapterAvert(ContactActivity.this, 0, avertList);
-        //ListView list = (ListView)findViewById(R.id.listContact);
-        this.setListAdapter(adapter);
+        lvContact.setAdapter(adapter);
 
     }
 
