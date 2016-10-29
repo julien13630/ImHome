@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WifiSelectionActivity extends Activity {
+public class WifiSelectionActivity extends AppCompatActivity {
 
     public WifiManager wifiManager;
     List<WifiConfiguration> listAndroidWifi;
@@ -63,6 +65,10 @@ public class WifiSelectionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wifi_selection);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle("ImHome");
 
         avertList = getIntent().getExtras().getParcelableArrayList("avertList");
 
