@@ -5,4 +5,62 @@
     <string name="title_activity_wifi_settings">WifiSettings</string>
     <string name="title_activity_wifi_selection">WifiSelectionActivity</string>
     <string name="tvMessagesEnAttente">Messages en attente d\'envoi :</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_authorize_wifi">Autoriser accès au wifi</string>
+    <string name="pref_description_authorize_wifi">permet à ImHome
+        d\'utiliser moins de batterie en se servant des noms wifi comme repère
+    </string>
+
+    <string name="pref_title_authorize_gps">Autoriser accès au gps</string>
+    <string name="pref_description_authorize_gps">permet à ImHome
+        d\'avoir une localisation plus libre en se servant de la position gps du téléphone
+    </string>
+
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Autorisations</string>
+
+    <string name="pref_title_sync_frequency">Fréquence d\'actualisation</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 heure</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">Synchroniser compte google</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">afficher notification message envoyé</string>
+
+    <string name="pref_title_ringtone">Sonnerie</string>
+    <string name="pref_ringtone_silent">Mode silentieux</string>
+
+    <string name="pref_title_vibrate">Vibreur</string>
 </resources>
