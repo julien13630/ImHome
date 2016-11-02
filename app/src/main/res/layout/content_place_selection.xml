@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_place_selection"
-    tools:context="com.example.julien.imhome.PlaceSelectionActivity">
+    tools:context="com.dailyvery.apps.imhome.PlaceSelectionActivity">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
+        app:tabTextColor="#FFFFFF"
+        app:tabSelectedTextColor="#FFFFFF"
         android:minHeight="?attr/actionBarSize" />
 
     <android.support.v4.view.ViewPager

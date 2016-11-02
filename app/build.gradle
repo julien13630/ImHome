@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.dailyvery.apps.dailyvery.apps.imhome"
+        applicationId "com.dailyvery.apps.imhome"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 5
