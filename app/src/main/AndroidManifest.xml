@@ -35,19 +35,22 @@
         <activity
             android:name=".ContactActivity"
             android:label="@string/title_activity_contact"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"> </activity>
         <activity
             android:name=".WifiSettings"
             android:label="@string/title_activity_wifi_settings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"> </activity>
         <activity
             android:name=".WifiSelectionActivity"
             android:label="@string/title_activity_wifi_selection"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"> </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings">
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" /></activity>
     </application>
 
 </manifest>
