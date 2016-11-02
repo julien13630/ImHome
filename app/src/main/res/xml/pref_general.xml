@@ -53,4 +53,10 @@
         <intent android:action="android.settings.SYNC_SETTINGS" />
     </Preference>
 
+    <Preference
+        android:title="@string/label_pref_version"
+        android:key="Version"
+        android:summary="">
+    </Preference>
+
 </PreferenceScreen>
