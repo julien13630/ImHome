@@ -3,7 +3,6 @@ package com.example.julien.imhome;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -68,7 +67,7 @@ public class ContactActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Contact activity
-                Intent intent = new Intent(ContactActivity.this, WifiSelectionActivity.class);
+                Intent intent = new Intent(ContactActivity.this, PlaceSelectionActivity.class);
                 intent.putExtra("avertList", avertList);
                 startActivity(intent);
             }

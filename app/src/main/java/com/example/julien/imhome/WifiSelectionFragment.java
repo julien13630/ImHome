@@ -1,6 +1,5 @@
 package com.example.julien.imhome;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,16 +7,16 @@ import android.content.Intent;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.text.InputFilter;
-import android.view.MotionEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.julien.imhome.Adapter.AdapterWifi;
 import com.example.julien.imhome.Data.Avert;
@@ -30,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WifiSelectionActivity extends AppCompatActivity {
+public class WifiSelectionFragment extends Fragment {
 
     public WifiManager wifiManager;
     List<WifiConfiguration> listAndroidWifi;
@@ -62,17 +61,17 @@ public class WifiSelectionActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wifi_selection);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.content_wifi_selection, container, false);
+    }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        setTitle("ImHome");
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        avertList = getIntent().getExtras().getParcelableArrayList("avertList");
+        avertList = getActivity().getIntent().getExtras().getParcelableArrayList("avertList");
 
-        WifiDataSource wds = new WifiDataSource(WifiSelectionActivity.this);
+        WifiDataSource wds = new WifiDataSource(getActivity());
         try {
             wds.open();
             wifiList = wds.getAllWifi();
@@ -87,34 +86,34 @@ public class WifiSelectionActivity extends AppCompatActivity {
         arrayListWifiRegistered = new ArrayList<Wifi>();
 
         //Ajouter les wifis système
-        this.wifiManager = (WifiManager)getSystemService(Context.WIFI_SERVICE);
+        this.wifiManager = (WifiManager)getActivity().getSystemService(Context.WIFI_SERVICE);
         if (!wifiManager.isWifiEnabled()){
             //wifiManager.setWifiEnabled(true);
             showDialogWifiChoice("Veuillez activer le wifi", this);
         }else {
-            initListsWifi();
+            initListsWifi(view);
         }
     }
 
     /**
      * Initialise la liste des wifi a afficher
      */
-    private void initListsWifi() {
+    private void initListsWifi(View view) {
         listAndroidWifi = wifiManager.getConfiguredNetworks();
         addWifiToWifiRegistered();
 
-        AdapterWifi adapter = new AdapterWifi(WifiSelectionActivity.this, 0, arrayListWifi);
-        lvWifi = (ListView)findViewById(R.id.listFavorite);
+        AdapterWifi adapter = new AdapterWifi(getActivity(), 0, arrayListWifi);
+        lvWifi = (ListView)view.findViewById(R.id.listFavorite);
         lvWifi.setAdapter(adapter);
 
-        AdapterWifi adapterRegistered = new AdapterWifi(WifiSelectionActivity.this, 0, arrayListWifiRegistered);
-        lvWifiRegistered = (ListView)findViewById(R.id.listRegistered);
+        AdapterWifi adapterRegistered = new AdapterWifi(getActivity(), 0, arrayListWifiRegistered);
+        lvWifiRegistered = (ListView)view.findViewById(R.id.listRegistered);
         lvWifiRegistered.setAdapter(adapterRegistered);
 
         lvWifi.setOnItemClickListener(listListenerFavorite);
         lvWifiRegistered.setOnItemClickListener(listListenerRegistered);
 
-        lvWifi.setOnTouchListener(new View.OnTouchListener() {
+        /*lvWifi.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return detectSwipeDirection(event);
@@ -126,7 +125,7 @@ public class WifiSelectionActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 return detectSwipeDirection(event);
             }
-        });
+        });*/
     }
 
 
@@ -160,7 +159,7 @@ public class WifiSelectionActivity extends AppCompatActivity {
      * @return boolean
      *            return true si on a bien detecte un mouvement a droite ou gauche
      */
-    private boolean detectSwipeDirection(MotionEvent event) {
+    /*private boolean detectSwipeDirection(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 historicX = event.getX();
@@ -180,15 +179,15 @@ public class WifiSelectionActivity extends AppCompatActivity {
                 return false;
         }
         return false;
-    }
+    }*/
 
     /**
      * Affiche title a l'utilisateur lui donnant le choix d'activer le wifi
      * @param title Affiche dans le popup
      * @param wifi
      */
-    private void showDialogWifiChoice(String title, final WifiSelectionActivity wifi) {
-        AlertDialog.Builder builderSingle = new AlertDialog.Builder(this);
+    private void showDialogWifiChoice(String title, final WifiSelectionFragment wifi) {
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
         builderSingle.setIcon(R.drawable.ic_add_white_24dp);
         builderSingle.setTitle(title);
 
@@ -207,7 +206,7 @@ public class WifiSelectionActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         wifi.wifiManager.setWifiEnabled(true);
-                        initListsWifi();
+                        initListsWifi(getView());
                         dialog.dismiss();
                     }
                 });
@@ -222,8 +221,8 @@ public class WifiSelectionActivity extends AppCompatActivity {
      */
     public void showValidWifiDialog(final Wifi wifi)
     {
-        final EditText et = new EditText(WifiSelectionActivity.this);
-        final AvertDataSource ads = new AvertDataSource(WifiSelectionActivity.this);
+        final EditText et = new EditText(getActivity());
+        final AvertDataSource ads = new AvertDataSource(getActivity());
         et.setText("Je suis arrivé :)", TextView.BufferType.EDITABLE);
 
         //On limite le text a 160 caractères
@@ -231,7 +230,7 @@ public class WifiSelectionActivity extends AppCompatActivity {
         filterArray[0] = new InputFilter.LengthFilter(160);
         et.setFilters(filterArray);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(WifiSelectionActivity.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Saisissez le texte à envoyer : ")
                 .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -253,7 +252,7 @@ public class WifiSelectionActivity extends AppCompatActivity {
                             ads.close();
                         }
 
-                        Intent intent=new Intent(WifiSelectionActivity.this,MainActivity.class);
+                        Intent intent=new Intent(getActivity(),MainActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
 

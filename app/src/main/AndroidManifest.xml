@@ -41,12 +41,11 @@
             android:label="@string/title_activity_wifi_settings"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".WifiSelectionActivity"
-            android:label="@string/title_activity_wifi_selection"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings">
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".PlaceSelectionActivity"
+            android:label="PlaceSelectionActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
