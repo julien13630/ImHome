@@ -24,6 +24,10 @@
 
 
     <!-- Example settings for Data & Sync -->
+    <string name="pref_title_category_localisation">Localisation</string>
+    <string name="pref_title_category_notification">Notification</string>
+    <string name="pref_title_category_synchronization">Synchronisation</string>
+
     <string name="pref_header_data_sync">Autorisations</string>
 
     <string name="pref_title_sync_frequency">Fréquence d\'actualisation</string>
@@ -36,6 +40,18 @@
         <item>15</item>
         <item>30</item>
         <item>60</item>
+    </string-array>
+
+    <string name="pref_title_language">Langue</string>
+    <string-array name="pref_array_language_title">
+        <item>Français</item>1
+        <item>English</item>
+        <item>Espanõl</item>
+    </string-array>
+    <string-array name="pref_language_value">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 
     <string-array name="list_preference_entries">
@@ -57,9 +73,11 @@
     <!-- Example settings for Notifications -->
     <string name="pref_header_notifications">Notifications</string>
 
-    <string name="pref_title_new_message_notifications">afficher notification message envoyé</string>
-
+    <string name="pref_title_new_message_notifications">Afficher notification message envoyé</string>
+    <string name="pref_title_notification_distance">Distance de localisation</string>
+    <string name="pref_summary_localisation_slider">Précision de la localisation gps en mètre</string>
     <string name="pref_title_ringtone">Sonnerie</string>
+
     <string name="pref_ringtone_silent">Mode silentieux</string>
 
     <string name="pref_title_vibrate">Vibreur</string>
