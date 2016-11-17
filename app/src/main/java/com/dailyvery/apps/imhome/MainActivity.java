@@ -152,7 +152,6 @@ public class MainActivity extends AppCompatActivity {
         BtnClickListener btnListener = new BtnClickListener() {
             @Override
             public void onBtnClick(int position) {
-                //TODO la suppression
                 avertDT.deleteAvert(avertList.get(position));
                 avertList.remove(avertList.get(position));
                 adapter.notifyDataSetChanged();
