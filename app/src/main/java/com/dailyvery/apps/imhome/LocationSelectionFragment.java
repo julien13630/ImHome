@@ -3,6 +3,8 @@ package com.dailyvery.apps.imhome;
 import android.Manifest;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -25,6 +28,11 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
 
 public class LocationSelectionFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
@@ -34,7 +42,8 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     private GoogleApiClient mGoogleApiClient;
     public static final String TAG = PlaceSelectionActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-    private Location location;
+    private Marker marker;
+    private LatLng location;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,6 +69,41 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
             public void onMapReady(GoogleMap mMap) {
                 googleMap = mMap;
 
+                googleMap.setOnMapClickListener(new
+                    GoogleMap.OnMapClickListener() {
+                        @Override
+                        public void onMapClick (LatLng latLng){
+                            Geocoder geocoder =
+                                    new Geocoder(getActivity());
+                            List<Address> list;
+                            try {
+                                list = geocoder.getFromLocation(latLng.latitude,
+                                        latLng.longitude, 1);
+                            } catch (IOException e) {
+                                return;
+                            }
+                            Address address = list.get(0);
+                            if (marker != null) {
+                                marker.remove();
+                            }
+
+                            location = new LatLng(latLng.latitude, latLng.longitude);
+
+                            MarkerOptions options = new MarkerOptions()
+                                    .title(address.getLocality())
+                                    .position(location);
+
+                            marker = googleMap.addMarker(options);
+                        }
+                    });
+            }
+        });
+
+        Button btValider = (Button)rootView.findViewById(R.id.btValiderDestination);
+        btValider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO let's go
             }
         });
 

@@ -234,42 +234,42 @@ public class WifiSelectionFragment extends Fragment {
         builder.setMessage("Saisissez le texte à envoyer : ")
                 .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        try {
-                            ads.open();
-                            for (Avert a : avertList) {
-                                a.setAddDate(new Date());
-                                a.setMessageText(et.getText().toString());
-                                a.setSsid(wifi.getSsid());
-                                a.setLabel(wifi.getLabel());
-                                a.setHashcode(wifi.getHashcode());
+            try {
+                ads.open();
+                for (Avert a : avertList) {
+                    a.setAddDate(new Date());
+                    a.setMessageText(et.getText().toString());
+                    a.setSsid(wifi.getSsid());
+                    a.setLabel(wifi.getLabel());
+                    a.setHashcode(wifi.getHashcode());
 
-                                ads.addAvert(a);
+                    ads.addAvert(a);
 
-                            }
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        } finally {
-                            ads.close();
-                        }
-
-                        Intent intent=new Intent(getActivity(),MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-
-                        }
-                    }
-
-                    ).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    // User cancelled the dialog
-                                }
-                            }
-
-                    ).setView(et);
-
-                    // Create the AlertDialog object and return it
-                    builder.create().
-
-                    show();
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                ads.close();
+            }
+
+            Intent intent=new Intent(getActivity(),MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+
+            }
+        }
+
+        ).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                }
+
+        ).setView(et);
+
+        // Create the AlertDialog object and return it
+        builder.create().
+
+        show();
+    }
 }
