@@ -45,6 +45,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private Marker marker;
     private LatLng location;
+    private Button btValider;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,12 +96,13 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                                     .position(location);
 
                             marker = googleMap.addMarker(options);
+                            btValider.setEnabled(true);
                         }
                     });
             }
         });
 
-        Button btValider = (Button)rootView.findViewById(R.id.btValiderDestination);
+        btValider = (Button)rootView.findViewById(R.id.btValiderDestination);
         btValider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +110,8 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                 Toast.makeText(getContext(), "Fonctionnalité bientot disponible !", Toast.LENGTH_SHORT).show();
             }
         });
+        //Tant qu'on a pas de marker, on n'active pas le bouton
+        btValider.setEnabled(false);
 
         return rootView;
     }

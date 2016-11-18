@@ -42,15 +42,6 @@ public class WifiSelectionFragment extends Fragment {
     private float historicX = Float.NaN, historicY = Float.NaN;
     private static final int DELTA = 50;
 
-    private AdapterView.OnItemClickListener listListenerFavorite = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showValidWifiDialog(wifiList.get(position));
-
-
-        }
-    };
-
     private AdapterView.OnItemClickListener listListenerRegistered = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -102,30 +93,11 @@ public class WifiSelectionFragment extends Fragment {
         listAndroidWifi = wifiManager.getConfiguredNetworks();
         addWifiToWifiRegistered();
 
-        AdapterWifi adapter = new AdapterWifi(getActivity(), 0, arrayListWifi);
-        lvWifi = (ListView)view.findViewById(R.id.listFavorite);
-        lvWifi.setAdapter(adapter);
-
         AdapterWifi adapterRegistered = new AdapterWifi(getActivity(), 0, arrayListWifiRegistered);
         lvWifiRegistered = (ListView)view.findViewById(R.id.listRegistered);
         lvWifiRegistered.setAdapter(adapterRegistered);
 
-        lvWifi.setOnItemClickListener(listListenerFavorite);
         lvWifiRegistered.setOnItemClickListener(listListenerRegistered);
-
-        /*lvWifi.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return detectSwipeDirection(event);
-            }
-        });
-
-        lvWifiRegistered.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return detectSwipeDirection(event);
-            }
-        });*/
     }
 
 
@@ -150,36 +122,6 @@ public class WifiSelectionFragment extends Fragment {
             }
         }
     }
-
-    /**
-     * Detecte dans quelle direction l'utilisateur swipe l'ecran
-     *
-     * @param event
-     *            Le MotionEvent levee lorsque l'utilisateur swipe l'ecran
-     * @return boolean
-     *            return true si on a bien detecte un mouvement a droite ou gauche
-     */
-    /*private boolean detectSwipeDirection(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                historicX = event.getX();
-                historicY = event.getY();
-                break;
-
-            case MotionEvent.ACTION_UP:
-                if (event.getX() - historicX < -DELTA) {
-                    Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
-                    return true;
-                } else if (event.getX() - historicX > DELTA) {
-                    Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-                break;
-            default:
-                return false;
-        }
-        return false;
-    }*/
 
     /**
      * Affiche title a l'utilisateur lui donnant le choix d'activer le wifi
