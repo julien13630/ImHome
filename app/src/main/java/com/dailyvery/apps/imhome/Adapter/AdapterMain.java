@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dailyvery.apps.imhome.Data.Avert;
@@ -56,6 +57,7 @@ public class AdapterMain extends ArrayAdapter<Avert> {
     public static class ViewHolder {
         public TextView display_name;
         public TextView display_wifi;
+        public ImageView im_gps_wifi;
 
     }
 
@@ -69,11 +71,17 @@ public class AdapterMain extends ArrayAdapter<Avert> {
 
                 holder.display_name = (TextView) vi.findViewById(R.id.listMainName);
                 holder.display_wifi = (TextView) vi.findViewById(R.id.listMainWifi);
+                holder.im_gps_wifi = (ImageView) vi.findViewById(R.id.imGpsWifi);
 
 
                 vi.setTag(holder);
             } else {
                 holder = (ViewHolder) vi.getTag();
+            }
+            if(lAvert.get(position).getSsid() != null){
+                holder.im_gps_wifi.setImageResource(R.drawable.ic_location_wifi);
+            }else{
+                holder.im_gps_wifi.setImageResource(R.drawable.ic_location_gps);
             }
 
             holder.display_name.setText(lAvert.get(position).getContactName());

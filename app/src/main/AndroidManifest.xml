@@ -38,6 +38,8 @@
             </intent-filter>
         </receiver>
 
+        <service android:name="MyService" />
+
         <activity
             android:name="com.dailyvery.apps.imhome.ContactActivity"
             android:label="@string/title_activity_contact"
