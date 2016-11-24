@@ -46,8 +46,6 @@ public class WifiSelectionFragment extends Fragment {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             showValidWifiDialog(arrayListWifiRegistered.get(position));
-
-
         }
     };
 

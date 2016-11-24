@@ -24,6 +24,8 @@ import android.util.Log;
         public static final String COLUMN_A_HASHCODE = "hashcode";
         public static final String COLUMN_A_SSID = "ssid";
         public static final String COLUMN_A_LIBELLE = "libelle";
+        public static final String COLUMN_A_LATITUDE = "latitude";
+        public static final String COLUMN_A_LONGITUDE = "longitude";
         public static final String COLUMN_A_DATE = "adddate";
 
         private static final String DATABASE_NAME = "ImHome.db";
@@ -42,11 +44,13 @@ import android.util.Log;
         private static final String DATABASE_CREATE_AVERT = "CREATE TABLE `avert` ("+
             "`libelle` MEDIUMTEXT NULL DEFAULT NULL,"+
             "`ssid` MEDIUMTEXT NULL DEFAULT NULL,"+
-                "`messagetext` MEDIUMTEXT NULL DEFAULT NULL,"+
+            "`messagetext` MEDIUMTEXT NULL DEFAULT NULL,"+
             "`hashcode` INTEGER NOT NULL DEFAULT NULL,"+
             "`adddate` DATE NULL DEFAULT NULL,"+
             "`contactname` MEDIUMTEXT NOT NULL DEFAULT 'NULL',"+
-            "`contactnumber` MEDIUMTEXT NOT NULL DEFAULT 'NULL'"+
+            "`contactnumber` MEDIUMTEXT NOT NULL DEFAULT 'NULL',"+
+            "`latitude` DOUBLE NULL DEFAULT NULL,"+
+            "`longitude` DOUBLE NULL DEFAULT NULL"+
             " );";
 
 

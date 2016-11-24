@@ -27,6 +27,7 @@ public class Avert implements Parcelable {
 
     private String label, ssid, contactName, contactNumber, messageText;
     private int hashcode;
+    private double latitude, longitude;
     private Date addDate = new Date();
 
     public Avert() {
@@ -42,6 +43,8 @@ public class Avert implements Parcelable {
         this.contactNumber = in.readString();
         this.messageText = in.readString();
         this.hashcode = in.readInt();
+        this.latitude = in.readDouble();
+        this.longitude = in.readDouble();
         Date tmpDate = new Date();
         android.text.format.DateFormat.format(in.readString(),tmpDate);
         this.addDate = tmpDate ;
@@ -95,6 +98,14 @@ public class Avert implements Parcelable {
         this.hashcode = hashcode;
     }
 
+    public double getLongitude() { return longitude; }
+
+    public void setLongitude(double longitude) { this.longitude = longitude; }
+
+    public double getLatitude() { return latitude; }
+
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+
     public Date getAddDate() {
         return addDate;
     }
@@ -116,6 +127,8 @@ public class Avert implements Parcelable {
         dest.writeString(contactNumber);
         dest.writeString(messageText);
         dest.writeInt(hashcode);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
         dest.writeString(addDate.toString());
     }
 

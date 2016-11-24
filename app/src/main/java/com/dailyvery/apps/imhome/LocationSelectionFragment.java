@@ -1,6 +1,9 @@
 package com.dailyvery.apps.imhome;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -12,13 +15,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dailyvery.apps.imhome.Data.Avert;
+import com.dailyvery.apps.imhome.Data.AvertDataSource;
+import com.dailyvery.apps.imhome.Data.Wifi;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -33,6 +42,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class LocationSelectionFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
@@ -46,10 +58,13 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     private Marker marker;
     private LatLng location;
     private Button btValider;
+    private ArrayList<Avert> avertList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_location_selection, container, false);
+
+        avertList = getActivity().getIntent().getExtras().getParcelableArrayList("avertList");
 
         mMapView = (MapView) rootView.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
@@ -106,8 +121,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         btValider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO let's go
-                Toast.makeText(getContext(), "Fonctionnalité bientot disponible !", Toast.LENGTH_SHORT).show();
+                showValidLocationDialog(marker.getPosition());
             }
         });
         //Tant qu'on a pas de marker, on n'active pas le bouton
@@ -209,5 +223,63 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         mMapView.onResume(); // needed to get the map to display immediately
+    }
+
+    /**
+     * Une fois qu'une location est valide on demande quel texte envoyer
+     *
+     * @param location
+     *            La location a detecter pour envoyer le message
+     */
+    public void showValidLocationDialog(final LatLng location)
+    {
+        final EditText et = new EditText(getActivity());
+        final AvertDataSource ads = new AvertDataSource(getActivity());
+        et.setText("Je suis arrivé :)", TextView.BufferType.EDITABLE);
+
+        //On limite le text a 160 caractères
+        InputFilter[] filterArray = new InputFilter[1];
+        filterArray[0] = new InputFilter.LengthFilter(160);
+        et.setFilters(filterArray);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Saisissez le texte à envoyer : ")
+                .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                try {
+                                    ads.open();
+                                    for (Avert a : avertList) {
+                                        a.setAddDate(new Date());
+                                        a.setMessageText(et.getText().toString());
+                                        a.setLatitude(location.latitude);
+                                        a.setLongitude(location.longitude);
+                                        ads.addAvert(a);
+
+                                    }
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                } finally {
+                                    ads.close();
+                                }
+
+                                Intent intent=new Intent(getActivity(),MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+
+                            }
+                        }
+
+                ).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                }
+
+        ).setView(et);
+
+        // Create the AlertDialog object and return it
+        builder.create().
+
+        show();
     }
 }

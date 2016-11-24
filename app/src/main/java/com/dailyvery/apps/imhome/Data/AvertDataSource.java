@@ -25,7 +25,9 @@ public class AvertDataSource {
             MySQLiteHelper.COLUMN_A_HASHCODE,
             MySQLiteHelper.COLUMN_A_DATE,
             MySQLiteHelper.COLUMN_A_CONTACTNAME,
-            MySQLiteHelper.COLUMN_A_CONTACTNUMBER};
+            MySQLiteHelper.COLUMN_A_CONTACTNUMBER,
+            MySQLiteHelper.COLUMN_A_LATITUDE,
+            MySQLiteHelper.COLUMN_A_LONGITUDE};
 
 
     public AvertDataSource(Context context) {
@@ -44,7 +46,8 @@ public class AvertDataSource {
         }
     }
 
-    public Avert addAvert(String libelle, String ssid,String messageText, int hashcode,  Date date, String contactName, String contactNumber) {
+    public Avert addAvert(String libelle, String ssid,String messageText, int hashcode,  Date date,
+                          String contactName, String contactNumber, double latitude, double longitude) {
         try{
             open();
             ContentValues values = new ContentValues();
@@ -55,6 +58,8 @@ public class AvertDataSource {
             values.put(MySQLiteHelper.COLUMN_A_DATE, date.toString());
             values.put(MySQLiteHelper.COLUMN_A_CONTACTNAME, contactName);
             values.put(MySQLiteHelper.COLUMN_A_CONTACTNUMBER, contactNumber);
+            values.put(MySQLiteHelper.COLUMN_A_LATITUDE, latitude);
+            values.put(MySQLiteHelper.COLUMN_A_LONGITUDE, longitude);
 
             long insertId = database.insert(MySQLiteHelper.TABLE_AVERT, null,
                     values);
@@ -84,6 +89,8 @@ public class AvertDataSource {
             values.put(MySQLiteHelper.COLUMN_A_DATE, avert.getAddDate().toString());
             values.put(MySQLiteHelper.COLUMN_A_CONTACTNAME, avert.getContactName());
             values.put(MySQLiteHelper.COLUMN_A_CONTACTNUMBER, avert.getContactNumber());
+            values.put(MySQLiteHelper.COLUMN_A_LATITUDE, avert.getLatitude());
+            values.put(MySQLiteHelper.COLUMN_A_LONGITUDE, avert.getLongitude());
 
             long insertId = database.insert(MySQLiteHelper.TABLE_AVERT, null,
                     values);
@@ -132,7 +139,7 @@ public class AvertDataSource {
             return averts;
         }catch (Exception e){
             //TODO Lever une vraie exception
-            return new ArrayList<Avert>();
+            return new ArrayList<>();
         }
     }
 
@@ -148,6 +155,9 @@ public class AvertDataSource {
         avert.setMessageText(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_MESSAGETEXT)));
         avert.setAddDate(tmpDate);
         avert.setContactName(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_CONTACTNAME)));
+        avert.setLatitude(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_LATITUDE)));
+        avert.setLongitude(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_LONGITUDE)));
+
         return avert;
     }
 }
