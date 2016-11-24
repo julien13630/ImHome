@@ -27,9 +27,9 @@
             android:key="localisation_distance"
             android:title="@string/pref_title_notification_distance"
             android:summary="@string/pref_summary_localisation_slider"
-            android:defaultValue="25"
+            android:defaultValue="100"
             sample:msbp_minValue="25"
-            sample:msbp_maxValue="300"
+            sample:msbp_maxValue="500"
             sample:msbp_interval="25"
             sample:msbp_measurementUnit="m"
             sample:msbp_dialogEnabled="false"/>
