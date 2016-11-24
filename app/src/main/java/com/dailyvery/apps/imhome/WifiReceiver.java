@@ -6,9 +6,11 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.support.v7.preference.PreferenceManager;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 
@@ -62,6 +64,8 @@ public class WifiReceiver extends BroadcastReceiver {
                     WifiInfo wifiInfo = wifiManager.getConnectionInfo();
                     String ssid = wifiInfo.getSSID();
 
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
                     AvertDataSource ads = new AvertDataSource(context);
 
                     try {
@@ -74,7 +78,9 @@ public class WifiReceiver extends BroadcastReceiver {
 
                                     SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
                                     Toast.makeText(context, "ImHome : Message envoyé à " + a.getContactName(), Toast.LENGTH_LONG).show();
-                                    createNotification(context, "Message envoyé à " + a.getContactName(), notifID++);
+                                    if(prefs.getBoolean("notifications_new_message", true)){
+                                        createNotification(context, "Message envoyé à " + a.getContactName(), notifID++);
+                                    }
                                     ads.deleteAvert(a);
                                 }
                             }

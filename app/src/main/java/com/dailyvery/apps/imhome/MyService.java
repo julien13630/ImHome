@@ -75,7 +75,9 @@ public class MyService extends Service
                         ads.open();
                         Log.e(TAG, "ON Y EST !!");
                         SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
-                        createNotification(getApplicationContext(), "Message envoyé à " + a.getContactName(), notifID++);
+                        if(prefs.getBoolean("notifications_new_message", true)){
+                            createNotification(getApplicationContext(), "Message envoyé à " + a.getContactName(), notifID++);
+                        }
                         ads.deleteAvert(a);
                         avertList = ads.getAllAvert();
                     } catch (SQLException e) {
