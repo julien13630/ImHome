@@ -63,7 +63,7 @@ public class MyService extends Service
                 double currentLongitude = mLastLocation.getLongitude();
 
                 //On compare
-                if(distance(avertLatitude, avertLongitude, currentLatitude, currentLongitude) < 1){
+                if(distance(avertLatitude, avertLongitude, currentLatitude, currentLongitude) < 0.1){
                     AvertDataSource ads = new AvertDataSource(getApplicationContext());
                     try {
                         ads.open();
@@ -71,6 +71,7 @@ public class MyService extends Service
                         SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
                         createNotification(getApplicationContext(), "Message envoyé à " + a.getContactName(), notifID++);
                         ads.deleteAvert(a);
+                        avertList = ads.getAllAvert();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     } finally {
