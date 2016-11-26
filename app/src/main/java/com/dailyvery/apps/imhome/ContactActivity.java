@@ -190,14 +190,34 @@ public class ContactActivity extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    avertList.add(arrayAdapter.getItem(which)); // Stock le contact dans le tableau
+                                    boolean exists = false;
+                                    for(Avert av : avertList){
+                                        if(av.getContactNumber().equals(arrayAdapter.getItem(which).getContactNumber())){
+                                            exists = true;
+                                        }
+                                    }
+                                    if(!exists){
+                                        avertList.add(arrayAdapter.getItem(which)); // Stock le contact dans le tableau
+                                    }else{
+                                        Toast.makeText(getApplicationContext(), "Impossible d'ajouter deux fois le meme numéro", Toast.LENGTH_LONG).show();
+                                    }
                                     addToContactList(avertList);
                                     setFabOkVisibility();
                                 }
                             });
                     builderSingle.show();
                 }else if(tmpAvertList.size() == 1){
-                    avertList.add(tmpAvertList.get(0));
+                    boolean exists = false;
+                    for(Avert av : avertList){
+                        if(av.getContactNumber().equals(tmpAvertList.get(0).getContactNumber())){
+                            exists = true;
+                        }
+                    }
+                    if(!exists){
+                        avertList.add(tmpAvertList.get(0)); // Stock le contact dans le tableau
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Impossible d'ajouter deux fois le meme numéro", Toast.LENGTH_LONG).show();
+                    }
                     addToContactList(avertList);
                     setFabOkVisibility();
                 }

@@ -24,10 +24,11 @@ public class AdapterMain extends ArrayAdapter<Avert> {
     private Activity activity;
     private ArrayList<Avert> lAvert;
     private static LayoutInflater inflater = null;
-    private BtnClickListener mClickListener = null;
+    private BtnClickListener mClickListenerDelete = null;
+    private BtnClickListener mClickListenerEdit = null;
     private String[] colors = new String[] { "#FFFFFF", "#F4F4F4" };
 
-    public AdapterMain (Activity activity, int textViewResourceId,ArrayList<Avert> _lAvert, BtnClickListener listener) {
+    public AdapterMain (Activity activity, int textViewResourceId,ArrayList<Avert> _lAvert, BtnClickListener listenerDelete, BtnClickListener listenerEdit) {
         super(activity, textViewResourceId, _lAvert);
         try {
             this.activity = activity;
@@ -35,7 +36,8 @@ public class AdapterMain extends ArrayAdapter<Avert> {
 
             inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            mClickListener = listener;
+            mClickListenerDelete = listenerDelete;
+            mClickListenerEdit = listenerEdit;
 
         } catch (Exception e) {
 
@@ -95,7 +97,16 @@ public class AdapterMain extends ArrayAdapter<Avert> {
             btDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mClickListener.onBtnClick((Integer) v.getTag());
+                    mClickListenerDelete.onBtnClick((Integer) v.getTag());
+                }
+            });
+
+            ImageButton btEdit = (ImageButton)vi.findViewById(R.id.imEditMessage);
+            btEdit.setTag(position);
+            btEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mClickListenerEdit.onBtnClick((Integer) v.getTag());
                 }
             });
 

@@ -1,6 +1,8 @@
 package com.dailyvery.apps.imhome;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -9,11 +11,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,10 +25,12 @@ import android.widget.Toast;
 import com.dailyvery.apps.imhome.Adapter.AdapterMain;
 import com.dailyvery.apps.imhome.Data.Avert;
 import com.dailyvery.apps.imhome.Data.AvertDataSource;
+import com.dailyvery.apps.imhome.Data.Wifi;
 import com.dailyvery.apps.imhome.Interface.BtnClickListener;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,31 +62,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         lvMain = (ListView) findViewById(R.id.listMain);
-
-        lvMain.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        historicX = event.getX();
-                        historicY = event.getY();
-                        break;
-
-                    case MotionEvent.ACTION_UP:
-                        if (event.getX() - historicX < -DELTA) {
-                            Toast.makeText(getApplicationContext(), "Left", Toast.LENGTH_SHORT).show();
-                            return true;
-                        } else if (event.getX() - historicX > DELTA) {
-                            Toast.makeText(getApplicationContext(), "Right", Toast.LENGTH_SHORT).show();
-                            return true;
-                        }
-                        break;
-                    default:
-                        return false;
-                }
-                return false;
-            }
-        });
 
         TextView tvEmptyText = (TextView)findViewById(R.id.tvEmptyList);
         tvEmptyText.setText("Pas de messages !");
@@ -139,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
      * Récupère la liste des Avert a afficher
      */
     private void getDataSetList(){
-        final AvertDataSource avertDT = new AvertDataSource(MainActivity.this);
+        AvertDataSource avertDT = new AvertDataSource(MainActivity.this);
         try {
             avertDT.open();
             avertList = avertDT.getAllAvert();
@@ -149,19 +130,58 @@ public class MainActivity extends AppCompatActivity {
             avertDT.close();
         }
 
-        BtnClickListener btnListener = new BtnClickListener() {
+        BtnClickListener btnListenerDelete = new BtnClickListener() {
             @Override
             public void onBtnClick(int position) {
+                AvertDataSource avertDT = new AvertDataSource(MainActivity.this);
                 avertDT.deleteAvert(avertList.get(position));
                 avertList.remove(avertList.get(position));
                 adapter.notifyDataSetChanged();
+                avertDT.close();
             }
         };
 
+        BtnClickListener btnListenerEdit = new BtnClickListener() {
+            @Override
+            public void onBtnClick(final int position) {
+                AvertDataSource avertDT = new AvertDataSource(MainActivity.this);
 
+                final EditText et = new EditText(MainActivity.this);
+                et.setText(avertDT.getAllAvert().get(position).getMessageText(), TextView.BufferType.EDITABLE);
 
+                avertDT.close();
 
-        adapter = new AdapterMain(MainActivity.this, 0, (ArrayList<Avert>) avertList, btnListener);
+                //On limite le text a 160 caractères
+                InputFilter[] filterArray = new InputFilter[1];
+                filterArray[0] = new InputFilter.LengthFilter(160);
+                et.setFilters(filterArray);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage("Saisissez le nouveau texte à envoyer : ")
+                        .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        AvertDataSource avertDT = new AvertDataSource(MainActivity.this);
+                                        avertList.get(position).setMessageText(et.getText().toString());
+                                        avertDT.editAvert(avertList.get(position));
+                                        adapter.notifyDataSetChanged();
+                                        avertDT.close();
+                                    }
+                                }
+
+                        ).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        }
+
+                ).setView(et);
+
+                // Create the AlertDialog object and return it
+                builder.create().show();
+            }
+        };
+
+        adapter = new AdapterMain(MainActivity.this, 0, (ArrayList<Avert>) avertList, btnListenerDelete, btnListenerEdit);
         lvMain.setAdapter(adapter);
     }
 
