@@ -30,8 +30,8 @@ import java.util.ArrayList;
 public class ContactActivity extends AppCompatActivity {
 
     // List d'Avert qui nous servira pour stocker les contact
-    private ArrayList<Avert> avertList = new ArrayList<Avert>();
-    private ArrayList<Avert> tmpAvertList = new ArrayList<Avert>();
+    private ArrayList<Avert> avertList = new ArrayList<>();
+    private ArrayList<Avert> tmpAvertList = new ArrayList<>();
     private FloatingActionButton fabOk;
     private float historicX = Float.NaN, historicY = Float.NaN;
     private static final int DELTA = 50;
@@ -50,15 +50,7 @@ public class ContactActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(),
-                        Manifest.permission.READ_CONTACTS)
-                        != PackageManager.PERMISSION_GRANTED) {
-
-                    ActivityCompat.requestPermissions(ContactActivity.this,
-                            new String[]{Manifest.permission.READ_CONTACTS}, 0);
-                }else{
-                    startActivityContactForResult();
-                }
+                onAddButtonClick();
             }
         });
 
@@ -107,6 +99,9 @@ public class ContactActivity extends AppCompatActivity {
             }
         });
 
+        if(avertList.size() == 0){
+            onAddButtonClick();
+        }
     }
 
     /**
@@ -244,6 +239,18 @@ public class ContactActivity extends AppCompatActivity {
         // If request is cancelled, the result arrays are empty.
         if (grantResults.length > 0
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            startActivityContactForResult();
+        }
+    }
+
+    private void onAddButtonClick(){
+        if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(ContactActivity.this,
+                    new String[]{Manifest.permission.READ_CONTACTS}, 0);
+        }else{
             startActivityContactForResult();
         }
     }
