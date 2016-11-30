@@ -29,6 +29,7 @@ public class Avert implements Parcelable {
     private int hashcode;
     private double latitude, longitude;
     private Date addDate = new Date();
+    private boolean flagReccurence;
 
     public Avert() {
 
@@ -48,6 +49,7 @@ public class Avert implements Parcelable {
         Date tmpDate = new Date();
         android.text.format.DateFormat.format(in.readString(),tmpDate);
         this.addDate = tmpDate ;
+        this.flagReccurence = in.readInt() != 0;     //flagReccurence == true if byte != 0
     }
 
     public String getLabel() {
@@ -104,6 +106,18 @@ public class Avert implements Parcelable {
 
     public double getLatitude() { return latitude; }
 
+    public boolean getFlagReccurence() {
+        return flagReccurence;
+    }
+
+    public void setFlagReccurence(boolean flagReccurence){
+        this.flagReccurence = flagReccurence;
+    }
+
+    public void setFlagReccurence(int flagReccurence){
+        this.flagReccurence = (flagReccurence == 1);
+    }
+
     public void setLatitude(double latitude) { this.latitude = latitude; }
 
     public Date getAddDate() {
@@ -130,6 +144,7 @@ public class Avert implements Parcelable {
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
         dest.writeString(addDate.toString());
+        dest.writeInt(flagReccurence ? 1 : 0);
     }
 
     @Override

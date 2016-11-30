@@ -27,6 +27,7 @@ import android.util.Log;
         public static final String COLUMN_A_LATITUDE = "latitude";
         public static final String COLUMN_A_LONGITUDE = "longitude";
         public static final String COLUMN_A_DATE = "adddate";
+        public static final String COLUMN_A_FLAGRECCURENCE = "flagnumber";
 
         private static final String DATABASE_NAME = "ImHome.db";
         private static final int DATABASE_VERSION = 1;
@@ -50,7 +51,8 @@ import android.util.Log;
             "`contactname` MEDIUMTEXT NOT NULL DEFAULT 'NULL',"+
             "`contactnumber` MEDIUMTEXT NOT NULL DEFAULT 'NULL',"+
             "`latitude` DOUBLE NULL DEFAULT NULL,"+
-            "`longitude` DOUBLE NULL DEFAULT NULL"+
+            "`longitude` DOUBLE NULL DEFAULT NULL,"+
+            "`flagnumber` INTEGER NOT NULL DEFAULT NULL"+
             " );";
 
 

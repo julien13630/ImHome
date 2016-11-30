@@ -29,7 +29,8 @@ public class AvertDataSource {
             MySQLiteHelper.COLUMN_A_CONTACTNAME,
             MySQLiteHelper.COLUMN_A_CONTACTNUMBER,
             MySQLiteHelper.COLUMN_A_LATITUDE,
-            MySQLiteHelper.COLUMN_A_LONGITUDE};
+            MySQLiteHelper.COLUMN_A_LONGITUDE,
+            MySQLiteHelper.COLUMN_A_FLAGRECCURENCE};
 
 
     public AvertDataSource(Context context) {
@@ -49,7 +50,8 @@ public class AvertDataSource {
     }
 
     public Avert addAvert(String libelle, String ssid,String messageText, int hashcode,  Date date,
-                          String contactName, String contactNumber, double latitude, double longitude) {
+                          String contactName, String contactNumber, double latitude, double longitude,
+                            boolean flagReccurence) {
         try{
             open();
             ContentValues values = new ContentValues();
@@ -62,6 +64,7 @@ public class AvertDataSource {
             values.put(MySQLiteHelper.COLUMN_A_CONTACTNUMBER, contactNumber);
             values.put(MySQLiteHelper.COLUMN_A_LATITUDE, latitude);
             values.put(MySQLiteHelper.COLUMN_A_LONGITUDE, longitude);
+            values.put(MySQLiteHelper.COLUMN_A_FLAGRECCURENCE, flagReccurence);
 
             long insertId = database.insert(MySQLiteHelper.TABLE_AVERT, null,
                     values);
@@ -93,6 +96,7 @@ public class AvertDataSource {
             values.put(MySQLiteHelper.COLUMN_A_CONTACTNUMBER, avert.getContactNumber());
             values.put(MySQLiteHelper.COLUMN_A_LATITUDE, avert.getLatitude());
             values.put(MySQLiteHelper.COLUMN_A_LONGITUDE, avert.getLongitude());
+            values.put(MySQLiteHelper.COLUMN_A_FLAGRECCURENCE, avert.getFlagReccurence());
 
             long insertId = database.insert(MySQLiteHelper.TABLE_AVERT, null,
                     values);
@@ -111,11 +115,11 @@ public class AvertDataSource {
             String date = avert.getAddDate().toString();
             String contactNumber = avert.getContactNumber();
             int hashCode = avert.getHashcode();
-
+            boolean flagReccurence = avert.getFlagReccurence();
 
             database.delete(MySQLiteHelper.TABLE_AVERT, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
-                    MySQLiteHelper.COLUMN_A_HASHCODE + " = '" + hashCode + "' AND " +
-                    MySQLiteHelper.COLUMN_A_DATE + " = '" + date + "'", null);
+                    MySQLiteHelper.COLUMN_A_HASHCODE + " = '" + hashCode + "' AND " +  MySQLiteHelper.COLUMN_A_FLAGRECCURENCE + " = " + flagReccurence +
+                    " AND " + MySQLiteHelper.COLUMN_A_DATE + " = '" + date + "'", null);
 
             close();
             System.out.println("Avert deleted : " + avert.getContactName());
@@ -133,10 +137,11 @@ public class AvertDataSource {
 
             ContentValues cv = new ContentValues();
             cv.put(MySQLiteHelper.COLUMN_A_MESSAGETEXT, avert.getMessageText());
+            boolean flagReccurence = avert.getFlagReccurence();
 
             database.update(MySQLiteHelper.TABLE_AVERT, cv ,  MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
-                    MySQLiteHelper.COLUMN_A_HASHCODE + " = '" + hashCode + "' AND " +
-                    MySQLiteHelper.COLUMN_A_DATE + " = '" + date + "'", null);
+                    MySQLiteHelper.COLUMN_A_HASHCODE + " = '" + hashCode + "' AND " + MySQLiteHelper.COLUMN_A_FLAGRECCURENCE + " = " + flagReccurence +
+                    " AND " + MySQLiteHelper.COLUMN_A_DATE + " = '" + date + "'", null);
 
             close();
             System.out.println("Avert edited : " + avert.getContactName());
@@ -189,6 +194,7 @@ public class AvertDataSource {
         avert.setContactName(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_CONTACTNAME)));
         avert.setLatitude(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_LATITUDE)));
         avert.setLongitude(cursor.getDouble(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_LONGITUDE)));
+        avert.setFlagReccurence(cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_FLAGRECCURENCE)));
 
         return avert;
     }
