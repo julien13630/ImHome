@@ -30,7 +30,7 @@ import android.util.Log;
         public static final String COLUMN_A_FLAGRECCURENCE = "flagnumber";
 
         private static final String DATABASE_NAME = "ImHome.db";
-        private static final int DATABASE_VERSION = 1;
+        private static final int DATABASE_VERSION = 2;
 
         // Commande sql pour la création de la base de données
         private static final String DATABASE_CREATE_WIFI = "CREATE TABLE `wifi` (" +
