@@ -78,7 +78,9 @@ public class WifiReceiver extends BroadcastReceiver {
                                     if(prefs.getBoolean("notifications_new_message", true)){
                                         createNotification(context, "Message envoyé à " + a.getContactName(), notifID++);
                                     }
-                                    ads.deleteAvert(a);
+                                    if(a.getFlagReccurence() == 0){
+                                        ads.deleteAvert(a);
+                                    }
                                 }
                             }
                         }

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -38,9 +39,7 @@ public class WifiSelectionFragment extends Fragment {
     private ArrayList<Avert> avertList;
     private ArrayList<Wifi> arrayListWifiRegistered;
     ListView lvWifiRegistered;
-    ListView lvWifi;
-    private float historicX = Float.NaN, historicY = Float.NaN;
-    private static final int DELTA = 50;
+    private static LayoutInflater inflaterDialog = null;
 
     private AdapterView.OnItemClickListener listListenerRegistered = new AdapterView.OnItemClickListener() {
         @Override
@@ -57,6 +56,8 @@ public class WifiSelectionFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        inflaterDialog = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         avertList = getActivity().getIntent().getExtras().getParcelableArrayList("avertList");
 
@@ -161,7 +162,10 @@ public class WifiSelectionFragment extends Fragment {
      */
     public void showValidWifiDialog(final Wifi wifi)
     {
-        final EditText et = new EditText(getActivity());
+        View viewAlertDialog = null;
+        viewAlertDialog = inflaterDialog.inflate(R.layout.alert_dialog_layout, null);
+        final EditText et = (EditText) viewAlertDialog.findViewById(R.id.etMessageToSend);
+        final CheckBox cbMessageReccurent = (CheckBox)viewAlertDialog.findViewById(R.id.cbMessageReccurent);
         final AvertDataSource ads = new AvertDataSource(getActivity());
         et.setText("Je suis arrivé :)", TextView.BufferType.EDITABLE);
 
@@ -169,6 +173,9 @@ public class WifiSelectionFragment extends Fragment {
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(160);
         et.setFilters(filterArray);
+
+        cbMessageReccurent.setText("Rendre récurrent");
+        cbMessageReccurent.setChecked(false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Saisissez le texte à envoyer : ")
@@ -182,6 +189,7 @@ public class WifiSelectionFragment extends Fragment {
                     a.setSsid(wifi.getSsid());
                     a.setLabel(wifi.getLabel());
                     a.setHashcode(wifi.getHashcode());
+                    a.setFlagReccurence(cbMessageReccurent.isChecked());
 
                     ads.addAvert(a);
 
@@ -205,7 +213,7 @@ public class WifiSelectionFragment extends Fragment {
                     }
                 }
 
-        ).setView(et);
+        ).setView(viewAlertDialog);
 
         // Create the AlertDialog object and return it
         builder.create().
