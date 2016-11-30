@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
+        app:tabIndicatorColor="@color/colorWhite"
         app:tabTextColor="#FFFFFF"
         app:tabSelectedTextColor="#FFFFFF"
         android:minHeight="?attr/actionBarSize" />
