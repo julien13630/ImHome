@@ -75,8 +75,6 @@ public class AdapterWifi extends ArrayAdapter<Wifi> {
             }
             holder.display_ssid.setText(lWifi.get(position).getSsid());
 
-
-
         } catch (Exception e) {
 
 

@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import com.dailyvery.apps.imhome.Data.Avert;
+import com.dailyvery.apps.imhome.Interface.BtnClickListener;
 import com.dailyvery.apps.imhome.R;
 
 import java.util.ArrayList;
@@ -15,16 +17,19 @@ import java.util.ArrayList;
 /**
  * Created by JulienSideness on 22/10/2015.
  */
-public class AdapterAvert extends ArrayAdapter<Avert> {
+public class AdapterContact extends ArrayAdapter<Avert> {
     private Activity activity;
+    private BtnClickListener mClickListenerDelete = null;
     private ArrayList<Avert> lAvert;
     private static LayoutInflater inflater = null;
 
-    public AdapterAvert (Activity activity, int textViewResourceId,ArrayList<Avert> _lAvert) {
+    public AdapterContact(Activity activity, int textViewResourceId, ArrayList<Avert> _lAvert, BtnClickListener listenerDelete) {
         super(activity, textViewResourceId, _lAvert);
         try {
             this.activity = activity;
             this.lAvert = _lAvert;
+
+            mClickListenerDelete = listenerDelete;
 
             inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -70,6 +75,15 @@ public class AdapterAvert extends ArrayAdapter<Avert> {
 
             holder.display_name.setText(lAvert.get(position).getContactName());
             holder.display_number.setText(lAvert.get(position).getContactNumber());
+
+            ImageButton btDelete = (ImageButton)vi.findViewById(R.id.imDeleteContact);
+            btDelete.setTag(position);
+            btDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mClickListenerDelete.onBtnClick((Integer) v.getTag());
+                }
+            });
 
         } catch (Exception e) {
 
