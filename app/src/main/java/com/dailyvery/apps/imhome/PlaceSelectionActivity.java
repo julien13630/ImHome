@@ -19,8 +19,8 @@ public class PlaceSelectionActivity extends AppCompatActivity {
         setTitle("ImHome");
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Wifi"));
         tabLayout.addTab(tabLayout.newTab().setText("GPS"));
+        tabLayout.addTab(tabLayout.newTab().setText("Wifi"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

@@ -20,10 +20,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                WifiSelectionFragment tab1 = new WifiSelectionFragment();
+                LocationSelectionFragment tab1 = new LocationSelectionFragment();
                 return tab1;
             case 1:
-                LocationSelectionFragment tab2 = new LocationSelectionFragment();
+                WifiSelectionFragment tab2 = new WifiSelectionFragment();
                 return tab2;
             default:
                 return null;
