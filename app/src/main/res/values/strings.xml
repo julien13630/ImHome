@@ -5,6 +5,7 @@
     <string name="title_activity_wifi_settings">WifiSettings</string>
     <string name="title_activity_wifi_selection">WifiSelectionActivity</string>
     <string name="tvMessagesEnAttente">Messages en attente d\'envoi :</string>
+    <string name="tvContactPrevenir">Contacts à prévenir :</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
