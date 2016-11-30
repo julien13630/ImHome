@@ -106,8 +106,8 @@ public class Avert implements Parcelable {
 
     public double getLatitude() { return latitude; }
 
-    public boolean getFlagReccurence() {
-        return flagReccurence;
+    public int getFlagReccurence() {
+        return flagReccurence ? 1 : 0;
     }
 
     public void setFlagReccurence(boolean flagReccurence){

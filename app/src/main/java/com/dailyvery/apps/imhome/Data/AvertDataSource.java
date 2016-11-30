@@ -115,11 +115,11 @@ public class AvertDataSource {
             String date = avert.getAddDate().toString();
             String contactNumber = avert.getContactNumber();
             int hashCode = avert.getHashcode();
-            boolean flagReccurence = avert.getFlagReccurence();
+            int flagReccurence = avert.getFlagReccurence();
 
             database.delete(MySQLiteHelper.TABLE_AVERT, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
-                    MySQLiteHelper.COLUMN_A_HASHCODE + " = '" + hashCode + "' AND " +  MySQLiteHelper.COLUMN_A_FLAGRECCURENCE + " = " + flagReccurence +
-                    " AND " + MySQLiteHelper.COLUMN_A_DATE + " = '" + date + "'", null);
+                    MySQLiteHelper.COLUMN_A_HASHCODE + " = '" + hashCode + "' AND " +  MySQLiteHelper.COLUMN_A_FLAGRECCURENCE + " = '" + flagReccurence +
+                    "' AND " + MySQLiteHelper.COLUMN_A_DATE + " = '" + date + "'", null);
 
             close();
             System.out.println("Avert deleted : " + avert.getContactName());
@@ -137,11 +137,11 @@ public class AvertDataSource {
 
             ContentValues cv = new ContentValues();
             cv.put(MySQLiteHelper.COLUMN_A_MESSAGETEXT, avert.getMessageText());
-            boolean flagReccurence = avert.getFlagReccurence();
+            int flagReccurence = avert.getFlagReccurence();
 
             database.update(MySQLiteHelper.TABLE_AVERT, cv ,  MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
-                    MySQLiteHelper.COLUMN_A_HASHCODE + " = '" + hashCode + "' AND " + MySQLiteHelper.COLUMN_A_FLAGRECCURENCE + " = " + flagReccurence +
-                    " AND " + MySQLiteHelper.COLUMN_A_DATE + " = '" + date + "'", null);
+                    MySQLiteHelper.COLUMN_A_HASHCODE + " = '" + hashCode + "' AND " + MySQLiteHelper.COLUMN_A_FLAGRECCURENCE + " = '" + flagReccurence +
+                    "' AND " + MySQLiteHelper.COLUMN_A_DATE + " = '" + date + "'", null);
 
             close();
             System.out.println("Avert edited : " + avert.getContactName());
