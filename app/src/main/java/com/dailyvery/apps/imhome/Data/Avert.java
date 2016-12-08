@@ -25,7 +25,7 @@ public class Avert implements Parcelable {
         }
     };
 
-    private String label, ssid, contactName, contactNumber, messageText;
+    private String id, label, ssid, contactName, contactNumber, messageText;
     private int hashcode;
     private double latitude, longitude;
     private Date addDate = new Date();
@@ -38,6 +38,7 @@ public class Avert implements Parcelable {
 
 
     public Avert(Parcel in) {
+        this.id = in.readString();
         this.label = in.readString();
         this.ssid = in.readString();
         this.contactName = in.readString();
@@ -51,6 +52,10 @@ public class Avert implements Parcelable {
         this.addDate = tmpDate ;
         this.flagReccurence = in.readInt() != 0;     //flagReccurence == true if byte != 0
     }
+
+    public String getId() { return id; }
+
+    public void setId(String id) { this.id = id; }
 
     public String getLabel() {
         return label;
@@ -135,6 +140,7 @@ public class Avert implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags){
+        dest.writeString(id);
         dest.writeString(label);
         dest.writeString(ssid);
         dest.writeString(contactName);

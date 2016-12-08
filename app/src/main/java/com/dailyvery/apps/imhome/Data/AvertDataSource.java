@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.text.SimpleDateFormat;
+import java.util.UUID;
 
 /**
  * Created by julie on 22/10/2015.
@@ -21,7 +22,8 @@ public class AvertDataSource {
     // Champs de la base de données
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
-    private String[] allColumns = { MySQLiteHelper.COLUMN_A_LIBELLE,
+    private String[] allColumns = { MySQLiteHelper.COLUMN_A_ID,
+            MySQLiteHelper.COLUMN_A_LIBELLE,
             MySQLiteHelper.COLUMN_A_SSID,
             MySQLiteHelper.COLUMN_A_MESSAGETEXT,
             MySQLiteHelper.COLUMN_A_HASHCODE,
@@ -55,6 +57,7 @@ public class AvertDataSource {
         try{
             open();
             ContentValues values = new ContentValues();
+            values.put(MySQLiteHelper.COLUMN_A_ID, UUID.randomUUID().toString());
             values.put(MySQLiteHelper.COLUMN_A_LIBELLE, libelle);
             values.put(MySQLiteHelper.COLUMN_A_SSID, ssid);
             values.put(MySQLiteHelper.COLUMN_A_MESSAGETEXT, messageText);
@@ -87,6 +90,7 @@ public class AvertDataSource {
         try{
             open();
             ContentValues values = new ContentValues();
+            values.put(MySQLiteHelper.COLUMN_A_ID, UUID.randomUUID().toString());
             values.put(MySQLiteHelper.COLUMN_A_LIBELLE, avert.getLabel());
             values.put(MySQLiteHelper.COLUMN_A_SSID, avert.getSsid());
             values.put(MySQLiteHelper.COLUMN_A_MESSAGETEXT, avert.getMessageText());
@@ -112,14 +116,11 @@ public class AvertDataSource {
     public void deleteAvert(Avert avert) {
         try{
             open();
-            String date = avert.getAddDate().toString();
-            String contactNumber = avert.getContactNumber();
-            int hashCode = avert.getHashcode();
+            String id = avert.getId();
             int flagReccurence = avert.getFlagReccurence();
 
-            database.delete(MySQLiteHelper.TABLE_AVERT, MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
-                    MySQLiteHelper.COLUMN_A_HASHCODE + " = '" + hashCode + "' AND " +  MySQLiteHelper.COLUMN_A_FLAGRECCURENCE + " = '" + flagReccurence +
-                    "' AND " + MySQLiteHelper.COLUMN_A_DATE + " = '" + date + "'", null);
+            database.delete(MySQLiteHelper.TABLE_AVERT, MySQLiteHelper.COLUMN_A_ID + " = '" + id + "' AND " +
+                    MySQLiteHelper.COLUMN_A_FLAGRECCURENCE + " = '" + flagReccurence + "'", null);
 
             close();
             System.out.println("Avert deleted : " + avert.getContactName());
@@ -131,17 +132,13 @@ public class AvertDataSource {
     public void editAvert(Avert avert) {
         try{
             open();
-            String date = avert.getAddDate().toString();
-            String contactNumber = avert.getContactNumber();
-            int hashCode = avert.getHashcode();
+            String id = avert.getId();
 
             ContentValues cv = new ContentValues();
             cv.put(MySQLiteHelper.COLUMN_A_MESSAGETEXT, avert.getMessageText());
             int flagReccurence = avert.getFlagReccurence();
 
-            database.update(MySQLiteHelper.TABLE_AVERT, cv ,  MySQLiteHelper.COLUMN_A_CONTACTNUMBER + " = '" + contactNumber + "' AND " +
-                    MySQLiteHelper.COLUMN_A_HASHCODE + " = '" + hashCode + "' AND " + MySQLiteHelper.COLUMN_A_FLAGRECCURENCE + " = '" + flagReccurence +
-                    "' AND " + MySQLiteHelper.COLUMN_A_DATE + " = '" + date + "'", null);
+            database.update(MySQLiteHelper.TABLE_AVERT, cv ,  MySQLiteHelper.COLUMN_A_ID + " = '" + id + "'", null);
 
             close();
             System.out.println("Avert edited : " + avert.getContactName());
@@ -185,6 +182,7 @@ public class AvertDataSource {
             e.printStackTrace();
         }
 
+        avert.setId(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_ID)));
         avert.setHashcode(cursor.getInt(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_HASHCODE)));
         avert.setLabel(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_LIBELLE)));
         avert.setSsid(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_SSID)));
