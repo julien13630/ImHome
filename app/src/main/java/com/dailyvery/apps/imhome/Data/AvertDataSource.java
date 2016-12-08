@@ -113,14 +113,16 @@ public class AvertDataSource {
         }
     }
 
-    public void deleteAvert(Avert avert) {
+    public void deleteAvert(Avert avert, boolean automatic) {
         try{
             open();
             String id = avert.getId();
-            int flagReccurence = 0;
 
-            database.delete(MySQLiteHelper.TABLE_AVERT, MySQLiteHelper.COLUMN_A_ID + " = '" + id + "' AND " +
-                    MySQLiteHelper.COLUMN_A_FLAGRECCURENCE + " = '" + flagReccurence + "'", null);
+            if(automatic){
+                //TODO Disable avert
+            }else{
+                database.delete(MySQLiteHelper.TABLE_AVERT, MySQLiteHelper.COLUMN_A_ID + " = '" + id + "'", null);
+            }
 
             close();
             System.out.println("Avert deleted : " + avert.getContactName());

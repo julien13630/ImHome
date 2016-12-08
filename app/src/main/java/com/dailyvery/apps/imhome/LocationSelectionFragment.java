@@ -2,6 +2,7 @@ package com.dailyvery.apps.imhome;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,14 +18,17 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.dailyvery.apps.imhome.Data.Avert;
@@ -46,6 +50,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -62,12 +67,16 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     private Button btValider;
     private ArrayList<Avert> avertList;
     private static LayoutInflater inflaterDialog = null;
+    private TimePickerDialog.OnTimeSetListener timeSetListener = null;
+    private Date dateReccurence;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_location_selection, container, false);
 
         inflaterDialog = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        dateReccurence = null;
 
         avertList = getActivity().getIntent().getExtras().getParcelableArrayList("avertList");
 
@@ -241,9 +250,38 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         View viewAlertDialog = null;
         viewAlertDialog = inflaterDialog.inflate(R.layout.alert_dialog_layout, null);
         final CheckBox cbMessageReccurent = (CheckBox)viewAlertDialog.findViewById(R.id.cbMessageReccurent);
-        final EditText et = (EditText) viewAlertDialog.findViewById(R.id.etMessageToSend);;
+        final EditText et = (EditText) viewAlertDialog.findViewById(R.id.etMessageToSend);
         final AvertDataSource ads = new AvertDataSource(getActivity());
         et.setText("Je suis arrivé :)", TextView.BufferType.EDITABLE);
+        final Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+
+        timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+
+            }
+        };
+
+        final TimePickerDialog tpd = new TimePickerDialog(getActivity(), timeSetListener,
+                hour, minute, DateFormat.is24HourFormat(getActivity()));
+        tpd.setCancelable(false);
+        tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                cbMessageReccurent.setChecked(false);
+            }
+        });
+
+        cbMessageReccurent.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                if(checked){
+                    tpd.show();
+                }
+            }
+        });
 
         //On limite le text a 160 caractères
         InputFilter[] filterArray = new InputFilter[1];
@@ -260,7 +298,9 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                                 try {
                                     ads.open();
                                     for (Avert a : avertList) {
-                                        a.setAddDate(new Date());
+                                        if (dateReccurence != null){
+                                            a.setAddDate(dateReccurence);
+                                        }
                                         a.setMessageText(et.getText().toString());
                                         a.setLatitude(location.latitude);
                                         a.setLongitude(location.longitude);

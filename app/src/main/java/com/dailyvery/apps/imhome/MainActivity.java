@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onBtnClick(int position) {
                 AvertDataSource avertDT = new AvertDataSource(MainActivity.this);
-                avertDT.deleteAvert(avertList.get(position));
+                avertDT.deleteAvert(avertList.get(position), false);
                 avertList.remove(avertList.get(position));
                 adapter.notifyDataSetChanged();
                 avertDT.close();

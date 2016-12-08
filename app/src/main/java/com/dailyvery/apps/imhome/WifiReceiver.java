@@ -79,7 +79,7 @@ public class WifiReceiver extends BroadcastReceiver {
                                         createNotification(context, "Message envoyé à " + a.getContactName(), notifID++);
                                     }
                                     if(a.getFlagReccurence() == 0){
-                                        ads.deleteAvert(a);
+                                        ads.deleteAvert(a, true);
                                     }
                                 }
                             }

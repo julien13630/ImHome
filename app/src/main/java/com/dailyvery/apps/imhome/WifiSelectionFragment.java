@@ -1,6 +1,7 @@
 package com.dailyvery.apps.imhome;
 
 import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,14 +11,17 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.InputFilter;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.dailyvery.apps.imhome.Adapter.AdapterWifi;
 import com.dailyvery.apps.imhome.Data.Avert;
@@ -27,6 +31,7 @@ import com.dailyvery.apps.imhome.Data.WifiDataSource;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +45,8 @@ public class WifiSelectionFragment extends Fragment {
     private ArrayList<Wifi> arrayListWifiRegistered;
     ListView lvWifiRegistered;
     private static LayoutInflater inflaterDialog = null;
+    private TimePickerDialog.OnTimeSetListener timeSetListener = null;
+    private Date dateReccurence;
 
     private AdapterView.OnItemClickListener listListenerRegistered = new AdapterView.OnItemClickListener() {
         @Override
@@ -58,6 +65,8 @@ public class WifiSelectionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         inflaterDialog = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        dateReccurence = null;
 
         avertList = getActivity().getIntent().getExtras().getParcelableArrayList("avertList");
 
@@ -169,6 +178,36 @@ public class WifiSelectionFragment extends Fragment {
         final AvertDataSource ads = new AvertDataSource(getActivity());
         et.setText("Je suis arrivé :)", TextView.BufferType.EDITABLE);
 
+        final Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+
+        timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+
+            }
+        };
+
+        final TimePickerDialog tpd = new TimePickerDialog(getActivity(), timeSetListener,
+                hour, minute, DateFormat.is24HourFormat(getActivity()));
+        tpd.setCancelable(false);
+        tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                cbMessageReccurent.setChecked(false);
+            }
+        });
+
+        cbMessageReccurent.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                if(checked){
+                    tpd.show();
+                }
+            }
+        });
+
         //On limite le text a 160 caractères
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(160);
@@ -184,7 +223,9 @@ public class WifiSelectionFragment extends Fragment {
                         try {
                             ads.open();
                             for (Avert a : avertList) {
-                                a.setAddDate(new Date());
+                                if(dateReccurence != null){
+                                    a.setAddDate(dateReccurence);
+                                }
                                 a.setMessageText(et.getText().toString());
                                 a.setSsid(wifi.getSsid());
                                 a.setLabel(wifi.getLabel());

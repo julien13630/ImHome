@@ -75,7 +75,7 @@ public class MyService extends Service
                         if(prefs.getBoolean("notifications_new_message", true)){
                             createNotification(getApplicationContext(), "Message envoyé à " + a.getContactName(), notifID++);
                         }
-                        ads.deleteAvert(a);
+                        ads.deleteAvert(a, true);
                         avertList = ads.getAllAvert();
                     } catch (SQLException e) {
                         e.printStackTrace();
