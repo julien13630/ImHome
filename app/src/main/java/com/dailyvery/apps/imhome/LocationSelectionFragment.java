@@ -2,6 +2,7 @@ package com.dailyvery.apps.imhome;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -21,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,10 +61,13 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     private LatLng location;
     private Button btValider;
     private ArrayList<Avert> avertList;
+    private static LayoutInflater inflaterDialog = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_location_selection, container, false);
+
+        inflaterDialog = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         avertList = getActivity().getIntent().getExtras().getParcelableArrayList("avertList");
 
@@ -233,7 +238,10 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
      */
     public void showValidLocationDialog(final LatLng location)
     {
-        final EditText et = new EditText(getActivity());
+        View viewAlertDialog = null;
+        viewAlertDialog = inflaterDialog.inflate(R.layout.alert_dialog_layout, null);
+        final CheckBox cbMessageReccurent = (CheckBox)viewAlertDialog.findViewById(R.id.cbMessageReccurent);
+        final EditText et = (EditText) viewAlertDialog.findViewById(R.id.etMessageToSend);;
         final AvertDataSource ads = new AvertDataSource(getActivity());
         et.setText("Je suis arrivé :)", TextView.BufferType.EDITABLE);
 
@@ -241,6 +249,9 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(160);
         et.setFilters(filterArray);
+
+        cbMessageReccurent.setText("Rendre récurrent");
+        cbMessageReccurent.setChecked(false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Saisissez le texte à envoyer : ")
@@ -253,6 +264,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                                         a.setMessageText(et.getText().toString());
                                         a.setLatitude(location.latitude);
                                         a.setLongitude(location.longitude);
+                                        a.setFlagReccurence(cbMessageReccurent.isChecked());
                                         ads.addAvert(a);
 
                                     }
@@ -277,7 +289,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                     }
                 }
 
-        ).setView(et);
+        ).setView(viewAlertDialog);
 
         // Create the AlertDialog object and return it
         builder.create().

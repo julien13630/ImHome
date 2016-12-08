@@ -33,8 +33,8 @@ public class MyService extends Service
 {
     private static final String TAG = "MyService";
     private LocationManager mLocationManager = null;
-    private static final int LOCATION_INTERVAL = 120000;
-    private static final float LOCATION_DISTANCE = 50f;
+    private static final int LOCATION_INTERVAL = 1000;
+    private static final float LOCATION_DISTANCE = 1f;
     private boolean mRunning = false;
     private List<Avert> avertList;
 
