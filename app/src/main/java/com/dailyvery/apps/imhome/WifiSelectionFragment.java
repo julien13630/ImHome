@@ -191,7 +191,7 @@ public class WifiSelectionFragment extends Fragment {
                 dateReccurence = cal.getTime();
 
                 cbMessageReccurent.setText(getString(R.string.cbRecurrenceSet) + cal.get(Calendar.HOUR_OF_DAY) +
-                        "h" + cal.get(Calendar.MINUTE));
+                        "h" + cal.get(Calendar.MINUTE) + "min");
             }
         };
 
