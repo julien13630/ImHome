@@ -185,7 +185,13 @@ public class WifiSelectionFragment extends Fragment {
         timeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.HOUR_OF_DAY, hour);
+                cal.set(Calendar.MINUTE, minute);
+                dateReccurence = cal.getTime();
 
+                cbMessageReccurent.setText(getString(R.string.cbRecurrenceSet) + cal.get(Calendar.HOUR_OF_DAY) +
+                        "h" + cal.get(Calendar.MINUTE));
             }
         };
 
@@ -196,6 +202,7 @@ public class WifiSelectionFragment extends Fragment {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
                 cbMessageReccurent.setChecked(false);
+                cbMessageReccurent.setText(getString(R.string.cbRecurrence));
             }
         });
 
@@ -204,6 +211,8 @@ public class WifiSelectionFragment extends Fragment {
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 if(checked){
                     tpd.show();
+                }else{
+                    cbMessageReccurent.setText(getString(R.string.cbRecurrence));
                 }
             }
         });

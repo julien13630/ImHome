@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -260,7 +261,13 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         timeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.HOUR_OF_DAY, hour);
+                cal.set(Calendar.MINUTE, minute);
+                dateReccurence = cal.getTime();
 
+                cbMessageReccurent.setText(getString(R.string.cbRecurrenceSet) + cal.get(Calendar.HOUR_OF_DAY) +
+                                    "h" + cal.get(Calendar.MINUTE));
             }
         };
 
@@ -271,6 +278,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
             @Override
             public void onCancel(DialogInterface dialogInterface) {
                 cbMessageReccurent.setChecked(false);
+                cbMessageReccurent.setText(getString(R.string.cbRecurrence));
             }
         });
 
@@ -279,6 +287,8 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 if(checked){
                     tpd.show();
+                }else {
+                    cbMessageReccurent.setText(getString(R.string.cbRecurrence));
                 }
             }
         });
@@ -288,7 +298,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         filterArray[0] = new InputFilter.LengthFilter(160);
         et.setFilters(filterArray);
 
-        cbMessageReccurent.setText("Rendre récurrent");
+        cbMessageReccurent.setText(getString(R.string.cbRecurrence));
         cbMessageReccurent.setChecked(false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
