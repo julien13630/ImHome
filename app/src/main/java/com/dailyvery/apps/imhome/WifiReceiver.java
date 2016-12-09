@@ -39,7 +39,7 @@ public class WifiReceiver extends BroadcastReceiver {
         // build notification
         // the addAction re-use the same intent to keep the dailyvery short
         Notification n  = new Notification.Builder(context)
-                .setContentTitle("ImHome Message Envoyé")
+                .setContentTitle(context.getString(R.string.notifName))
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_done_white_24dp)
                 .setContentIntent(pIntent)
@@ -74,9 +74,9 @@ public class WifiReceiver extends BroadcastReceiver {
                                 if (a.getSsid().compareTo(ssid.substring(1, ssid.length() - 1)) == 0) {
 
                                     SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
-                                    Toast.makeText(context, "ImHome : Message envoyé à " + a.getContactName(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(context, context.getString(R.string.notifMessageSentTo) + a.getContactName(), Toast.LENGTH_LONG).show();
                                     if(prefs.getBoolean("notifications_new_message", true)){
-                                        createNotification(context, "Message envoyé à " + a.getContactName(), notifID++);
+                                        createNotification(context, context.getString(R.string.notifMessageSentTo) + a.getContactName(), notifID++);
                                     }
                                     if(a.getFlagReccurence() == 0){
                                         ads.deleteAvert(a, true);

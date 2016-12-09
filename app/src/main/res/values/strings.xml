@@ -1,15 +1,29 @@
 <resources>
     <string name="app_name">ImHome</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_contact">ContactActivity</string>
-    <string name="title_activity_wifi_settings">WifiSettings</string>
-    <string name="title_activity_wifi_selection">WifiSelectionActivity</string>
+    <string name="title_activity_contact" translatable="false">ContactActivity</string>
+    <string name="title_activity_wifi_settings" translatable="false">WifiSettings</string>
+    <string name="title_activity_wifi_selection" translatable="false">WifiSelectionActivity</string>
     <string name="tvMessagesEnAttente">Messages en attente d\'envoi :</string>
     <string name="tvContactPrevenir">Contacts à prévenir :</string>
     <string name="tvListWifi">Liste des wifis enregistrés :</string>
     <string name="title_activity_settings">Settings</string>
     <string name="cbRecurrence">Rendre récurrent</string>
     <string name="cbRecurrenceSet">Rendre récurrent à : </string>
+    <string name="defaultMessage">Je suis arrivé :)</string>
+    <string name="tvPleaseEnterMessageText">Saisissez le texte à envoyer : </string>
+    <string name="tvPleaseEnterMessageTextNew">Saisissez le nouveau texte à envoyer : </string>
+    <string name="validate">Valider</string>
+    <string name="cancel">Annuler</string>
+    <string name="tvPleaseEnableWifi">Veuillez activer le wifi</string>
+    <string name="tvNoMessages">Pas de messages !</string>
+    <string name="tvNoRecipient">Pas de destinataire !</string>
+    <string name="tvSelectNumber">Selectionner un numero : </string>
+    <string name="tstRecipientTwiceForbidden">Impossible d\'ajouter deux fois le meme numéro</string>
+    <string name="notifMessageSentTo">Message envoyé à </string>
+    <string name="notifName">ImHome Message Envoyé</string>
+    <string name="GPS">GPS</string>
+    <string name="Wifi">Wifi</string>
 
     <!-- Strings related to Settings -->
 
@@ -89,5 +103,5 @@
     <string name="label_pref_version">Version application</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 </resources>

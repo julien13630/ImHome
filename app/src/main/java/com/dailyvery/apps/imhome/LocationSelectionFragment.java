@@ -253,7 +253,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         final CheckBox cbMessageReccurent = (CheckBox)viewAlertDialog.findViewById(R.id.cbMessageReccurent);
         final EditText et = (EditText) viewAlertDialog.findViewById(R.id.etMessageToSend);
         final AvertDataSource ads = new AvertDataSource(getActivity());
-        et.setText("Je suis arrivé :)", TextView.BufferType.EDITABLE);
+        et.setText(getString(R.string.defaultMessage), TextView.BufferType.EDITABLE);
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
@@ -302,8 +302,8 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         cbMessageReccurent.setChecked(false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Saisissez le texte à envoyer : ")
-                .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+        builder.setMessage(getString(R.string.tvPleaseEnterMessageText))
+                .setPositiveButton(getString(R.string.validate), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 try {
                                     ads.open();
@@ -333,7 +333,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                             }
                         }
 
-                ).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                ).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                     }

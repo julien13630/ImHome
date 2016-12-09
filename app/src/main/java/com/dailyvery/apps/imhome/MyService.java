@@ -73,7 +73,7 @@ public class MyService extends Service
                         Log.e(TAG, "ON Y EST !!");
                         SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
                         if(prefs.getBoolean("notifications_new_message", true)){
-                            createNotification(getApplicationContext(), "Message envoyé à " + a.getContactName(), notifID++);
+                            createNotification(getApplicationContext(), getString(R.string.notifMessageSentTo) + a.getContactName(), notifID++);
                         }
                         ads.deleteAvert(a, true);
                         avertList = ads.getAllAvert();
@@ -123,7 +123,7 @@ public class MyService extends Service
             // build notification
             // the addAction re-use the same intent to keep the dailyvery short
             Notification n  = new Notification.Builder(context)
-                    .setContentTitle("ImHome Message Envoyé")
+                    .setContentTitle(getString(R.string.notifName))
                     .setContentText(message)
                     .setSmallIcon(R.drawable.ic_done_white_24dp)
                     .setContentIntent(pIntent)

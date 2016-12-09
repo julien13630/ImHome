@@ -46,7 +46,7 @@ public class ContactActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("ImHome");
+        setTitle(getString(R.string.app_name));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +72,7 @@ public class ContactActivity extends AppCompatActivity {
         lvContact = (ListView)findViewById(R.id.listContact);
 
         TextView tvEmptyText = (TextView)findViewById(R.id.tvEmptyListContact);
-        tvEmptyText.setText("Pas de destinataires !");
+        tvEmptyText.setText(getString(R.string.tvNoRecipient));
 
         lvContact.setEmptyView(findViewById(R.id.emptyListContact));
 
@@ -147,7 +147,7 @@ public class ContactActivity extends AppCompatActivity {
                 if(tmpAvertList.size() > 1 ){
                     AlertDialog.Builder builderSingle = new AlertDialog.Builder(ContactActivity.this);
                     builderSingle.setIcon(R.drawable.ic_add_white_24dp);
-                    builderSingle.setTitle(" Selectionner un numero : ");
+                    builderSingle.setTitle(getString(R.string.tvSelectNumber));
 
                     final ArrayAdapter<Avert> arrayAdapter = new ArrayAdapter<Avert>(
                             ContactActivity.this,
@@ -157,7 +157,7 @@ public class ContactActivity extends AppCompatActivity {
                     }
 
                     builderSingle.setNegativeButton(
-                            "Annuler",
+                            getString(R.string.cancel),
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -179,7 +179,7 @@ public class ContactActivity extends AppCompatActivity {
                                     if(!exists){
                                         avertList.add(arrayAdapter.getItem(which)); // Stock le contact dans le tableau
                                     }else{
-                                        Toast.makeText(getApplicationContext(), "Impossible d'ajouter deux fois le meme numéro", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), getString(R.string.tstRecipientTwiceForbidden), Toast.LENGTH_LONG).show();
                                     }
                                     addToContactList(avertList);
                                     setFabOkVisibility();
@@ -196,7 +196,7 @@ public class ContactActivity extends AppCompatActivity {
                     if(!exists){
                         avertList.add(tmpAvertList.get(0)); // Stock le contact dans le tableau
                     }else{
-                        Toast.makeText(getApplicationContext(), "Impossible d'ajouter deux fois le meme numéro", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.tstRecipientTwiceForbidden), Toast.LENGTH_LONG).show();
                     }
                     addToContactList(avertList);
                     setFabOkVisibility();

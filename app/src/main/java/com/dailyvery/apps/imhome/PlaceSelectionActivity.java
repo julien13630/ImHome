@@ -16,11 +16,11 @@ public class PlaceSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_place_selection);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tbPlaceSelection);
         setSupportActionBar(toolbar);
-        setTitle("ImHome");
+        setTitle(getString(R.string.app_name));
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("GPS"));
-        tabLayout.addTab(tabLayout.newTab().setText("Wifi"));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.GPS)));
+        tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.Wifi)));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

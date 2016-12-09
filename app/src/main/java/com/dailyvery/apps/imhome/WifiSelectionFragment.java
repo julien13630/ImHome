@@ -88,7 +88,7 @@ public class WifiSelectionFragment extends Fragment {
         this.wifiManager = (WifiManager)getActivity().getSystemService(Context.WIFI_SERVICE);
         if (!wifiManager.isWifiEnabled()){
             //wifiManager.setWifiEnabled(true);
-            showDialogWifiChoice("Veuillez activer le wifi", this);
+            showDialogWifiChoice(getString(R.string.tvPleaseEnableWifi), this);
         }else {
             initListsWifi(view);
         }
@@ -142,7 +142,7 @@ public class WifiSelectionFragment extends Fragment {
         builderSingle.setTitle(title);
 
         builderSingle.setNegativeButton(
-                "Annuler",
+                getString(R.string.cancel),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -151,7 +151,7 @@ public class WifiSelectionFragment extends Fragment {
                 });
 
         builderSingle.setPositiveButton(
-                "Valider",
+                getString(R.string.validate),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -176,7 +176,7 @@ public class WifiSelectionFragment extends Fragment {
         final EditText et = (EditText) viewAlertDialog.findViewById(R.id.etMessageToSend);
         final CheckBox cbMessageReccurent = (CheckBox)viewAlertDialog.findViewById(R.id.cbMessageReccurent);
         final AvertDataSource ads = new AvertDataSource(getActivity());
-        et.setText("Je suis arrivé :)", TextView.BufferType.EDITABLE);
+        et.setText(getString(R.string.defaultMessage), TextView.BufferType.EDITABLE);
 
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
@@ -222,12 +222,12 @@ public class WifiSelectionFragment extends Fragment {
         filterArray[0] = new InputFilter.LengthFilter(160);
         et.setFilters(filterArray);
 
-        cbMessageReccurent.setText("Rendre récurrent");
+        cbMessageReccurent.setText(getString(R.string.cbRecurrence));
         cbMessageReccurent.setChecked(false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Saisissez le texte à envoyer : ")
-                .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+        builder.setMessage(getString(R.string.tvPleaseEnterMessageText))
+                .setPositiveButton(getString(R.string.validate), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         try {
                             ads.open();
@@ -257,7 +257,7 @@ public class WifiSelectionFragment extends Fragment {
                         }
                     }
 
-                ).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                ).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                     }

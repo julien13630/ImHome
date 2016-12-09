@@ -36,8 +36,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private List<Avert> avertList;
-    private float historicX = Float.NaN, historicY = Float.NaN;
-    private static final int DELTA = 50;
     private AdapterMain adapter = null;
     private static LayoutInflater inflater = null;
     private ListView lvMain;
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("ImHome");
+        setTitle(getString(R.string.app_name));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         lvMain = (ListView) findViewById(R.id.listMain);
 
         TextView tvEmptyText = (TextView)findViewById(R.id.tvEmptyList);
-        tvEmptyText.setText("Pas de messages !");
+        tvEmptyText.setText(getString(R.string.tvNoMessages));
 
         lvMain.setEmptyView(findViewById(R.id.emptyListMain));
 
@@ -157,8 +155,8 @@ public class MainActivity extends AppCompatActivity {
                 et.setFilters(filterArray);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setMessage("Saisissez le nouveau texte à envoyer : ")
-                        .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                builder.setMessage(getString(R.string.tvPleaseEnterMessageTextNew))
+                        .setPositiveButton(getString(R.string.validate), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         AvertDataSource avertDT = new AvertDataSource(MainActivity.this);
                                         avertList.get(position).setMessageText(et.getText().toString());
@@ -168,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 }
 
-                        ).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                        ).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 // User cancelled the dialog
                             }
