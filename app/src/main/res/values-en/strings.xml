@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ImHome</string>
+    <string name="action_settings">Settings</string>
+    <string name="cbRecurrence">Make recurrent</string>
+    <string name="cbRecurrenceSet">Make recurrent at :</string>
+    <string name="label_pref_version">App version</string>
+    <string name="pref_description_authorize_gps">Allows ImHome to get a precise location using GPS</string>
+    <string name="pref_description_authorize_wifi">Allows ImHome to consume less battery using wifi rather than GPS</string>
+    <string name="pref_header_data_sync">Authorizations</string>
+    <string name="pref_header_general">General</string>
+    <string name="pref_header_notifications">Notifications</string>
+    <string name="pref_ringtone_silent">Silent mode</string>
+    <string name="pref_summary_localisation_slider">GPS precision (in meters)</string>
+    <string name="pref_title_authorize_gps">Authorize GPS access</string>
+    <string name="pref_title_authorize_wifi">Authorize wifi access</string>
+    <string name="pref_title_category_localisation">Locating</string>
+    <string name="pref_title_category_notification">Notification</string>
+    <string name="pref_title_category_synchronization">Synchronization</string>
+    <string name="pref_title_language">Language</string>
+    <string name="pref_title_new_message_notifications">Display notification message sent</string>
+    <string name="pref_title_notification_distance">Distance to target</string>
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_title_sync_frequency">Refresh rate</string>
+    <string name="pref_title_system_sync_settings">Sync with Google</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="tvContactPrevenir">People to contact :</string>
+    <string name="tvListWifi">List of wifi registered:</string>
+    <string name="tvMessagesEnAttente">Messages waiting to be sent:</string>
+    <string name="cancel">Cancel</string>
+    <string name="defaultMessage">I\'m home :)</string>
+    <string name="tvPleaseEnableWifi">Please enable wifi</string>
+    <string name="tvPleaseEnterMessageText">Type text to be sent:</string>
+    <string name="validate">OK</string>
+    <string name="GPS">GPS</string>
+    <string name="Wifi">Wifi</string>
+    <string name="notifMessageSentTo">Message sent to</string>
+    <string name="notifName">ImHome Message Sent</string>
+    <string name="tstRecipientTwiceForbidden">Forbidden to add twice the same number</string>
+    <string name="tvNoMessages">No messages !</string>
+    <string name="tvNoRecipient">No Recipient !</string>
+    <string name="tvPleaseEnterMessageTextNew">Type new text to send :</string>
+    <string name="tvSelectNumber">Select a phone number :</string>
+    <string name="pref_title_vibrate">Vibration</string>
+</resources>

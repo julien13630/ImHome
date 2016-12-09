@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ImHome</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="cbRecurrence">Rendre récurrent</string>
+    <string name="cbRecurrenceSet">Rendre récurrent à :</string>
+    <string name="label_pref_version">Version application</string>
+    <string name="pref_description_authorize_gps">Permet à ImHome d\'avoir une localisation plus precise en se servant de la position gps du téléphone</string>
+    <string name="pref_description_authorize_wifi">Permet à ImHome         d\'utiliser moins de batterie que le gps en se servant des noms wifi comme repère</string>
+    <string name="pref_header_data_sync">Autorisations</string>
+    <string name="pref_header_general">General</string>
+    <string name="pref_header_notifications">Notifications</string>
+    <string name="pref_ringtone_silent">Mode silentieux</string>
+    <string name="pref_summary_localisation_slider">Précision de la localisation gps en mètre</string>
+    <string name="pref_title_authorize_gps">Autoriser accès au gps</string>
+    <string name="pref_title_authorize_wifi">Autoriser accès au wifi</string>
+    <string name="pref_title_category_localisation">Localisation</string>
+    <string name="pref_title_category_notification">Notification</string>
+    <string name="pref_title_category_synchronization">Synchronisation</string>
+    <string name="pref_title_language">Langue</string>
+    <string name="pref_title_new_message_notifications">Afficher notification message envoyé</string>
+    <string name="pref_title_notification_distance">Distance de localisation</string>
+    <string name="pref_title_ringtone">Sonnerie</string>
+    <string name="pref_title_sync_frequency">Fréquence d\'actualisation</string>
+    <string name="pref_title_system_sync_settings">Synchroniser compte google</string>
+    <string name="pref_title_vibrate">Vibreur</string>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="tvContactPrevenir">Contacts à prévenir :</string>
+    <string name="tvListWifi">Liste des wifis enregistrés :</string>
+    <string name="tvMessagesEnAttente">Messages en attente d\'envoi :</string>
+    <string name="cancel">Annuler</string>
+    <string name="defaultMessage">Je suis arrivé :)</string>
+    <string name="tvPleaseEnableWifi">Veuillez activer le wifi</string>
+    <string name="tvPleaseEnterMessageText">Saisissez le texte à envoyer :</string>
+    <string name="validate">Valider</string>
+    <string name="GPS">GPS</string>
+    <string name="Wifi">Wifi</string>
+    <string name="notifMessageSentTo">Message envoyé à</string>
+    <string name="notifName">ImHome Message Envoyé</string>
+    <string name="tstRecipientTwiceForbidden">Impossible d\'ajouter deux fois le meme numéro</string>
+    <string name="tvNoMessages">Pas de messages !</string>
+    <string name="tvNoRecipient">Pas de destinataire !</string>
+    <string name="tvPleaseEnterMessageTextNew">Saisissez le nouveau texte à envoyer :</string>
+    <string name="tvSelectNumber">Selectionner un numero :</string>
+</resources>
