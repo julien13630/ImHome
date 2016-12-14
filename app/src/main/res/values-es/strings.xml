@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">"Estoy en casa"</string>
+    <string name="action_settings">"Ajustes"</string>
+    <string name="cbRecurrence">"Hacer recurrente"</string>
+    <string name="cbRecurrenceSet">"Hacer recurrente es:"</string>
+    <string name="label_pref_version">"Versión de Aplicación"</string>
+    <string name="pref_description_authorize_gps">"Permite una ImHome Obtener Una Descripción de la ubicación Precisa Mediante GPS"</string>
+    <string name="pref_description_authorize_wifi">"Permite una ImHome Consumir Menos Batería Usando wifi Que GPS"</string>
+    <string name="pref_header_data_sync">"Autorizaciones"</string>
+    <string name="pref_header_general">"Generales"</string>
+    <string name="pref_header_notifications">"Notificaciones"</string>
+    <string name="pref_ringtone_silent">"Modo silencioso"</string>
+    <string name="pref_summary_localisation_slider">"precisión GPS (en metros)"</string>
+    <string name="pref_title_authorize_gps">"Autorizar el acceso GPS"</string>
+    <string name="pref_title_authorize_wifi">"Autorizar el acceso wifi"</string>
+    <string name="pref_title_category_localisation">"localizando"</string>
+    <string name="pref_title_category_notification">"Notificación"</string>
+    <string name="pref_title_category_synchronization">"Sincronización"</string>
+    <string name="pref_title_language">"Idioma"</string>
+    <string name="pref_title_new_message_notifications">"mensaje de notificación enviado pantalla"</string>
+    <string name="pref_title_notification_distance">"La distancia al objetivo"</string>
+    <string name="pref_title_ringtone">"Tono de llamada"</string>
+    <string name="pref_title_sync_frequency">"Frecuencia de actualización"</string>
+    <string name="pref_title_system_sync_settings">"Sincronizar con Google"</string>
+    <string name="title_activity_settings">"ajustes"</string>
+    <string name="tvContactPrevenir">"Personas de contacto:"</string>
+    <string name="tvListWifi">"Lista de wifi registrado:"</string>
+    <string name="tvMessagesEnAttente">"Mensajes en espera para ser enviados:"</string>
+    <string name="cancel">"Cancelar"</string>
+    <string name="defaultMessage">"Llegué. "</string>
+    <string name="tvPleaseEnableWifi">"Por favor, activa wifi"</string>
+    <string name="tvPleaseEnterMessageText">"Escribe texto que se enviará:"</string>
+    <string name="validate">"DE ACUERDO"</string>
+    <string name="GPS">"GP"</string>
+    <string name="Wifi">"WiFi"</string>
+    <string name="notifMessageSentTo">"Mensaje enviado a"</string>
+    <string name="notifName">"ImHome mensaje enviado"</string>
+    <string name="tstRecipientTwiceForbidden">"Prohibido añadir dos veces el mismo número"</string>
+    <string name="tvNoMessages">"Ningún mensaje !"</string>
+    <string name="tvNoRecipient">"Sin destinatario !"</string>
+    <string name="tvPleaseEnterMessageTextNew">"Escribir un nuevo texto para enviar:"</string>
+    <string name="tvSelectNumber">"Seleccionar un número de teléfono:"</string>
+    <string name="pref_title_vibrate">"Vibración"</string>
+
+    <string-array name="pref_sync_frequency_titles">
+        <item>"15 minutos"</item>
+        <item>"30 minutos"</item>
+        <item>"1 heure"</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>"15"</item>
+        <item>"30"</item>
+        <item>"60 "</item>
+    </string-array>
+
+    <string-array name="pref_array_language_title">
+        <item>"Français
+"</item>1
+        <item>"English Inglés"</item>
+        <item>"Espanõl"</item>
+    </string-array>
+    <string-array name="pref_language_value">
+        <item>"1 "</item>
+        <item>"2"</item>
+        <item>"3 "</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>"// Entrada (Entry)"</item>
+        <item>"// Entrada (Entry)"</item>
+        <item>"// Entrada (Entry)"</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>"1 "</item>
+        <item>"2"</item>
+        <item>"3 "</item>
+    </string-array>
+</resources>
