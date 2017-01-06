@@ -118,7 +118,7 @@ public class AvertDataSource {
             open();
             String id = avert.getId();
 
-            if(automatic){
+            if(automatic && avert.getFlagReccurence() == 1){
                 //TODO Disable avert
             }else{
                 database.delete(MySQLiteHelper.TABLE_AVERT, MySQLiteHelper.COLUMN_A_ID + " = '" + id + "'", null);
