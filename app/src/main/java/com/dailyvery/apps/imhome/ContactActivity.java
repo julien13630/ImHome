@@ -81,6 +81,7 @@ public class ContactActivity extends AppCompatActivity {
             public void onBtnClick(int position) {
                 avertList.remove(position);
                 adapter.notifyDataSetChanged();
+                setFabOkVisibility();
             }
         };
 
