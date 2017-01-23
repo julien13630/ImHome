@@ -21,6 +21,9 @@
     <string name="tvSelectNumber">Selectionner un numero : </string>
     <string name="tstRecipientTwiceForbidden">Impossible d\'ajouter deux fois le meme numéro</string>
     <string name="notifMessageSentTo">Message envoyé à </string>
+    <string name="notifMessageCriticalBattery">Batterie niveau critique</string>
+    <string name="recipientAlerted">a été prévenu</string>
+    <string name="messageCriticalBattery">J\'ai presque plus de batterie je t\'envois mon message d\'arrivé quand je rallume mon portable</string>
     <string name="notifName">ImHome Message Envoyé</string>
     <string name="GPS">GPS</string>
     <string name="Wifi">Wifi</string>
@@ -104,4 +107,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
+
 </resources>
