@@ -77,4 +77,6 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+    <string name="messageCriticalBattery">J\'ai presque plus de batterie je t\'envoie mon message d\'arrivée quand je rallume mon portable</string>
+    <string name="notifMessageCriticalBattery">Batterie niveau critique</string>
 </resources>

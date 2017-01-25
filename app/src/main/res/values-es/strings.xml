@@ -76,4 +76,7 @@
         <item>"2"</item>
         <item>"3 "</item>
     </string-array>
+    <string name="messageCriticalBattery">\"Estoy casi sin batería les envío mis mensajes de llegada cuando me reavivó mi portátil\"</string>
+    <string name="notifMessageCriticalBattery">\"Nivel crítico de batería\"</string>
+    <string name="recipientAlerted">\"fue advertido\"</string>
 </resources>

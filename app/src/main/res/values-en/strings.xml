@@ -76,4 +76,7 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+    <string name="messageCriticalBattery">I\'m out of battery. I\'ll get in touch with you when I\'ll turn my phone back on</string>
+    <string name="notifMessageCriticalBattery">Critical battery level</string>
+    <string name="recipientAlerted">has been warned</string>
 </resources>
