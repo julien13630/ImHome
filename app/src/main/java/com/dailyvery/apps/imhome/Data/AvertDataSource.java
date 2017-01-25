@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.Settings;
+import android.util.Log;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.UUID;
 
 /**
@@ -138,6 +141,7 @@ public class AvertDataSource {
 
             ContentValues cv = new ContentValues();
             cv.put(MySQLiteHelper.COLUMN_A_MESSAGETEXT, avert.getMessageText());
+            cv.put(MySQLiteHelper.COLUMN_A_DATE, avert.getAddDate().toString());
             int flagReccurence = avert.getFlagReccurence();
 
             database.update(MySQLiteHelper.TABLE_AVERT, cv ,  MySQLiteHelper.COLUMN_A_ID + " = '" + id + "'", null);
@@ -176,8 +180,9 @@ public class AvertDataSource {
     private Avert cursorToAvert(Cursor cursor) {
         Avert avert = new Avert();
         Date tmpDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzzz yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.ENGLISH);
         try {
+            Log.d("LOL", cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_DATE)));
             tmpDate = dateFormat.parse(cursor.getString(cursor.getColumnIndex(MySQLiteHelper.COLUMN_A_DATE)));
         } catch (ParseException e) {
             // TODO Auto-generated catch block
