@@ -71,10 +71,7 @@ public class MyService extends Service
                     try {
                         ads.open();
                         Log.e(TAG, "ON Y EST !!");
-                        SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
-                        if(prefs.getBoolean("notifications_new_message", true)){
-                            createNotification(getApplicationContext(), getString(R.string.notifMessageSentTo) + a.getContactName(), notifID++);
-                        }
+                        notifID = MessageManager.getInstance().sendSMS(getApplicationContext(), prefs, notifID, a);
                         ads.deleteAvert(a, true);
                         avertList = ads.getAllAvert();
                     } catch (SQLException e) {
@@ -108,29 +105,6 @@ public class MyService extends Service
             double dist = earthRadius * c;
 
             return dist; // output distance, in MILES
-        }
-
-        private final void createNotification(Context context, String message, int notifID){
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-
-            // prepare intent which is triggered if the
-            // notification is selected
-
-            Intent intent = new Intent(context, MainActivity.class);
-            // use System.currentTimeMillis() to have a unique ID for the pending intent
-            PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent, 0);
-
-            // build notification
-            // the addAction re-use the same intent to keep the dailyvery short
-            Notification n  = new Notification.Builder(context)
-                    .setContentTitle(getString(R.string.notifName))
-                    .setContentText(message)
-                    .setSmallIcon(R.drawable.ic_done_white_24dp)
-                    .setContentIntent(pIntent)
-                    .setAutoCancel(true)
-                    .getNotification();
-
-            notificationManager.notify(notifID, n);
         }
 
         @Override

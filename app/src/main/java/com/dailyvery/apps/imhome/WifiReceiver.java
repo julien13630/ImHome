@@ -28,29 +28,6 @@ import java.util.List;
 
 public class WifiReceiver extends BroadcastReceiver {
 
-    private final void createNotification(Context context, String message, int notifID){
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-
-        // prepare intent which is triggered if the
-        // notification is selected
-
-        Intent intent = new Intent(context, MainActivity.class);
-        // use System.currentTimeMillis() to have a unique ID for the pending intent
-        PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent, 0);
-
-        // build notification
-        // the addAction re-use the same intent to keep the dailyvery short
-        Notification n  = new Notification.Builder(context)
-                .setContentTitle(context.getString(R.string.notifName))
-                .setContentText(message)
-                .setSmallIcon(R.drawable.ic_done_white_24dp)
-                .setContentIntent(pIntent)
-                .setAutoCancel(true)
-                .getNotification();
-
-        notificationManager.notify(notifID, n);
-    }
-
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -76,10 +53,10 @@ public class WifiReceiver extends BroadcastReceiver {
                                 if (a.getSsid().compareTo(ssid.substring(1, ssid.length() - 1)) == 0) {
 
                                     if(a.getFlagReccurence() == 0){
-                                        notifID = sendSMS(context, prefs, notifID, a);
+                                        notifID = MessageManager.getInstance().sendSMS(context, prefs, notifID, a);
                                         ads.deleteAvert(a, true);
                                     }else if(checkReccurence(a)){
-                                        notifID = sendSMS(context, prefs, notifID, a);
+                                        notifID = MessageManager.getInstance().sendSMS(context, prefs, notifID, a);
                                         Calendar cal = Calendar.getInstance();
                                         cal.setTime(a.getAddDate());
                                         cal.add(Calendar.DAY_OF_YEAR, 1);
@@ -97,15 +74,6 @@ public class WifiReceiver extends BroadcastReceiver {
                 }
             }
         }
-    }
-
-    private int sendSMS(Context context, SharedPreferences prefs, int notifID, Avert a) {
-        SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
-        Toast.makeText(context, context.getString(R.string.notifMessageSentTo) + a.getContactName(), Toast.LENGTH_LONG).show();
-        if(prefs.getBoolean("notifications_new_message", true)){
-            createNotification(context, context.getString(R.string.notifMessageSentTo) + a.getContactName(), notifID++);
-        }
-        return notifID;
     }
 
     /**
