@@ -264,6 +264,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                 Calendar cal = Calendar.getInstance();
                 cal.set(Calendar.HOUR_OF_DAY, hour);
                 cal.set(Calendar.MINUTE, minute);
+                cal.add(Calendar.DAY_OF_YEAR, - 1);
                 dateReccurence = cal.getTime();
 
                 cbMessageReccurent.setText(getString(R.string.cbRecurrenceSet) + cal.get(Calendar.HOUR_OF_DAY) +

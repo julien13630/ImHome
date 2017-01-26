@@ -22,6 +22,7 @@ import com.dailyvery.apps.imhome.Data.Avert;
 import com.dailyvery.apps.imhome.Data.AvertDataSource;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -33,8 +34,8 @@ public class MyService extends Service
 {
     private static final String TAG = "MyService";
     private LocationManager mLocationManager = null;
-    private static final int LOCATION_INTERVAL = 1000;
-    private static final float LOCATION_DISTANCE = 1f;
+    private static final int LOCATION_INTERVAL = 120000;
+    private static final float LOCATION_DISTANCE = 50f;
     private boolean mRunning = false;
     private List<Avert> avertList;
 
@@ -70,13 +71,21 @@ public class MyService extends Service
                     AvertDataSource ads = new AvertDataSource(getApplicationContext());
                     try {
                         ads.open();
-                        Log.e(TAG, "ON Y EST !!");
-                        notifID = MessageManager.getInstance().sendSMS(getApplicationContext(), prefs, notifID, a);
-                        ads.deleteAvert(a, true);
-                        avertList = ads.getAllAvert();
+                        if(a.getFlagReccurence() == 0){
+                            notifID = MessageManager.getInstance().sendSMS(getApplicationContext(), prefs, notifID, a);
+                            ads.deleteAvert(a, true);
+                        }else if(checkReccurence(a)){
+                            notifID = MessageManager.getInstance().sendSMS(getApplicationContext(), prefs, notifID, a);
+                            Calendar cal = Calendar.getInstance();
+                            cal.setTime(a.getAddDate());
+                            cal.add(Calendar.DAY_OF_YEAR, 1);
+                            a.setAddDate(cal.getTime());
+                            ads.editAvert(a);
+                        }
                     } catch (SQLException e) {
                         e.printStackTrace();
                     } finally {
+                        avertList = ads.getAllAvert();
                         ads.close();
                     }
                 //Si c'est faux
@@ -211,5 +220,28 @@ public class MyService extends Service
         if (mLocationManager == null) {
             mLocationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
         }
+    }
+
+    /**
+     *  On verifie si le message a ete envoye il y au moins un jour
+     * @param a date de l'envoi du dernier message
+     * @return boolean si le dernier message a ete envoye au moins hier
+     */
+    private boolean checkReccurence(Avert a){
+        if(a.getFlagReccurence() == 1 && a.getAddDate() != null){
+            Calendar c1 = Calendar.getInstance(); // today
+            c1.add(Calendar.DAY_OF_YEAR, -1); // yesterday
+
+            Calendar c2 = Calendar.getInstance();
+            c2.setTime(a.getAddDate()); // your date
+
+            if (c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)
+                    && c1.get(Calendar.DAY_OF_YEAR) >= c2.get(Calendar.DAY_OF_YEAR)
+                    && c1.get(Calendar.HOUR) >= c2.get(Calendar.HOUR)
+                    && c1.get(Calendar.MINUTE) >= c2.get(Calendar.MINUTE)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
