@@ -27,6 +27,9 @@ import com.dailyvery.apps.imhome.Data.Avert;
 import com.dailyvery.apps.imhome.Data.AvertDataSource;
 import com.dailyvery.apps.imhome.Data.Wifi;
 import com.dailyvery.apps.imhome.Interface.BtnClickListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -48,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(getString(R.string.app_name));
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-7386174591450774~4697714843");
+
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("5A7A8DA605D0BC5C4D89DBB924F6614F").build();
+        mAdView.loadAd(adRequest);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
