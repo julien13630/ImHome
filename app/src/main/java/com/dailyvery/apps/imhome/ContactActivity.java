@@ -203,6 +203,8 @@ public class ContactActivity extends AppCompatActivity {
                     setFabOkVisibility();
                 }
             }
+        }else if(avertList.size() == 0){
+            finish();
         }
     }
 
