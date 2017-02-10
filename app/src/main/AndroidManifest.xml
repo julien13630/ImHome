@@ -63,6 +63,7 @@
                 android:value=".MainActivity" /></activity>
         <activity android:name="com.dailyvery.apps.imhome.PlaceSelectionActivity"
             android:label="PlaceSelectionActivity"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <meta-data

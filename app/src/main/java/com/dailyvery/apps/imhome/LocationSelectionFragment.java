@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -18,23 +17,29 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.dailyvery.apps.imhome.Data.Avert;
 import com.dailyvery.apps.imhome.Data.AvertDataSource;
-import com.dailyvery.apps.imhome.Data.Wifi;
+import com.dailyvery.apps.imhome.SearchBar.DelayAutoCompleteTextView;
+import com.dailyvery.apps.imhome.SearchBar.GeoAutoCompleteAdapter;
+import com.dailyvery.apps.imhome.SearchBar.GeoSearchResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -70,6 +75,10 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     private static LayoutInflater inflaterDialog = null;
     private TimePickerDialog.OnTimeSetListener timeSetListener = null;
     private Date dateReccurence;
+
+    private Integer THRESHOLD = 2;
+    private DelayAutoCompleteTextView geo_autocomplete;
+    private ImageView geo_autocomplete_clear;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -141,6 +150,93 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         });
         //Tant qu'on a pas de marker, on n'active pas le bouton
         btValider.setEnabled(false);
+
+        geo_autocomplete_clear = (ImageView) rootView.findViewById(R.id.geo_autocomplete_clear);
+
+        geo_autocomplete = (DelayAutoCompleteTextView) rootView.findViewById(R.id.geo_autocomplete);
+        geo_autocomplete.setThreshold(THRESHOLD);
+        geo_autocomplete.setAdapter(new GeoAutoCompleteAdapter(getContext())); // 'this' is Activity instance
+
+        geo_autocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                GeoSearchResult result = (GeoSearchResult) adapterView.getItemAtPosition(position);
+                geo_autocomplete.setText(result.getAddress());
+
+                Geocoder geo = new Geocoder(getContext());
+                List<Address> gotAddresses = null;
+                try {
+
+                    gotAddresses = geo.getFromLocationName(result.getAddress(), 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (marker != null) {
+                    marker.remove();
+                }
+
+                Address address = gotAddresses.get(0);
+
+                String properAddress = String.format("%s, %s",
+                        address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
+                        address.getCountryName());
+
+                LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
+
+                MarkerOptions options = new MarkerOptions()
+                        .title(properAddress)
+                        .position(location);
+
+                marker = googleMap.addMarker(options);
+
+                CameraPosition cameraPosition = new CameraPosition.Builder()
+                        .target(location) // Center Set
+                        .zoom(18.0f)                // Zoom
+                        .build();                   // Creates a CameraPosition from the builder
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                InputMethodManager inputManager = (InputMethodManager)
+                        getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+
+                btValider.setEnabled(true);
+            }
+        });
+
+        geo_autocomplete.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() > 0)
+                {
+                    geo_autocomplete_clear.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    geo_autocomplete_clear.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        geo_autocomplete_clear.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  // TODO Auto-generated method stub
+                  geo_autocomplete.setText("");
+              }
+          });
 
         return rootView;
     }
