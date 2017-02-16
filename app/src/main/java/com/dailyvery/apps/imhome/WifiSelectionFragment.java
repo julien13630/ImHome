@@ -251,9 +251,7 @@ public class WifiSelectionFragment extends Fragment {
                             ads.close();
                         }
 
-                        Intent intent=new Intent(getActivity(),MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
+                        ((PlaceSelectionActivity)getActivity()).showAd();
 
                         }
                     }

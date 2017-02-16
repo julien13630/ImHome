@@ -423,9 +423,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
 
                                 getContext().startService(new Intent(getActivity().getApplicationContext(), MyService.class));
 
-                                Intent intent=new Intent(getActivity(),MainActivity.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(intent);
+                                ((PlaceSelectionActivity)getActivity()).showAd();
 
                             }
                         }
