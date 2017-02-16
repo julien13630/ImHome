@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="20dp"
+    android:paddingLeft="20sp"
     android:layout_weight="1">
 
     <TextView
@@ -27,12 +27,11 @@
     <LinearLayout
         android:id="@+id/btContactDeleteLayout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/listContactNumber"
+        android:layout_height="0dp"
         android:layout_gravity="right"
         android:orientation="horizontal"
         android:layout_weight="10"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="10sp"
         android:layout_marginTop="-50dp"
         android:layout_marginBottom="5dp"
         android:paddingTop="5dp">
@@ -40,7 +39,7 @@
         <ImageButton
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="15sp"
             android:scaleType="fitStart"
             android:src="@drawable/ic_delete_black_24dp"
             android:id="@+id/imDeleteContact"

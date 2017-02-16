@@ -49,11 +49,11 @@
         <activity
             android:name="com.dailyvery.apps.imhome.ContactActivity"
             android:label="@string/title_activity_contact"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="com.dailyvery.apps.imhome.WifiSettings"
             android:label="@string/title_activity_wifi_settings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
@@ -64,7 +64,7 @@
         <activity android:name="com.dailyvery.apps.imhome.PlaceSelectionActivity"
             android:label="PlaceSelectionActivity"
             android:windowSoftInputMode="adjustPan"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"

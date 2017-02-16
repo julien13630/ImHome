@@ -82,4 +82,5 @@
     <string name="banner_ad_unit_id">ca-app-pub-7386174591450774/6174448046</string>
     <string name="tvNoMessagesPlus">(Tap on the \'+\' button below)</string>
     <string name="hintAddresstoSearch">Address to lookup</string>
+    <string name="NoRecipient">No recipient!</string>
 </resources>
