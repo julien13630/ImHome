@@ -87,6 +87,9 @@ public class MyService extends Service
                     } finally {
                         avertList = ads.getAllAvert();
                         ads.close();
+                        if(avertList.size() == 0){
+                            stopSelf();
+                        }
                     }
                 //Si c'est faux
                 }else{

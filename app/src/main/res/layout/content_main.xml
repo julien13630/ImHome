@@ -25,7 +25,7 @@
         android:id="@+id/listMain"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvMessagesEnAttente"></ListView>
+        android:layout_below="@+id/tvMessagesEnAttente" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
