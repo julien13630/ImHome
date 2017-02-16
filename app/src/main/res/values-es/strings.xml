@@ -30,7 +30,7 @@
     <string name="defaultMessage">"Llegué. "</string>
     <string name="tvPleaseEnableWifi">"Por favor, activa wifi"</string>
     <string name="tvPleaseEnterMessageText">"Escribe texto que se enviará:"</string>
-    <string name="validate">"DE ACUERDO"</string>
+    <string name="validate">Validate</string>
     <string name="GPS">"GP"</string>
     <string name="Wifi">"WiFi"</string>
     <string name="notifMessageSentTo">"Mensaje enviado a"</string>
@@ -81,4 +81,5 @@
     <string name="recipientAlerted">\"fue advertido\"</string>
     <string name="banner_ad_unit_id">ca-app-pub-7386174591450774/6174448046</string>
     <string name="tvNoMessagesPlus">(Pulse la tecla +)</string>
+    <string name="hintAddresstoSearch">Búsqueda de direcciones</string>
 </resources>

@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:imeOptions="flagNoExtractUi|actionSearch"
                 android:inputType="textCapSentences"
-                android:hint="Adresse à chercher"
+                android:hint="@string/hintAddresstoSearch"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="35dp"
                 android:layout_marginRight="35dp"
@@ -60,7 +60,7 @@
                 android:id="@+id/btValiderDestination"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Valider" />
+                android:text="@string/validate" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>
