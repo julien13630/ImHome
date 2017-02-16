@@ -5,8 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -138,11 +140,26 @@ public class MainActivity extends AppCompatActivity {
         BtnClickListener btnListenerDelete = new BtnClickListener() {
             @Override
             public void onBtnClick(int position) {
+                final Avert avertToRestore = avertList.get(position);
                 AvertDataSource avertDT = new AvertDataSource(MainActivity.this);
                 avertDT.deleteAvert(avertList.get(position), false);
                 avertList.remove(avertList.get(position));
                 adapter.notifyDataSetChanged();
                 avertDT.close();
+
+                Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.deleted), Snackbar.LENGTH_LONG)
+                        .setAction(getResources().getString(R.string.cancel), new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                AvertDataSource avertDT = new AvertDataSource(MainActivity.this);
+                                avertDT.addAvert(avertToRestore);
+                                avertList.add(avertToRestore);
+                                adapter.notifyDataSetChanged();
+                                avertDT.close();
+                            }
+                        })
+                        .setActionTextColor(Color.YELLOW)
+                        .show();
             }
         };
 

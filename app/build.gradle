@@ -8,8 +8,8 @@ android {
         applicationId "com.dailyvery.apps.imhome"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 21
-        versionName "0.5.6"
+        versionCode 22
+        versionName "0.5.7"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {

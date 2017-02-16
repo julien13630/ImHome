@@ -112,5 +112,6 @@
     <string name="tvNoMessagesPlus">(Appuyez sur le bouton +)</string>
     <string name="hintAddresstoSearch">Adresse à chercher</string>
     <string name="NoRecipient">Pas de destinataires !</string>
+    <string name="deleted">Supprimé !</string>
 
 </resources>
