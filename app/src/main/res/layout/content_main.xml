@@ -15,8 +15,8 @@
         android:layout_alignParentTop="true"
         android:background="#B2B9E1"
         android:gravity="center_vertical"
-        android:paddingLeft="5dp"
-        android:textSize="15dp"
+        android:paddingLeft="5sp"
+        android:textSize="15sp"
         android:text="@string/tvMessagesEnAttente" />
 
     <ListView
@@ -50,8 +50,18 @@
             android:id="@+id/tvEmptyList"
             android:layout_below="@id/imEmptyList"
             android:layout_centerHorizontal="true"
-            android:text="Pas de messages !"
-            android:textSize="30dp"
+            android:text="@string/tvNoMessages"
+            android:textSize="30sp"
+            android:textColor="#DBDBDB"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvEmptyListPlus"
+            android:layout_below="@id/tvEmptyList"
+            android:layout_centerHorizontal="true"
+            android:text="@string/tvNoMessagesPlus"
+            android:textSize="20sp"
             android:textColor="#DBDBDB"
             android:layout_marginTop="15dp"
             android:layout_width="wrap_content"

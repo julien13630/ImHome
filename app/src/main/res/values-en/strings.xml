@@ -80,4 +80,5 @@
     <string name="notifMessageCriticalBattery">Critical battery level</string>
     <string name="recipientAlerted">has been warned</string>
     <string name="banner_ad_unit_id">ca-app-pub-7386174591450774/6174448046</string>
+    <string name="tvNoMessagesPlus">(Tap on the \'+\' button below)</string>
 </resources>

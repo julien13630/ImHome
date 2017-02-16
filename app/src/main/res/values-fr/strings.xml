@@ -80,4 +80,5 @@
     <string name="messageCriticalBattery">J\'ai presque plus de batterie je t\'envoie mon message d\'arrivée quand je rallume mon portable</string>
     <string name="notifMessageCriticalBattery">Batterie niveau critique</string>
     <string name="banner_ad_unit_id">ca-app-pub-7386174591450774/6174448046</string>
+    <string name="tvNoMessagesPlus">(Appuyez sur le bouton +)</string>
 </resources>

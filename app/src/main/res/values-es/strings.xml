@@ -80,4 +80,5 @@
     <string name="notifMessageCriticalBattery">\"Nivel crítico de batería\"</string>
     <string name="recipientAlerted">\"fue advertido\"</string>
     <string name="banner_ad_unit_id">ca-app-pub-7386174591450774/6174448046</string>
+    <string name="tvNoMessagesPlus">(Pulse la tecla +)</string>
 </resources>

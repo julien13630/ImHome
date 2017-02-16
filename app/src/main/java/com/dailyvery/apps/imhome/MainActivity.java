@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-7386174591450774~4697714843");
 
         AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("D5A8DAD5CA5255B4AC95409FF5DB1D2E").build();
         mAdView.loadAd(adRequest);
 
 
@@ -70,9 +70,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         lvMain = (ListView) findViewById(R.id.listMain);
-
-        TextView tvEmptyText = (TextView)findViewById(R.id.tvEmptyList);
-        tvEmptyText.setText(getString(R.string.tvNoMessages));
 
         lvMain.setEmptyView(findViewById(R.id.emptyListMain));
 
