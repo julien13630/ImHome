@@ -86,4 +86,6 @@
     <string name="deleted">Supprimé !</string>
     <string name="btActivateGps">Permission GPS</string>
     <string name="tvActivateGps">Nous n\'avons pas le droit d\'accéder à votre GPS. Donnez nous l\'autorisation et c\'est parti !</string>
+    <string name="btActivateWifi">Activer wifi</string>
+    <string name="tvActivateWifi">Votre wifi est désactivé. Nous avons besoin qu\'il soit activé pour que vous puissiez choisir sur quel wifi nous allons nous baser pour prévenir vos contacts.</string>
 </resources>

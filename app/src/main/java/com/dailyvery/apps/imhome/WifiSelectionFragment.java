@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -57,7 +58,24 @@ public class WifiSelectionFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.content_wifi_selection, container, false);
+        //Ajouter les wifis système
+        this.wifiManager = (WifiManager)getActivity().getSystemService(Context.WIFI_SERVICE);
+        if (wifiManager.isWifiEnabled()){
+            return inflater.inflate(R.layout.content_wifi_selection, container, false);
+        }else{
+            return inflater.inflate(R.layout.content_wifi_selection_disabled, container, false);
+        }
+
+    }
+
+    @Override
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+        if (visible) {
+            if (!wifiManager.isWifiEnabled()){
+                showDialogWifiChoice(getString(R.string.tvPleaseEnableWifi), this);
+            }
+        }
     }
 
     @Override
@@ -66,6 +84,24 @@ public class WifiSelectionFragment extends Fragment {
 
         inflaterDialog = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        if (wifiManager.isWifiEnabled()){
+            initListsWifi(view);
+        }else{
+            Button btActivateWifi = (Button) view.findViewById(R.id.btActivateWifi);
+            btActivateWifi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    wifiManager.setWifiEnabled(true);
+                    getActivity().recreate();
+                }
+            });
+        }
+    }
+
+    /**
+     * Initialise la liste des wifi a afficher
+     */
+    private void initListsWifi(View view) {
         dateReccurence = null;
 
         avertList = getActivity().getIntent().getExtras().getParcelableArrayList("avertList");
@@ -84,20 +120,6 @@ public class WifiSelectionFragment extends Fragment {
         arrayListWifi = (ArrayList<Wifi>)wifiList;
         arrayListWifiRegistered = new ArrayList<Wifi>();
 
-        //Ajouter les wifis système
-        this.wifiManager = (WifiManager)getActivity().getSystemService(Context.WIFI_SERVICE);
-        if (!wifiManager.isWifiEnabled()){
-            //wifiManager.setWifiEnabled(true);
-            showDialogWifiChoice(getString(R.string.tvPleaseEnableWifi), this);
-        }else {
-            initListsWifi(view);
-        }
-    }
-
-    /**
-     * Initialise la liste des wifi a afficher
-     */
-    private void initListsWifi(View view) {
         listAndroidWifi = wifiManager.getConfiguredNetworks();
         addWifiToWifiRegistered();
 
@@ -156,8 +178,8 @@ public class WifiSelectionFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         wifi.wifiManager.setWifiEnabled(true);
-                        initListsWifi(getView());
                         dialog.dismiss();
+                        getActivity().recreate();
                     }
                 });
         builderSingle.show();

@@ -86,4 +86,6 @@
     <string name="deleted">Deleted!</string>
     <string name="btActivateGps">Location permission</string>
     <string name="tvActivateGps">We can\'t access your location. Give us the right to do it and let\'s go!</string>
+    <string name="btActivateWifi">Activate wifi</string>
+    <string name="tvActivateWifi">Your wifi is disabled. We need it enabled for you to choose what wifi will trigger your message.</string>
 </resources>
