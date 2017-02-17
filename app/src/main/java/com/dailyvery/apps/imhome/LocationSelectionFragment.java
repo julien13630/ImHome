@@ -82,161 +82,182 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_location_selection, container, false);
 
-        inflaterDialog = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View rootView;
 
-        dateReccurence = null;
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
 
-        avertList = getActivity().getIntent().getExtras().getParcelableArrayList("avertList");
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
 
-        mMapView = (MapView) rootView.findViewById(R.id.mapView);
-        mMapView.onCreate(savedInstanceState);
+            rootView = inflater.inflate(R.layout.fragment_location_denied, container, false);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
+            Button btActivateGps = (Button) rootView.findViewById(R.id.btActivateGps);
+            btActivateGps.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getActivity().recreate();
+                }
+            });
+        }else{
+            rootView = inflater.inflate(R.layout.fragment_location_selection, container, false);
 
-        try {
-            MapsInitializer.initialize(getActivity().getApplicationContext());
-        } catch (Exception e) {
-            e.printStackTrace();
+            inflaterDialog = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            dateReccurence = null;
+
+            avertList = getActivity().getIntent().getExtras().getParcelableArrayList("avertList");
+
+            mMapView = (MapView) rootView.findViewById(R.id.mapView);
+            mMapView.onCreate(savedInstanceState);
+
+            mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+
+            try {
+                MapsInitializer.initialize(getActivity().getApplicationContext());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            mMapView.getMapAsync(new OnMapReadyCallback() {
+                @Override
+                public void onMapReady(GoogleMap mMap) {
+                    googleMap = mMap;
+
+                    googleMap.setOnMapClickListener(new
+                                                            GoogleMap.OnMapClickListener() {
+                                                                @Override
+                                                                public void onMapClick (LatLng latLng){
+                                                                    Geocoder geocoder =
+                                                                            new Geocoder(getActivity());
+                                                                    List<Address> list;
+                                                                    try {
+                                                                        list = geocoder.getFromLocation(latLng.latitude,
+                                                                                latLng.longitude, 1);
+                                                                    } catch (IOException e) {
+                                                                        return;
+                                                                    }
+                                                                    Address address = list.get(0);
+                                                                    if (marker != null) {
+                                                                        marker.remove();
+                                                                    }
+
+                                                                    location = new LatLng(latLng.latitude, latLng.longitude);
+
+                                                                    MarkerOptions options = new MarkerOptions()
+                                                                            .title(address.getLocality())
+                                                                            .position(location);
+
+                                                                    marker = googleMap.addMarker(options);
+                                                                    btValider.setEnabled(true);
+                                                                }
+                                                            });
+                }
+            });
+
+            btValider = (Button)rootView.findViewById(R.id.btValiderDestination);
+            btValider.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showValidLocationDialog(marker.getPosition());
+                }
+            });
+            //Tant qu'on a pas de marker, on n'active pas le bouton
+            btValider.setEnabled(false);
+
+            geo_autocomplete_clear = (ImageView) rootView.findViewById(R.id.geo_autocomplete_clear);
+
+            geo_autocomplete = (DelayAutoCompleteTextView) rootView.findViewById(R.id.geo_autocomplete);
+            geo_autocomplete.setThreshold(THRESHOLD);
+            geo_autocomplete.setAdapter(new GeoAutoCompleteAdapter(getContext())); // 'this' is Activity instance
+
+            geo_autocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    GeoSearchResult result = (GeoSearchResult) adapterView.getItemAtPosition(position);
+                    geo_autocomplete.setText(result.getAddress());
+
+                    Geocoder geo = new Geocoder(getContext());
+                    List<Address> gotAddresses = null;
+                    try {
+
+                        gotAddresses = geo.getFromLocationName(result.getAddress(), 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (marker != null) {
+                        marker.remove();
+                    }
+
+                    Address address = gotAddresses.get(0);
+
+                    String properAddress = String.format("%s, %s",
+                            address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
+                            address.getCountryName());
+
+                    LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
+
+                    MarkerOptions options = new MarkerOptions()
+                            .title(properAddress)
+                            .position(location);
+
+                    marker = googleMap.addMarker(options);
+
+                    CameraPosition cameraPosition = new CameraPosition.Builder()
+                            .target(location) // Center Set
+                            .zoom(18.0f)                // Zoom
+                            .build();                   // Creates a CameraPosition from the builder
+                    googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                    InputMethodManager inputManager = (InputMethodManager)
+                            getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                    inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                            InputMethodManager.HIDE_NOT_ALWAYS);
+
+                    btValider.setEnabled(true);
+                }
+            });
+
+            geo_autocomplete.addTextChangedListener(new TextWatcher() {
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if(s.length() > 0)
+                    {
+                        geo_autocomplete_clear.setVisibility(View.VISIBLE);
+                    }
+                    else
+                    {
+                        geo_autocomplete_clear.setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
+
+            geo_autocomplete_clear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    geo_autocomplete.setText("");
+                }
+            });
         }
-
-        mMapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap mMap) {
-                googleMap = mMap;
-
-                googleMap.setOnMapClickListener(new
-                    GoogleMap.OnMapClickListener() {
-                        @Override
-                        public void onMapClick (LatLng latLng){
-                            Geocoder geocoder =
-                                    new Geocoder(getActivity());
-                            List<Address> list;
-                            try {
-                                list = geocoder.getFromLocation(latLng.latitude,
-                                        latLng.longitude, 1);
-                            } catch (IOException e) {
-                                return;
-                            }
-                            Address address = list.get(0);
-                            if (marker != null) {
-                                marker.remove();
-                            }
-
-                            location = new LatLng(latLng.latitude, latLng.longitude);
-
-                            MarkerOptions options = new MarkerOptions()
-                                    .title(address.getLocality())
-                                    .position(location);
-
-                            marker = googleMap.addMarker(options);
-                            btValider.setEnabled(true);
-                        }
-                    });
-            }
-        });
-
-        btValider = (Button)rootView.findViewById(R.id.btValiderDestination);
-        btValider.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showValidLocationDialog(marker.getPosition());
-            }
-        });
-        //Tant qu'on a pas de marker, on n'active pas le bouton
-        btValider.setEnabled(false);
-
-        geo_autocomplete_clear = (ImageView) rootView.findViewById(R.id.geo_autocomplete_clear);
-
-        geo_autocomplete = (DelayAutoCompleteTextView) rootView.findViewById(R.id.geo_autocomplete);
-        geo_autocomplete.setThreshold(THRESHOLD);
-        geo_autocomplete.setAdapter(new GeoAutoCompleteAdapter(getContext())); // 'this' is Activity instance
-
-        geo_autocomplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                GeoSearchResult result = (GeoSearchResult) adapterView.getItemAtPosition(position);
-                geo_autocomplete.setText(result.getAddress());
-
-                Geocoder geo = new Geocoder(getContext());
-                List<Address> gotAddresses = null;
-                try {
-
-                    gotAddresses = geo.getFromLocationName(result.getAddress(), 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                if (marker != null) {
-                    marker.remove();
-                }
-
-                Address address = gotAddresses.get(0);
-
-                String properAddress = String.format("%s, %s",
-                        address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
-                        address.getCountryName());
-
-                LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
-
-                MarkerOptions options = new MarkerOptions()
-                        .title(properAddress)
-                        .position(location);
-
-                marker = googleMap.addMarker(options);
-
-                CameraPosition cameraPosition = new CameraPosition.Builder()
-                        .target(location) // Center Set
-                        .zoom(18.0f)                // Zoom
-                        .build();                   // Creates a CameraPosition from the builder
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-                InputMethodManager inputManager = (InputMethodManager)
-                        getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-
-                inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
-                        InputMethodManager.HIDE_NOT_ALWAYS);
-
-                btValider.setEnabled(true);
-            }
-        });
-
-        geo_autocomplete.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.length() > 0)
-                {
-                    geo_autocomplete_clear.setVisibility(View.VISIBLE);
-                }
-                else
-                {
-                    geo_autocomplete_clear.setVisibility(View.INVISIBLE);
-                }
-            }
-        });
-
-        geo_autocomplete_clear.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  // TODO Auto-generated method stub
-                  geo_autocomplete.setText("");
-              }
-          });
 
         return rootView;
     }
@@ -245,27 +266,47 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     public void onResume() {
         super.onResume();
         //setUpMapIfNeeded();
-        mGoogleApiClient.connect();
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED && mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }else if(ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED){
+            getActivity().recreate();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+                mGoogleApiClient.disconnect();
+            }
         }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mMapView.onDestroy();
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED && mMapView != null) {
+            mMapView.onDestroy();
+        }
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        mMapView.onLowMemory();
+        if (ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED && mMapView != null) {
+            mMapView.onLowMemory();
+        }
     }
 
     @Override
@@ -290,17 +331,16 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         if (ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+            //Nothing
+        }else{
+            Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            if (location == null) {
+                // Blank for a moment...
+            }
+            else {
+                handleNewLocation(location);
+            };
         }
-        Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (location == null) {
-            // Blank for a moment...
-        }
-        else {
-            handleNewLocation(location);
-        };
     }
 
     @Override

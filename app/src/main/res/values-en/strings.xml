@@ -84,4 +84,6 @@
     <string name="hintAddresstoSearch">Destination address</string>
     <string name="NoRecipient">No recipient!</string>
     <string name="deleted">Deleted!</string>
+    <string name="btActivateGps">Location permission</string>
+    <string name="tvActivateGps">We can\'t access your location. Give us the right to do it and let\'s go!</string>
 </resources>

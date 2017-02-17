@@ -113,5 +113,7 @@
     <string name="hintAddresstoSearch">Adresse de destination</string>
     <string name="NoRecipient">Pas de destinataires !</string>
     <string name="deleted">Supprimé !</string>
+    <string name="btActivateGps">Permission GPS</string>
+    <string name="tvActivateGps">Nous n\'avons pas le droit d\'accéder à votre GPS. Donnez nous l\'autorisation et c\'est parti !</string>
 
 </resources>
