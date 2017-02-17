@@ -34,7 +34,7 @@
     <string name="validate">OK</string>
     <string name="GPS">GPS</string>
     <string name="Wifi">Wifi</string>
-    <string name="notifMessageSentTo">Message sent to</string>
+    <string name="notifMessageSentTo">"Message sent to "</string>
     <string name="notifName">ImHome Message Sent</string>
     <string name="tstRecipientTwiceForbidden">Forbidden to add twice the same number</string>
     <string name="tvNoMessages">No messages !</string>
@@ -81,7 +81,7 @@
     <string name="recipientAlerted">has been warned</string>
     <string name="banner_ad_unit_id">ca-app-pub-7386174591450774/6174448046</string>
     <string name="tvNoMessagesPlus">(Tap on the \'+\' button below)</string>
-    <string name="hintAddresstoSearch">Address to lookup</string>
+    <string name="hintAddresstoSearch">Destination address</string>
     <string name="NoRecipient">No recipient!</string>
     <string name="deleted">Deleted!</string>
 </resources>

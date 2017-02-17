@@ -35,7 +35,7 @@
     <string name="validate">Valider</string>
     <string name="GPS">GPS</string>
     <string name="Wifi">Wifi</string>
-    <string name="notifMessageSentTo">Message envoyé à</string>
+    <string name="notifMessageSentTo">"Message envoyé à "</string>
     <string name="notifName">ImHome Message Envoyé</string>
     <string name="tstRecipientTwiceForbidden">Impossible d\'ajouter deux fois le meme numéro</string>
     <string name="tvNoMessages">Pas de messages !</string>
@@ -81,7 +81,7 @@
     <string name="notifMessageCriticalBattery">Batterie niveau critique</string>
     <string name="banner_ad_unit_id">ca-app-pub-7386174591450774/6174448046</string>
     <string name="tvNoMessagesPlus">(Appuyez sur le bouton +)</string>
-    <string name="hintAddresstoSearch">Adresse à chercher</string>
+    <string name="hintAddresstoSearch">Adresse de destination</string>
     <string name="NoRecipient">Pas de destinataires !</string>
     <string name="deleted">Supprimé !</string>
 </resources>
