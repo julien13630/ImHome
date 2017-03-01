@@ -54,8 +54,8 @@ public class BatteryReceiver extends BroadcastReceiver {
                 int notifID = avertList.get(0).getHashcode();
                 for (Avert a : avertList) {
                     SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, context.getString(R.string.messageCriticalBattery), null, null);
-                    Toast.makeText(context, context.getString(R.string.notifMessageCriticalBattery) + a.getContactName() + " " + context.getString(R.string.recipientAlerted), Toast.LENGTH_LONG).show();
-                    createNotification(context, context.getString(R.string.notifMessageCriticalBattery) + a.getContactName(), notifID++);
+                    Toast.makeText(context, context.getString(R.string.notifMessageCriticalBattery) + " " + a.getContactName() + " " + context.getString(R.string.recipientAlerted), Toast.LENGTH_LONG).show();
+                    createNotification(context, context.getString(R.string.notifMessageCriticalBattery) + " " + a.getContactName(), notifID++);
                 }
             }
         } catch (SQLException e) {
