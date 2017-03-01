@@ -38,6 +38,7 @@
     </com.google.android.gms.ads.AdView>
 
     <RelativeLayout android:id="@+id/emptyListMain"
+        android:layout_marginTop="-80sp"
         android:layout_width="match_parent" android:layout_height="match_parent">
 
         <ImageView
