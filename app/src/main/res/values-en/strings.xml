@@ -88,4 +88,8 @@
     <string name="tvActivateGps">We can\'t access your location. Give us the right to do it and let\'s go!</string>
     <string name="btActivateWifi">Activate wifi</string>
     <string name="tvActivateWifi">Your wifi is disabled. We need it enabled for you to choose what wifi will trigger your message.</string>
+    <string name="tvSplashWelcome">Welcome on ImHome!</string>
+    <string name="tvSplashExplanation">This app allows you to tell your friends and family that you arrived at your destination</string>
+    <string name="tvSplashWifiGps">To do that, it\'s very simple. ImHome locates you thanks to your GPS or with the wifi hotspot available there</string>
+    <string name="tvSplashSchedule">Ask ImHome to send a message. You can now forget about your phone : ImHome takes care of everything!</string>
 </resources>

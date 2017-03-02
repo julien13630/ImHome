@@ -88,4 +88,8 @@
     <string name="tvActivateGps">Nous n\'avons pas le droit d\'accéder à votre GPS. Donnez nous l\'autorisation et c\'est parti !</string>
     <string name="btActivateWifi">Activer wifi</string>
     <string name="tvActivateWifi">Votre wifi est désactivé. Nous avons besoin qu\'il soit activé pour que vous puissiez choisir sur quel wifi nous allons nous baser pour prévenir vos contacts.</string>
+    <string name="tvSplashWelcome">Bienvenue sur ImHome !</string>
+    <string name="tvSplashExplanation">Cette application vous permettra de prévenir vos proches lorsque vous êtes arrivés à destination.</string>
+    <string name="tvSplashWifiGps">Pour cela, c\'est très simple. Soit ImHome vous localisera par GPS, soit il détectera le Wifi disponile là-bas.</string>
+    <string name="tvSplashSchedule">Demander à ImHome d\'envoyer un message, ne vous souciez plus de rien : ImHome s\'occupe du reste !</string>
 </resources>

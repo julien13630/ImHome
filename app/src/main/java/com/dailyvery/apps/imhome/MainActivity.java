@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
@@ -53,6 +55,17 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(getString(R.string.app_name));
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyStarted = prefs.getBoolean(getString(R.string.pref_previously_started), false);
+        if(!previouslyStarted) {
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putBoolean(getString(R.string.pref_previously_started), Boolean.TRUE);
+            edit.commit();
+            Intent intent = new Intent(MainActivity.this, SplashScreenActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-7386174591450774~4697714843");
 
