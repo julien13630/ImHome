@@ -64,7 +64,7 @@
         <activity
             android:name=".PlaceSelectionActivity"
             android:label="PlaceSelectionActivity"
-            android:theme="@style/AppTheme.NoActionBarSplash"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
 
         <meta-data
