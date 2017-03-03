@@ -92,4 +92,9 @@
     <string name="tvSplashExplanation">Cette application vous permettra de prévenir vos proches lorsque vous êtes arrivés à destination.</string>
     <string name="tvSplashWifiGps">Pour cela, c\'est très simple. Soit ImHome vous localisera par GPS, soit il détectera le Wifi disponible là-bas.</string>
     <string name="tvSplashSchedule">Demander à ImHome d\'envoyer un message, ne vous souciez plus de rien : ImHome s\'occupe du reste !</string>
+    <string name="pref_title_category_about">À propos</string>
+    <string name="pref_title_authorize_sms">Autoriser accès sms</string>
+    <string name="pref_description_authorize_sms">Permet à ImHome d\'envoyer le message à vos proches</string>
+    <string name="manage_permissions_title">Gérer permissions</string>
+    <string name="manage_permission_summary">Permet d\'accéder à la gestion de permission de l\'application</string>
 </resources>

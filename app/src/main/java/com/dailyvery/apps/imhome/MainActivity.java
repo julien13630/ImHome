@@ -17,19 +17,16 @@ import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dailyvery.apps.imhome.Adapter.AdapterMain;
 import com.dailyvery.apps.imhome.Data.Avert;
 import com.dailyvery.apps.imhome.Data.AvertDataSource;
-import com.dailyvery.apps.imhome.Data.Wifi;
 import com.dailyvery.apps.imhome.Interface.BtnClickListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -37,7 +34,6 @@ import com.google.android.gms.ads.MobileAds;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -78,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(MainActivity.this, ContactActivity.class);
                 startActivity(intent);
             }

@@ -80,7 +80,7 @@
     <string name="notifMessageCriticalBattery">Critical battery level</string>
     <string name="recipientAlerted">has been warned</string>
     <string name="banner_ad_unit_id">ca-app-pub-7386174591450774/6174448046</string>
-    <string name="tvNoMessagesPlus">(Tap on the \'+\' button below)</string>
+    <string name="tvNoMessagesPlus">(Tap on the \'+\' below)</string>
     <string name="hintAddresstoSearch">Destination address</string>
     <string name="NoRecipient">No recipient!</string>
     <string name="deleted">Deleted!</string>
@@ -92,4 +92,9 @@
     <string name="tvSplashExplanation">This app allows you to tell your friends and family that you arrived at your destination</string>
     <string name="tvSplashWifiGps">To do that, it\'s very simple. ImHome locates you thanks to your GPS or with the wifi hotspot available there</string>
     <string name="tvSplashSchedule">Ask ImHome to send a message. You can now forget about your phone : ImHome takes care of everything!</string>
+    <string name="pref_title_category_about">About</string>
+    <string name="pref_title_authorize_sms">Authorize SMS access</string>
+    <string name="pref_description_authorize_sms">Allows ImHome to send a message to your friends and family</string>
+    <string name="manage_permissions_title">Manage permissions</string>
+    <string name="manage_permission_summary">Opens app permission\'s page</string>
 </resources>
