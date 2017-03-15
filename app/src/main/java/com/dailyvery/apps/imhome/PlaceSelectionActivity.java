@@ -22,7 +22,7 @@ public class PlaceSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_place_selection);
         Toolbar toolbar = (Toolbar) findViewById(R.id.tbPlaceSelection);
         setSupportActionBar(toolbar);
-        setTitle(getString(R.string.app_name));
+        setTitle(getString(R.string.tvSelectDestination));
 
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-7386174591450774/2590892840");
@@ -67,7 +67,7 @@ public class PlaceSelectionActivity extends AppCompatActivity {
     }
 
     private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("D5A8DAD5CA5255B4AC95409FF5DB1D2E").build();
 
         mInterstitialAd.loadAd(adRequest);
     }

@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">"Estoy en casa"</string>
     <string name="action_settings">"Ajustes"</string>
-    <string name="cbRecurrence">"Hacer recurrente"</string>
-    <string name="cbRecurrenceSet">"Hacer recurrente es:"</string>
-    <string name="label_pref_version">"Versión de Aplicación"</string>
-    <string name="pref_description_authorize_gps">"Permite una ImHome Obtener Una Descripción de la ubicación Precisa Mediante GPS"</string>
-    <string name="pref_description_authorize_wifi">"Permite una ImHome Consumir Menos Batería Usando wifi Que GPS"</string>
+    <string name="cbRecurrence">\"Volver recurrente\"</string>
+    <string name="cbRecurrenceSet">\"Volver recurrente es:\"</string>
+    <string name="label_pref_version">\"Versión aplicación\"</string>
+    <string name="pref_description_authorize_gps">\"Permite a ImHome obtener una descripción de la ubicación precisa mediante GPS\"</string>
+    <string name="pref_description_authorize_wifi">\"Permite a ImHome consumir menos batería usando wifi que GPS\"</string>
     <string name="pref_header_data_sync">"Autorizaciones"</string>
     <string name="pref_header_general">"Generales"</string>
     <string name="pref_header_notifications">"Notificaciones"</string>
@@ -17,20 +17,20 @@
     <string name="pref_title_category_notification">"Notificación"</string>
     <string name="pref_title_category_synchronization">"Sincronización"</string>
     <string name="pref_title_language">"Idioma"</string>
-    <string name="pref_title_new_message_notifications">"mensaje de notificación enviado pantalla"</string>
-    <string name="pref_title_notification_distance">"La distancia al objetivo"</string>
+    <string name="pref_title_new_message_notifications">\"ver notificación mensaje enviado\"</string>
+    <string name="pref_title_notification_distance">Distancia de localizacion</string>
     <string name="pref_title_ringtone">"Tono de llamada"</string>
     <string name="pref_title_sync_frequency">"Frecuencia de actualización"</string>
     <string name="pref_title_system_sync_settings">"Sincronizar con Google"</string>
     <string name="title_activity_settings">"ajustes"</string>
-    <string name="tvContactPrevenir">"Personas de contacto:"</string>
-    <string name="tvListWifi">"Lista de wifi registrado:"</string>
-    <string name="tvMessagesEnAttente">"Mensajes en espera para ser enviados:"</string>
+    <string name="tvContactPrevenir">\"Contactos a avisar:\"</string>
+    <string name="tvListWifi">\"Lista de wifi registrados:\"</string>
+    <string name="tvMessagesEnAttente">\"Mensajes en espera de envio:\"</string>
     <string name="cancel">"Cancelar"</string>
     <string name="defaultMessage">"Llegué. "</string>
-    <string name="tvPleaseEnableWifi">"Por favor, activa wifi"</string>
-    <string name="tvPleaseEnterMessageText">"Escribe texto que se enviará:"</string>
-    <string name="validate">Validate</string>
+    <string name="tvPleaseEnableWifi">\"Por favor, active wifi\"</string>
+    <string name="tvPleaseEnterMessageText">\"Escriba texto a enviar:\"</string>
+    <string name="validate">Validar</string>
     <string name="GPS">"GP"</string>
     <string name="Wifi">"WiFi"</string>
     <string name="notifMessageSentTo">"Mensaje enviado a "</string>
@@ -38,7 +38,7 @@
     <string name="tstRecipientTwiceForbidden">"Prohibido añadir dos veces el mismo número"</string>
     <string name="tvNoMessages">"Ningún mensaje !"</string>
     <string name="tvNoRecipient">"Sin destinatario !"</string>
-    <string name="tvPleaseEnterMessageTextNew">"Escribir un nuevo texto para enviar:"</string>
+    <string name="tvPleaseEnterMessageTextNew">\"Escriba un nuevo texto para enviar:\"</string>
     <string name="tvSelectNumber">"Seleccionar un número de teléfono:"</string>
     <string name="pref_title_vibrate">"Vibración"</string>
 
@@ -64,7 +64,7 @@
         <item>"2"</item>
         <item>"3 "</item>
     </string-array>
-    <string name="messageCriticalBattery">\"Estoy casi sin batería les envío mis mensajes de llegada cuando me reavivó mi portátil\"</string>
+    <string name="messageCriticalBattery">\"Estoy casi sin batería te envío mi mensaje de llegada cuando me reavivó mi telefono\"</string>
     <string name="notifMessageCriticalBattery">\"Nivel crítico de batería\"</string>
     <string name="recipientAlerted">\"fue advertido\"</string>
     <string name="banner_ad_unit_id">ca-app-pub-7386174591450774/6174448046</string>
@@ -75,14 +75,15 @@
     <string name="btActivateGps">Activar ubicación</string>
     <string name="tvActivateGps">No tenemos derecho a acceder a su GPS. Danos permiso y listo!</string>
     <string name="btActivateWifi">Activar wifi</string>
-    <string name="tvActivateWifi">Su wifi está apagado. Necesitamos que sea para que usted elija en el que vamos a basarnos wifi para evitar que sus contactos.</string>
+    <string name="tvActivateWifi">Su wifi está apagado. Necesitamos que este activado para que usted pueda elegir sobre que wifi vamos a basarnosen para avisar sus contactos.</string>
     <string name="tvSplashWelcome">Bienvenido a ImHome!</string>
-    <string name="tvSplashExplanation">Esta aplicación le permitirá evitar que sus seres queridos cuando llegó a su destino.</string>
-    <string name="tvSplashWifiGps">Para ello, es muy simple. ImHome o localizar vía GPS o WiFi detectará el disponile allí.</string>
-    <string name="tvSplashSchedule">Pregunta ImHome para enviar un mensaje, no se preocupe por nada: ImHome hace el resto!</string>
+    <string name="tvSplashExplanation">Esta aplicación le permitirá de avisar a sus seres queridos cuando llege a su destino.</string>
+    <string name="tvSplashWifiGps">Por eso, es muy simple. ImHome localiza vía GPS o localiza via WiFi.</string>
+    <string name="tvSplashSchedule">Pregunta a ImHome de enviar un mensaje, no se preocupe por nada: ImHome hace el resto!</string>
     <string name="pref_title_category_about">A proposito</string>
     <string name="pref_title_authorize_sms">Permitir el acceso a SMS</string>
-    <string name="pref_description_authorize_sms">Permite ImHome enviando el mensaje a sus seres queridos</string>
-    <string name="manage_permissions_title">Gestionar el permiso</string>
-    <string name="manage_permission_summary">Proporciona acceso a la administración de permisos de la aplicación</string>
+    <string name="pref_description_authorize_sms">Permite a ImHome enviar el mensaje a sus seres queridos</string>
+    <string name="manage_permissions_title">Gestionar permiso</string>
+    <string name="manage_permission_summary">Permite acceso a la administración de permisos de la aplicación</string>
+    <string name="tvSelectDestination">Elija un destino :</string>
 </resources>

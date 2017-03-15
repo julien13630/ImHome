@@ -7,22 +7,10 @@
     tools:showIn="@layout/activity_contact"
     tools:context="com.dailyvery.apps.imhome.ContactActivity">
 
-    <TextView
-        android:id="@+id/tvContactsPrevenir"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_alignParentTop="true"
-        android:background="#B2B9E1"
-        android:gravity="center_vertical"
-        android:paddingLeft="5sp"
-        android:textSize="15sp"
-        android:text="@string/tvContactPrevenir" />
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listContact"
-        android:layout_below="@id/tvContactsPrevenir"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
