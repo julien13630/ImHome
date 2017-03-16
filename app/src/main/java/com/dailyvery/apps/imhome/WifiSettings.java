@@ -82,7 +82,7 @@ public class WifiSettings extends ListActivity {
      */
     public void showAddWifiDialog(final NetworkInfo info)
     {
-        WifiManager wifiManager = (WifiManager)WifiSettings.this.getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiManager = (WifiManager)WifiSettings.this.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         final WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         final String ssid = wifiInfo.getSSID();
 

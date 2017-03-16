@@ -59,7 +59,7 @@ public class WifiSelectionFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Ajouter les wifis système
-        this.wifiManager = (WifiManager)getActivity().getSystemService(Context.WIFI_SERVICE);
+        this.wifiManager = (WifiManager)getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (wifiManager.isWifiEnabled()){
             return inflater.inflate(R.layout.content_wifi_selection, container, false);
         }else{
@@ -106,7 +106,7 @@ public class WifiSelectionFragment extends Fragment {
 
         avertList = getActivity().getIntent().getExtras().getParcelableArrayList("avertList");
 
-        WifiDataSource wds = new WifiDataSource(getActivity());
+        WifiDataSource wds = new WifiDataSource(getActivity().getApplicationContext());
         try {
             wds.open();
             wifiList = wds.getAllWifi();
@@ -118,7 +118,7 @@ public class WifiSelectionFragment extends Fragment {
         }
 
         arrayListWifi = (ArrayList<Wifi>)wifiList;
-        arrayListWifiRegistered = new ArrayList<Wifi>();
+        arrayListWifiRegistered = new ArrayList<>();
 
         listAndroidWifi = wifiManager.getConfiguredNetworks();
         addWifiToWifiRegistered();
