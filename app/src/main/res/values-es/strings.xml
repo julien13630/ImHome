@@ -31,7 +31,7 @@
     <string name="tvPleaseEnableWifi">\"Por favor, active wifi\"</string>
     <string name="tvPleaseEnterMessageText">\"Escriba texto a enviar:\"</string>
     <string name="validate">Validar</string>
-    <string name="GPS">"GP"</string>
+    <string name="GPS">\"GPS\"</string>
     <string name="Wifi">"WiFi"</string>
     <string name="notifMessageSentTo">"Mensaje enviado a "</string>
     <string name="notifName">"ImHome mensaje enviado"</string>
