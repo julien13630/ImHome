@@ -8,8 +8,8 @@ android {
         applicationId "com.dailyvery.apps.imhome"
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 26
-        versionName "0.6.1"
+        versionCode 27
+        versionName "1.0"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -22,14 +22,14 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.3.0'
-    compile 'com.android.support:design:25.3.0'
-    compile 'com.android.support:support-v4:25.3.0'
-    compile 'com.android.support:support-vector-drawable:25.3.0'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'com.pavelsikun:material-seekbar-preference:2.2.0'
-    compile 'com.google.android.gms:play-services-maps:10.2.0'
-    compile 'com.google.android.gms:play-services-location:10.2.0'
+    compile 'com.google.android.gms:play-services-maps:10.2.1'
+    compile 'com.google.android.gms:play-services-location:10.2.1'
     compile 'com.google.gms:google-services:3.0.0'
-    compile 'com.google.firebase:firebase-ads:10.2.0'
+    compile 'com.google.firebase:firebase-ads:10.2.1'
     testCompile 'junit:junit:4.12'
 }
