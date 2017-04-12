@@ -258,7 +258,7 @@ public class WifiSelectionFragment extends Fragment {
                                 if(dateReccurence != null){
                                     a.setAddDate(dateReccurence);
                                 }
-                                a.setMessageText(et.getText().toString() + "\n" + getString(R.string.sentByImHome));
+                                a.setMessageText(et.getText().toString());
                                 a.setSsid(wifi.getSsid());
                                 a.setLabel(wifi.getLabel());
                                 a.setHashcode(wifi.getHashcode());

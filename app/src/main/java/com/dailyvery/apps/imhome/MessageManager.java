@@ -27,7 +27,7 @@ public class MessageManager {
     }
 
     public int sendSMS(Context context, SharedPreferences prefs, int notifID, Avert a) {
-        SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText(), null, null);
+        SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText() + "\n" + context.getString(R.string.sentByImHome), null, null);
         Toast.makeText(context, context.getString(R.string.notifMessageSentTo) + a.getContactName(), Toast.LENGTH_LONG).show();
         if(prefs.getBoolean("notifications_new_message", true)){
             NotificationManager.getInstance().createNotification(context, context.getString(R.string.notifMessageSentTo) + a.getContactName(), notifID++);
