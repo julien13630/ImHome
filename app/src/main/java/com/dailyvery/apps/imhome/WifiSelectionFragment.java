@@ -196,9 +196,9 @@ public class WifiSelectionFragment extends Fragment {
         View viewAlertDialog = null;
         viewAlertDialog = inflaterDialog.inflate(R.layout.alert_dialog_layout, null);
         final EditText et = (EditText) viewAlertDialog.findViewById(R.id.etMessageToSend);
-        final CheckBox cbMessageReccurent = (CheckBox)viewAlertDialog.findViewById(R.id.cbMessageReccurent);
         final AvertDataSource ads = new AvertDataSource(getActivity());
         et.setText(getString(R.string.defaultMessage), TextView.BufferType.EDITABLE);
+        /*final CheckBox cbMessageReccurent = (CheckBox)viewAlertDialog.findViewById(R.id.cbMessageReccurent);
 
         final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
@@ -238,15 +238,15 @@ public class WifiSelectionFragment extends Fragment {
                     cbMessageReccurent.setText(getString(R.string.cbRecurrence));
                 }
             }
-        });
+        });*/
 
         //On limite le text a 160 caractères
         InputFilter[] filterArray = new InputFilter[1];
         filterArray[0] = new InputFilter.LengthFilter(160);
         et.setFilters(filterArray);
 
-        cbMessageReccurent.setText(getString(R.string.cbRecurrence));
-        cbMessageReccurent.setChecked(false);
+        //cbMessageReccurent.setText(getString(R.string.cbRecurrence));
+        //cbMessageReccurent.setChecked(false);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getString(R.string.tvPleaseEnterMessageText))
@@ -262,7 +262,8 @@ public class WifiSelectionFragment extends Fragment {
                                 a.setSsid(wifi.getSsid());
                                 a.setLabel(wifi.getLabel());
                                 a.setHashcode(wifi.getHashcode());
-                                a.setFlagReccurence(cbMessageReccurent.isChecked());
+                                a.setFlagReccurence(false);
+                                //a.setFlagReccurence(cbMessageReccurent.isChecked());
 
                                 ads.addAvert(a);
 

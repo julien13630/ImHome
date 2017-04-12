@@ -386,11 +386,11 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     {
         View viewAlertDialog = null;
         viewAlertDialog = inflaterDialog.inflate(R.layout.alert_dialog_layout, null);
-        final CheckBox cbMessageReccurent = (CheckBox)viewAlertDialog.findViewById(R.id.cbMessageReccurent);
+        //final CheckBox cbMessageReccurent = (CheckBox)viewAlertDialog.findViewById(R.id.cbMessageReccurent);
         final EditText et = (EditText) viewAlertDialog.findViewById(R.id.etMessageToSend);
         final AvertDataSource ads = new AvertDataSource(getActivity());
         et.setText(getString(R.string.defaultMessage), TextView.BufferType.EDITABLE);
-        final Calendar c = Calendar.getInstance();
+        /*final Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
 
@@ -436,7 +436,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         et.setFilters(filterArray);
 
         cbMessageReccurent.setText(getString(R.string.cbRecurrence));
-        cbMessageReccurent.setChecked(false);
+        cbMessageReccurent.setChecked(false);*/
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getString(R.string.tvPleaseEnterMessageText))
@@ -451,7 +451,9 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                                         a.setMessageText(et.getText().toString());
                                         a.setLatitude(location.latitude);
                                         a.setLongitude(location.longitude);
-                                        a.setFlagReccurence(cbMessageReccurent.isChecked());
+                                        a.setFlagReccurence(false);
+                                        //a.setFlagReccurence(cbMessageReccurent.isChecked());
+
                                         ads.addAvert(a);
 
                                     }
