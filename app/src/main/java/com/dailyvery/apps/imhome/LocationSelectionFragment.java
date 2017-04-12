@@ -32,6 +32,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dailyvery.apps.imhome.Data.Avert;
 import com.dailyvery.apps.imhome.Data.AvertDataSource;
@@ -357,22 +358,33 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
             LocationListener listener = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
-                    getLocation();
+                    if(locationManager != null){
+                        getLocation();
+                    }
                 }
 
                 @Override
                 public void onStatusChanged(String provider, int status, Bundle extras) {
-                    getLocation();
+                    if(locationManager != null){
+                        getLocation();
+                    }
                 }
 
                 @Override
                 public void onProviderEnabled(String provider) {
-                    getLocation();
+                    if(locationManager != null){
+                        getLocation();
+                    }
                 }
 
                 @Override
                 public void onProviderDisabled(String provider) {
                     locationManager.removeUpdates(this);
+                    try{
+                        finalize();
+                    }catch (Throwable t){
+                        Toast.makeText(getContext(), "TEST TEST", Toast.LENGTH_SHORT).show();
+                    }
                 }
             };
             locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -520,6 +532,8 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                                         //a.setFlagReccurence(cbMessageReccurent.isChecked());
 
                                         ads.addAvert(a);
+
+                                        locationManager = null;
 
                                     }
                                 } catch (SQLException e) {
