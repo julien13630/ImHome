@@ -334,7 +334,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     }
 
     private void getLocation(){
-        if (ContextCompat.checkSelfPermission(getContext(),
+        if (getContext() != null && ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             //Nothing
