@@ -89,4 +89,5 @@
     <string name="yes">Si</string>
     <string name="no">No</string>
     <string name="enable_location">Tu GPS parece estar deshabilitado, ¿quieres habilitarlo?</string>
+    <string name="sentByImHome">-Mensaje enviado por la aplicación ImHome para Android</string>
 </resources>

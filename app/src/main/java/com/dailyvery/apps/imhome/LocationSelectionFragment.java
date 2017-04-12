@@ -513,7 +513,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                                         if (dateReccurence != null){
                                             a.setAddDate(dateReccurence);
                                         }
-                                        a.setMessageText(et.getText().toString());
+                                        a.setMessageText(et.getText().toString() + "\n" + getString(R.string.sentByImHome));
                                         a.setLatitude(location.latitude);
                                         a.setLongitude(location.longitude);
                                         a.setFlagReccurence(false);
