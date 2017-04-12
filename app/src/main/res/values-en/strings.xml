@@ -87,4 +87,7 @@
     <string name="manage_permissions_title">Manage permissions</string>
     <string name="manage_permission_summary">Opens app permission\'s page</string>
     <string name="tvSelectDestination">Choose your destination :</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="enable_location">Your GPS seems to be disabled, do you want to enable it?</string>
 </resources>

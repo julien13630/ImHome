@@ -11,6 +11,8 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,9 +20,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,12 +28,10 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.dailyvery.apps.imhome.Data.Avert;
 import com.dailyvery.apps.imhome.Data.AvertDataSource;
@@ -56,14 +54,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class LocationSelectionFragment extends Fragment implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
-    MapView mMapView;
+    private MapView mMapView;
+    private LocationManager locationManager;
+    private ProgressBar pbLoading;
     private GoogleMap googleMap;
     private GoogleApiClient mGoogleApiClient;
     public static final String TAG = PlaceSelectionActivity.class.getSimpleName();
@@ -105,6 +104,8 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
             rootView = inflater.inflate(R.layout.fragment_location_selection, container, false);
 
             inflaterDialog = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            pbLoading = (ProgressBar) rootView.findViewById(R.id.pbLoading);
 
             dateReccurence = null;
 
@@ -328,19 +329,79 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
+        statusCheck();
+    }
+
+    private void getLocation(){
         if (ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             //Nothing
-        }else{
+        }else {
             Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
             if (location == null) {
-                // Blank for a moment...
-            }
-            else {
+                pbLoading.setVisibility(View.VISIBLE);
+                mMapView.setVisibility(View.GONE);
+            } else {
                 handleNewLocation(location);
-            };
+            }
         }
+    }
+
+    public void statusCheck() {
+        final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+        }else{
+            LocationListener listener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    getLocation();
+                }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                    getLocation();
+                }
+
+                @Override
+                public void onProviderEnabled(String provider) {
+                    getLocation();
+                }
+
+                @Override
+                public void onProviderDisabled(String provider) {
+                    locationManager.removeUpdates(this);
+                }
+            };
+            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+            if (ContextCompat.checkSelfPermission(getContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, listener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, listener);
+                getLocation();
+            }
+        }
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(getString(R.string.enable_location))
+                .setCancelable(false)
+                .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override
@@ -365,6 +426,10 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
+
+        pbLoading.setVisibility(View.GONE);
+        mMapView.setVisibility(View.VISIBLE);
+
         // For showing a move to my location button
         googleMap.setMyLocationEnabled(true);
 

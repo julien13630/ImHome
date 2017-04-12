@@ -87,4 +87,7 @@
     <string name="manage_permissions_title">Gérer permissions</string>
     <string name="manage_permission_summary">Permet d\'accéder à la gestion de permission de l\'application</string>
     <string name="tvSelectDestination">Selectionnez votre destination :</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="enable_location">Votre GPS semble désactivé. Voulez-vous l\'activer ?</string>
 </resources>

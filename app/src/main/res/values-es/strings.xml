@@ -86,4 +86,7 @@
     <string name="manage_permissions_title">Gestionar permiso</string>
     <string name="manage_permission_summary">Permite acceso a la administración de permisos de la aplicación</string>
     <string name="tvSelectDestination">Elija un destino :</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="enable_location">Tu GPS parece estar deshabilitado, ¿quieres habilitarlo?</string>
 </resources>
