@@ -541,7 +541,9 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                                         String properAddress = String.format("%s, %s",
                                                 address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
                                                 address.getLocality());
-                                        properAddress = properAddress.substring(0, 25) + "...";
+                                        if(properAddress.length() > 25){
+                                            properAddress = properAddress.substring(0, 25) + "...";
+                                        }
 
                                         a.setMessageText(et.getText().toString());
                                         a.setLatitude(location.latitude);
