@@ -1,9 +1,6 @@
 package com.dailyvery.apps.imhome;
 
 import android.Manifest;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +12,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.PreferenceManager;
-import android.telephony.SmsManager;
 import android.util.Log;
 
 import com.dailyvery.apps.imhome.Data.Avert;
@@ -74,6 +70,7 @@ public class MyService extends Service
                         if(a.getFlagReccurence() == 0){
                             notifID = MessageManager.getInstance().sendSMS(getApplicationContext(), prefs, notifID, a);
                             ads.deleteAvert(a, true);
+                            checkMessageLeft(ads);
                         }else if(checkReccurence(a)){
                             notifID = MessageManager.getInstance().sendSMS(getApplicationContext(), prefs, notifID, a);
                             Calendar cal = Calendar.getInstance();
@@ -81,6 +78,7 @@ public class MyService extends Service
                             cal.add(Calendar.DAY_OF_YEAR, 1);
                             a.setAddDate(cal.getTime());
                             ads.editAvert(a);
+                            checkMessageLeft(ads);
                         }
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -95,6 +93,19 @@ public class MyService extends Service
                 }else{
                     Log.e(TAG, "On Y EST POOOOS !");
                 }
+            }
+        }
+
+        private void checkMessageLeft(AvertDataSource ads){
+            List<Avert> list = ads.getAllAvert();
+            boolean isGps = false;
+            for(Avert item : list){
+                if(item.getSsid() == null){
+                    isGps = true;
+                }
+            }
+            if(!isGps){
+                stopService(new Intent(getBaseContext(), MyService.class));
             }
         }
 
