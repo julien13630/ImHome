@@ -1,13 +1,19 @@
 package com.dailyvery.apps.imhome;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -98,6 +104,23 @@ public class MainActivity extends AppCompatActivity {
 
             ActivityCompat.requestPermissions(MainActivity.this,
                     new String[]{Manifest.permission.READ_SMS}, 0);
+        }
+
+        if(avertList.size() > 0){
+            askIgnoreBatteryOptimizations();
+        }
+    }
+
+    private void askIgnoreBatteryOptimizations() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Intent intent = new Intent();
+            String packageName = getPackageName();
+            PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                intent.setData(Uri.parse("package:" + packageName));
+                startActivity(intent);
+            }
         }
     }
 
