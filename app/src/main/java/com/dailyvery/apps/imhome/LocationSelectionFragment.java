@@ -69,12 +69,14 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     public static final String TAG = PlaceSelectionActivity.class.getSimpleName();
     private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
     private Marker marker;
+    private Address address;
     private LatLng location;
     private Button btValider;
     private ArrayList<Avert> avertList;
     private static LayoutInflater inflaterDialog = null;
     private TimePickerDialog.OnTimeSetListener timeSetListener = null;
     private Date dateReccurence;
+    private boolean firstLocation;
 
     private Integer THRESHOLD = 2;
     private DelayAutoCompleteTextView geo_autocomplete;
@@ -84,6 +86,8 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView;
+
+        firstLocation = true;
 
         if (ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -133,33 +137,37 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                     googleMap = mMap;
 
                     googleMap.setOnMapClickListener(new
-                                                            GoogleMap.OnMapClickListener() {
-                                                                @Override
-                                                                public void onMapClick (LatLng latLng){
-                                                                    Geocoder geocoder =
-                                                                            new Geocoder(getActivity());
-                                                                    List<Address> list;
-                                                                    try {
-                                                                        list = geocoder.getFromLocation(latLng.latitude,
-                                                                                latLng.longitude, 1);
-                                                                    } catch (IOException e) {
-                                                                        return;
-                                                                    }
-                                                                    Address address = list.get(0);
-                                                                    if (marker != null) {
-                                                                        marker.remove();
-                                                                    }
+                        GoogleMap.OnMapClickListener() {
+                            @Override
+                            public void onMapClick (LatLng latLng){
+                                Geocoder geocoder =
+                                        new Geocoder(getActivity());
+                                List<Address> list;
+                                try {
+                                    list = geocoder.getFromLocation(latLng.latitude,
+                                            latLng.longitude, 1);
+                                } catch (IOException e) {
+                                    return;
+                                }
+                                address = list.get(0);
+                                if (marker != null) {
+                                    marker.remove();
+                                }
 
-                                                                    location = new LatLng(latLng.latitude, latLng.longitude);
+                                location = new LatLng(latLng.latitude, latLng.longitude);
 
-                                                                    MarkerOptions options = new MarkerOptions()
-                                                                            .title(address.getLocality())
-                                                                            .position(location);
+                                String properAddress = String.format("%s, %s",
+                                        address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
+                                        address.getLocality());
 
-                                                                    marker = googleMap.addMarker(options);
-                                                                    btValider.setEnabled(true);
-                                                                }
-                                                            });
+                                MarkerOptions options = new MarkerOptions()
+                                        .title(properAddress)
+                                        .position(location);
+
+                                marker = googleMap.addMarker(options);
+                                btValider.setEnabled(true);
+                            }
+                        });
                 }
             });
 
@@ -167,7 +175,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
             btValider.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showValidLocationDialog(marker.getPosition());
+                    showValidLocationDialog(marker.getPosition(), address);
                 }
             });
             //Tant qu'on a pas de marker, on n'active pas le bouton
@@ -198,11 +206,11 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                         marker.remove();
                     }
 
-                    Address address = gotAddresses.get(0);
+                    address = gotAddresses.get(0);
 
                     String properAddress = String.format("%s, %s",
                             address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
-                            address.getCountryName());
+                            address.getLocality());
 
                     LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
 
@@ -447,8 +455,11 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
 
         LatLng myPosition = new LatLng(location.getLatitude(), location.getLongitude());
 
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(myPosition).zoom(12).build();
-        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        if(firstLocation){
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(myPosition).zoom(12).build();
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            firstLocation = false;
+        }
 
         mMapView.onResume(); // needed to get the map to display immediately
     }
@@ -458,8 +469,9 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
      *
      * @param location
      *            La location a detecter pour envoyer le message
+     * @param address
      */
-    public void showValidLocationDialog(final LatLng location)
+    public void showValidLocationDialog(final LatLng location, final Address address)
     {
         View viewAlertDialog = null;
         viewAlertDialog = inflaterDialog.inflate(R.layout.alert_dialog_layout, null);
@@ -525,10 +537,17 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                                         if (dateReccurence != null){
                                             a.setAddDate(dateReccurence);
                                         }
+
+                                        String properAddress = String.format("%s, %s",
+                                                address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
+                                                address.getLocality());
+                                        properAddress = properAddress.substring(0, 25) + "...";
+
                                         a.setMessageText(et.getText().toString());
                                         a.setLatitude(location.latitude);
                                         a.setLongitude(location.longitude);
                                         a.setFlagReccurence(false);
+                                        a.setLabel(properAddress);
                                         //a.setFlagReccurence(cbMessageReccurent.isChecked());
 
                                         ads.addAvert(a);
