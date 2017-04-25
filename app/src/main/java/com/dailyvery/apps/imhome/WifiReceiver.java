@@ -40,8 +40,6 @@ public class WifiReceiver extends BroadcastReceiver {
                     WifiInfo wifiInfo = wifiManager.getConnectionInfo();
                     String ssid = wifiInfo.getSSID();
 
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-
                     AvertDataSource ads = new AvertDataSource(context);
 
                     try {
@@ -53,10 +51,10 @@ public class WifiReceiver extends BroadcastReceiver {
                                 if (a.getSsid().compareTo(ssid.substring(1, ssid.length() - 1)) == 0) {
 
                                     if(a.getFlagReccurence() == 0){
-                                        notifID = MessageManager.getInstance().sendSMS(context, prefs, notifID, a);
+                                        MessageManager.getInstance().sendSMS(context, notifID, a);
                                         ads.deleteAvert(a, true);
                                     }else if(checkReccurence(a)){
-                                        notifID = MessageManager.getInstance().sendSMS(context, prefs, notifID, a);
+                                        MessageManager.getInstance().sendSMS(context, notifID, a);
                                         Calendar cal = Calendar.getInstance();
                                         cal.setTime(a.getAddDate());
                                         cal.add(Calendar.DAY_OF_YEAR, 1);

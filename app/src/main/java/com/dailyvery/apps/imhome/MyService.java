@@ -68,11 +68,11 @@ public class MyService extends Service
                     try {
                         ads.open();
                         if(a.getFlagReccurence() == 0){
-                            notifID = MessageManager.getInstance().sendSMS(getApplicationContext(), prefs, notifID, a);
+                            MessageManager.getInstance().sendSMS(getApplicationContext(), notifID, a);
                             ads.deleteAvert(a, true);
                             checkMessageLeft(ads);
                         }else if(checkReccurence(a)){
-                            notifID = MessageManager.getInstance().sendSMS(getApplicationContext(), prefs, notifID, a);
+                            MessageManager.getInstance().sendSMS(getApplicationContext(), notifID, a);
                             Calendar cal = Calendar.getInstance();
                             cal.setTime(a.getAddDate());
                             cal.add(Calendar.DAY_OF_YEAR, 1);

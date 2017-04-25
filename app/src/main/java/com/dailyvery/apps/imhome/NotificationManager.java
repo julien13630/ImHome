@@ -47,4 +47,10 @@ public class NotificationManager {
         notificationManager.notify(notifID, n);
     }
 
+    public void cancel(Context context, int notifID){
+        android.app.NotificationManager notificationManager = (android.app.NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(notifID);
+
+    }
+
 }
