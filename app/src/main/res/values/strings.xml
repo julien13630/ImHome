@@ -134,5 +134,6 @@
     <string name="enable_location">Your GPS seems to be disabled, do you want to enable it?</string>
     <string name="sentByImHome">-Message envoyé par l\'application ImHome pour Android</string>
     <string name="tvFaillure">Echec d\'envoi du message</string>
+    <string name="tvNoNumber">Pas de numéro pour ce contact</string>
 
 </resources>
