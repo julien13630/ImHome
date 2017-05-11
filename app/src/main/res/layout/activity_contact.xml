@@ -46,14 +46,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:background="@color/colorPrimary"
-                android:text="Ajouter"
+                android:text="@string/btAdd"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
 
-            <LinearLayout
+            <View
                 android:layout_width="1sp"
                 android:layout_height="match_parent"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical"/>
 
             <Button
                 android:id="@+id/fabOk"
@@ -61,7 +61,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:background="@color/colorPrimary"
-                android:text="Suivant"
+                android:text="@string/btNext"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp" />
 

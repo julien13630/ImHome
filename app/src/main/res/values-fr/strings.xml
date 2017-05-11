@@ -39,7 +39,7 @@
     <string name="notifName">ImHome Message Envoyé</string>
     <string name="tstRecipientTwiceForbidden">Impossible d\'ajouter deux fois le meme numéro</string>
     <string name="tvNoMessages">Pas de messages !</string>
-    <string name="tvNoRecipient">Pas de destinataire !</string>
+    <string name="tvNoRecipient">Pas de destinataire</string>
     <string name="tvPleaseEnterMessageTextNew">Saisissez le nouveau texte à envoyer :</string>
     <string name="tvSelectNumber">Selectionner un numero :</string>
     <string name="recipientAlerted">a été prévenu</string>
@@ -93,4 +93,9 @@
     <string name="sentByImHome">-Message envoyé par l\'application ImHome pour Android</string>
     <string name="tvFaillure">Echec d\'envoi du message</string>
     <string name="tvNoNumber">Pas de numéro pour ce contact</string>
+    <string name="btNewMessage">Ajouter un message</string>
+    <string name="tvNoMessageAttente">Pas  de message en attente</string>
+    <string name="btAdd">Ajouter</string>
+    <string name="btNext">Suivant</string>
+    <string name="tvMyWifi">Mes réseaux WIFI</string>
 </resources>

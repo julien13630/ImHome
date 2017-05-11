@@ -38,7 +38,7 @@
     <string name="notifName">ImHome Message Sent</string>
     <string name="tstRecipientTwiceForbidden">Forbidden to add twice the same number</string>
     <string name="tvNoMessages">No messages !</string>
-    <string name="tvNoRecipient">No Recipient !</string>
+    <string name="tvNoRecipient">No Recipient</string>
     <string name="tvPleaseEnterMessageTextNew">Type new text to send :</string>
     <string name="tvSelectNumber">Select a phone number :</string>
     <string name="pref_title_vibrate">Vibration</string>
@@ -93,4 +93,9 @@
     <string name="sentByImHome">-Message sent by ImHome app for Android.</string>
     <string name="tvFaillure">Failed to send message</string>
     <string name="tvNoNumber">No phone number for this person</string>
+    <string name="btNewMessage">Add new message</string>
+    <string name="tvNoMessageAttente">No message to be sent</string>
+    <string name="btAdd">Add</string>
+    <string name="btNext">Next</string>
+    <string name="tvMyWifi">My WIFI networks</string>
 </resources>

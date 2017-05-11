@@ -15,7 +15,7 @@
         android:background="@color/color_bottom_line_disabled"
         android:gravity="center_vertical"
         android:paddingLeft="15sp"
-        android:text="Mes réseaux WIFI"
+        android:text="@string/tvMyWifi"
         android:textColor="#222222"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:padding="20sp"
-            android:text="Valider"
+            android:text="@string/validate"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 
