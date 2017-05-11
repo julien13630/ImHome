@@ -1,23 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:paddingLeft="5dp"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/listWifiLayout"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="10sp">
 
-    <TextView
-        android:id="@+id/listWifiSSID"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:paddingTop="5dp"/>
 
-    <TextView
-        android:id="@+id/listWifiLibelle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:paddingTop="5dp"
-        android:layout_below="@id/listWifiSSID"
-        android:textColor="#8B8378"/>
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-</RelativeLayout>
+        <RadioButton
+            android:id="@+id/rb_Wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="60sp"
+        android:layout_weight="0.8"
+        android:orientation="vertical"
+        android:paddingLeft="20sp">
+
+        <TextView
+            android:id="@+id/listWifiSSID"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.6"
+            android:gravity="center_vertical"
+            android:text="Ma BBox"
+            android:textAllCaps="false"
+            android:textColor="#222222"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/listWifiLibelle"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_below="@id/listWifiSSID"
+            android:layout_weight="0.4"
+            android:gravity="center_vertical"
+            android:paddingTop="5dp"
+            android:text="Chez moi"
+            android:textColor="#8B8378"
+            android:textSize="20sp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</LinearLayout>

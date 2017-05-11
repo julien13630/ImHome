@@ -18,6 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +39,9 @@ public class ContactActivity extends AppCompatActivity {
     private ArrayList<Avert> avertList = new ArrayList<>();
     private ArrayList<Avert> tmpAvertList = new ArrayList<>();
     private AdapterContact adapter = null;
-    private FloatingActionButton fabOk;
+    private Button fabOk;
     private ListView lvContact;
+    private ImageView iv_NoRecipient;
     BtnClickListener btnListenerDelete;
 
     @Override
@@ -49,7 +53,7 @@ public class ContactActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle(getString(R.string.tvContactPrevenir));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        Button fab = (Button) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,7 +61,7 @@ public class ContactActivity extends AppCompatActivity {
             }
         });
 
-        fabOk = (FloatingActionButton) findViewById(R.id.fabOk);
+        fabOk = (Button) findViewById(R.id.fabOk);
         fabOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,13 +71,11 @@ public class ContactActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        iv_NoRecipient = (ImageView) findViewById(R.id.iv_NoRecipient);
         setFabOkVisibility();
 
         lvContact = (ListView)findViewById(R.id.listContact);
 
-        TextView tvEmptyText = (TextView)findViewById(R.id.tvEmptyListContact);
-        tvEmptyText.setText(getString(R.string.tvNoRecipient));
 
         lvContact.setEmptyView(findViewById(R.id.emptyListContact));
 
@@ -86,6 +88,8 @@ public class ContactActivity extends AppCompatActivity {
             }
         };
 
+
+
         if(avertList.size() == 0){
             onAddButtonClick();
         }
@@ -96,9 +100,18 @@ public class ContactActivity extends AppCompatActivity {
      */
     private void setFabOkVisibility() {
         if (avertList.isEmpty()){
-            fabOk.setVisibility(View.INVISIBLE);
+            fabOk.setVisibility(View.GONE);
+            if (Math.random() < 0.5)
+            {
+                iv_NoRecipient.setImageResource(R.drawable.ic_person_girl);
+            }
+            else
+            {
+                iv_NoRecipient.setImageResource(R.drawable.ic_person_man);
+            }
         }else{
             fabOk.setVisibility(View.VISIBLE);
+
         }
     }
 

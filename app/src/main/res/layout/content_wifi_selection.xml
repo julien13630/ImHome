@@ -11,16 +11,43 @@
     <TextView
         android:id="@+id/tvListWifi"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#B2B9E1"
+        android:layout_height="50sp"
+        android:background="@color/color_bottom_line_disabled"
         android:gravity="center_vertical"
-        android:paddingLeft="5sp"
-        android:textSize="15sp"
-        android:text="@string/tvListWifi" />
+        android:paddingLeft="15sp"
+        android:text="Mes réseaux WIFI"
+        android:textColor="#222222"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/listRegistered" />
+        android:layout_height="1sp"
+        android:background="@color/colorPrimaryDark">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+        <ListView
+            android:id="@+id/listRegistered"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.7"/>
+
+        <Button
+            android:id="@+id/BValidWifi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:padding="20sp"
+            android:text="Valider"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
 
 </LinearLayout>

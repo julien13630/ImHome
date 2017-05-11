@@ -3,75 +3,114 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="horizontal"
-    android:layout_height="match_parent"
-    android:padding="5dp">
+    android:layout_height="120sp"
+    android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:padding="5dp"
-        android:layout_weight="4">
+        android:layout_weight="0.2">
 
         <ImageView
+            android:id="@+id/imGpsWifi"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:id="@+id/imGpsWifi"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:src="@drawable/ic_location_wifi" />
     </LinearLayout>
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="20dp"
-        android:layout_weight="1">
+        android:layout_weight="0.8"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/listMainName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_weight="1"
-            android:paddingTop="5dp"/>
-
-        <TextView
-            android:id="@+id/listMainWifi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:layout_marginTop="2dp"
-            android:layout_weight="1"
-            android:textColor="#8B8378"/>
         <LinearLayout
-            android:id="@+id/btEditDeleteLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:orientation="horizontal"
-            android:layout_weight="10"
-            android:layout_marginRight="10sp"
-            android:layout_marginTop="-25dp"
-            android:layout_marginBottom="5dp"
-            android:paddingTop="5dp">
-            <ImageButton
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:scaleType="fitStart"
-                android:src="@drawable/ic_edit"
-                android:id="@+id/imEditMessage"
-                android:background="@android:color/transparent" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:layout_marginTop="5sp"
+            android:layout_marginBottom="5sp">
 
-            <ImageButton
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="15sp"
-                android:scaleType="fitStart"
-                android:src="@drawable/ic_delete_black_24dp"
+            <TextView
+                android:id="@+id/listMainName"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.6"
+                android:paddingTop="5dp"
+                android:text="Julien Petitbon"
+                android:textSize="20sp"
+                android:textColor="#222222"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/listMainWifi"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="2dp"
+                android:layout_weight="0.4"
+                android:text="Ma B-Box"
+                android:textColor="#8B8378"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:background="@color/colorPrimary"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/imEditMessage"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal">
+
+                <ImageButton
+
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/ic_pencil_white"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark"
+                android:orientation="horizontal"></LinearLayout>
+
+            <RelativeLayout
                 android:id="@+id/imDeleteMessage"
-                android:background="@android:color/transparent" />
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/ic_trash_white"
+                    android:layout_centerInParent="true"/>
+            </RelativeLayout>
+
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
