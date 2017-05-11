@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.v7.preference.PreferenceManager;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.dailyvery.apps.imhome.Data.Avert;
@@ -27,10 +28,13 @@ public class MessageManager {
 
     final private String SENT = "SMS_SENT";
 
-    //private boolean alreadySent;
+    private Timer mTimer;
+
+    private BroadcastReceiver broadcastReceiver;
 
     private MessageManager(){
-        //alreadySent = false;
+        mTimer = new Timer();
+        broadcastReceiver = null;
     }
 
     public static MessageManager getInstance(){
@@ -46,47 +50,49 @@ public class MessageManager {
 
         PendingIntent sentPI = PendingIntent.getBroadcast(context, 0, new Intent(SENT), 0);
 
+        if(broadcastReceiver == null){
+            broadcastReceiver = new BroadcastReceiver()
+            {
+                @Override
+                public void onReceive(Context arg0,Intent arg1)
+                {
+                    switch(getResultCode())
+                    {
+                        case Activity.RESULT_OK:
+
+                            if(prefs.getBoolean("notifications_new_message", true)){
+                                NotificationManager.getInstance().cancel(context, notifID);
+                                NotificationManager.getInstance().createNotification(context, context.getString(R.string.notifMessageSentTo) + a.getContactName(), notifID);
+                            }
+                            mTimer.cancel();
+                            mTimer = new Timer();
+                            break;
+
+                        case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                        case SmsManager.RESULT_ERROR_NO_SERVICE:
+                        case SmsManager.RESULT_ERROR_NULL_PDU:
+                        case SmsManager.RESULT_ERROR_RADIO_OFF:
+                            NotificationManager.getInstance().cancel(context, notifID);
+                            NotificationManager.getInstance().createNotification(context, "ECHEC", notifID);
+                            //try again in 1 minute
+                            mTimer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    this.cancel(); //no need to run again, if it fails, this exact code will run again
+                                    //context.getApplicationContext().unregisterReceiver(broadcastReceiver);
+                                    //Log.e("MessageManager", String.valueOf(result));
+                                    sendSMS(context, notifID, a);
+                                }
+                            }, 60000, 60000);
+                            return;
+                    }
+                }
+            };
+        }
 
         // ---when the SMS has been sent---
-        context.getApplicationContext().registerReceiver(
-                new BroadcastReceiver()
-                {
-                    @Override
-                    public void onReceive(Context arg0,Intent arg1)
-                    {
-                        switch(getResultCode())
-                        {
-                            case Activity.RESULT_OK:
+        context.getApplicationContext().registerReceiver(broadcastReceiver, new IntentFilter(SENT));
 
-                                if(prefs.getBoolean("notifications_new_message", true)){
-                                    NotificationManager.getInstance().cancel(context, notifID);
-                                    NotificationManager.getInstance().createNotification(context, context.getString(R.string.notifMessageSentTo) + a.getContactName(), notifID);
-                                }
-                                //alreadySent = true;
-                                break;
-
-                            case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                            case SmsManager.RESULT_ERROR_NO_SERVICE:
-                            case SmsManager.RESULT_ERROR_NULL_PDU:
-                            case SmsManager.RESULT_ERROR_RADIO_OFF:
-                                NotificationManager.getInstance().cancel(context, notifID);
-                                NotificationManager.getInstance().createNotification(context, "ECHEC", notifID);
-                                //try again in 1 minute
-                                Timer mTimer = new Timer();
-                                mTimer.scheduleAtFixedRate(new TimerTask() {
-                                    @Override
-                                    public void run() {
-                                        this.cancel(); //no need to run again, if it fails, this exact code will run again
-                                        sendSMS(context, notifID, a);
-                                    }
-                                }, 60000, 60000);
-                                return;
-                        }
-                    }
-                }, new IntentFilter(SENT));
-
-        //if(!alreadySent) {
-            SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText() + "\n" + context.getString(R.string.sentByImHome), sentPI, null);
-        //}
+        SmsManager.getDefault().sendTextMessage(a.getContactNumber(), null, a.getMessageText() + "\n" + context.getString(R.string.sentByImHome), sentPI, null);
     }
 }

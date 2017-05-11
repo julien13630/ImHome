@@ -91,4 +91,5 @@
     <string name="no">No</string>
     <string name="enable_location">Your GPS seems to be disabled, do you want to enable it?</string>
     <string name="sentByImHome">-Message sent by ImHome app for Android.</string>
+    <string name="tvFaillure">Failed to send message</string>
 </resources>
