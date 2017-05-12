@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.dailyvery.apps.imhome.Adapter.AdapterWifi;
 import com.dailyvery.apps.imhome.Data.Avert;
@@ -45,6 +46,7 @@ public class WifiSelectionFragment extends Fragment {
     private ArrayList<Avert> avertList;
     private ArrayList<Wifi> arrayListWifiRegistered;
     ListView lvWifiRegistered;
+    private Button bValidWifi;
     private static LayoutInflater inflaterDialog = null;
     private TimePickerDialog.OnTimeSetListener timeSetListener = null;
     private Date dateReccurence;
@@ -127,7 +129,24 @@ public class WifiSelectionFragment extends Fragment {
         lvWifiRegistered = (ListView)view.findViewById(R.id.listRegistered);
         lvWifiRegistered.setAdapter(adapterRegistered);
 
-        lvWifiRegistered.setOnItemClickListener(listListenerRegistered);
+        //lvWifiRegistered.setOnItemClickListener(listListenerRegistered);
+
+        bValidWifi = (Button) view.findViewById(R.id.BValidWifi);
+        bValidWifi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = ((AdapterWifi)lvWifiRegistered.getAdapter()).getSelectedPosition();
+                if (position < 0)
+                {
+
+                }
+                else
+                {
+                    showValidWifiDialog(arrayListWifiRegistered.get(position));
+                }
+
+            }
+        });
     }
 
 

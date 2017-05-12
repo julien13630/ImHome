@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.dailyvery.apps.imhome.Data.Avert;
 import com.dailyvery.apps.imhome.Interface.BtnClickListener;
@@ -76,7 +77,7 @@ public class AdapterContact extends ArrayAdapter<Avert> {
             holder.display_name.setText(lAvert.get(position).getContactName());
             holder.display_number.setText(lAvert.get(position).getContactNumber());
 
-            ImageButton btDelete = (ImageButton)vi.findViewById(R.id.imDeleteContact);
+            RelativeLayout btDelete = (RelativeLayout) vi.findViewById(R.id.btContactDeleteLayout);
             btDelete.setTag(position);
             btDelete.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="20sp"
-    android:layout_weight="1">
-
-    <TextView
-        android:id="@+id/listContactName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:paddingTop="5dp"/>
-
-    <TextView
-        android:id="@+id/listContactNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="15sp"
-        android:paddingTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:textColor="#8B8378"/>
+    android:layout_weight="1"
+    android:orientation="horizontal">
 
     <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.8"
+        android:orientation="vertical"
+        android:paddingLeft="20sp">
+
+        <TextView
+            android:id="@+id/listContactName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="Julien Petitbon"
+            android:textColor="#222222"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/listContactNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="5dp"
+            android:text="0650901970"
+            android:textColor="#8B8378"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
         android:id="@+id/btContactDeleteLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_gravity="right"
-        android:orientation="horizontal"
-        android:layout_weight="10"
-        android:layout_marginRight="10sp"
-        android:layout_marginTop="-50dp"
-        android:layout_marginBottom="5dp"
-        android:paddingTop="5dp">
+        android:layout_weight="0.15"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
 
         <ImageButton
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginRight="15sp"
-            android:scaleType="fitStart"
-            android:src="@drawable/ic_delete_black_24dp"
             android:id="@+id/imDeleteContact"
-            android:background="@android:color/transparent" />
-    </LinearLayout>
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_centerInParent="true"
+            android:background="@android:color/transparent"
+            android:clickable="false"
+            android:focusable="false"
+            android:scaleType="fitStart"
+            android:src="@drawable/ic_trash_white" />
+    </RelativeLayout>
 </LinearLayout>

@@ -26,7 +26,7 @@
     <string name="tvContactPrevenir">\"Contactos a avisar:\"</string>
     <string name="tvListWifi">\"Lista de wifi registrados:\"</string>
     <string name="tvMessagesEnAttente">\"Mensajes en espera de envio:\"</string>
-    <string name="cancel">"Cancelar"</string>
+    <string name="cancel">Suggérer une modification</string>
     <string name="defaultMessage">"Llegué. "</string>
     <string name="tvPleaseEnableWifi">\"Por favor, active wifi\"</string>
     <string name="tvPleaseEnterMessageText">\"Escriba texto a enviar:\"</string>
@@ -37,7 +37,7 @@
     <string name="notifName">"ImHome mensaje enviado"</string>
     <string name="tstRecipientTwiceForbidden">"Prohibido añadir dos veces el mismo número"</string>
     <string name="tvNoMessages">"Ningún mensaje !"</string>
-    <string name="tvNoRecipient">"Sin destinatario !"</string>
+    <string name="tvNoRecipient">Sin destinatario</string>
     <string name="tvPleaseEnterMessageTextNew">\"Escriba un nuevo texto para enviar:\"</string>
     <string name="tvSelectNumber">"Seleccionar un número de teléfono:"</string>
     <string name="pref_title_vibrate">"Vibración"</string>
@@ -92,4 +92,9 @@
     <string name="sentByImHome">-Mensaje enviado por la aplicación ImHome para Android</string>
     <string name="tvFaillure">No se pudo enviar el mensaje</string>
     <string name="tvNoNumber">No hay un número para esta persona</string>
+    <string name="btNewMessage">Suggérer une modification</string>
+    <string name="tvNoMessageAttente">No hay mensaje en espera</string>
+    <string name="btAdd">Añadir</string>
+    <string name="btNext">Siguiente</string>
+    <string name="tvMyWifi">Mis redes wifi</string>
 </resources>

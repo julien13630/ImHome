@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dailyvery.apps.imhome.Data.Avert;
@@ -92,7 +93,7 @@ public class AdapterMain extends ArrayAdapter<Avert> {
             int colorPos = position % colors.length;
             vi.setBackgroundColor(Color.parseColor(colors[colorPos]));
 
-            ImageButton btDelete = (ImageButton)vi.findViewById(R.id.imDeleteMessage);
+            RelativeLayout btDelete = (RelativeLayout)vi.findViewById(R.id.imDeleteMessage);
             btDelete.setTag(position);
             btDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -101,7 +102,7 @@ public class AdapterMain extends ArrayAdapter<Avert> {
                 }
             });
 
-            ImageButton btEdit = (ImageButton)vi.findViewById(R.id.imEditMessage);
+            RelativeLayout btEdit = (RelativeLayout)vi.findViewById(R.id.imEditMessage);
             btEdit.setTag(position);
             btEdit.setOnClickListener(new View.OnClickListener() {
                 @Override

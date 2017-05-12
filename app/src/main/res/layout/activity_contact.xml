@@ -5,7 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:fitsSystemWindows="true"
     tools:context="com.dailyvery.apps.imhome.ContactActivity">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     <android.support.design.widget.AppBarLayout android:layout_height="wrap_content"
         android:layout_width="match_parent" android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -15,24 +18,64 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_contact" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end">
+        >
 
-        <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin" android:layout_below="@+id/fabOk"
-            android:src="@drawable/ic_add_white_24dp" />
+        <include layout="@layout/content_contact"
+            android:id="@+id/include"
+            android:layout_weight="0.9
+"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
 
-        <android.support.design.widget.FloatingActionButton android:id="@+id/fabOk"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_done_white_24dp" />
+            />
 
-    </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.10"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/fab"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="@color/colorPrimary"
+                android:text="@string/btAdd"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="1sp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"/>
+
+            <Button
+                android:id="@+id/fabOk"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="@color/colorPrimary"
+                android:text="@string/btNext"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+    </LinearLayout>
 
 
 
