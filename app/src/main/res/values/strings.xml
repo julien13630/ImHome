@@ -63,18 +63,6 @@
         <item>60</item>
     </string-array>
 
-    <!--<string name="pref_title_language">Langue</string>
-    <string-array name="pref_array_language_title">
-        <item>Français</item>1
-        <item>English</item>
-        <item>Espanõl</item>
-    </string-array>
-    <string-array name="pref_language_value">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>-->
-
     <string-array name="list_preference_entries">
         <item>Entry 1</item>
         <item>Entry 2</item>
@@ -140,5 +128,7 @@
     <string name="btAdd">Ajouter</string>
     <string name="btNext">Suivant</string>
     <string name="tvMyWifi">Mes réseaux WIFI</string>
+    <string name="noWifiSelected">Pas de wifi selectionné</string>
+    <string name="noMarkerPlaced">Pas de destination choisie</string>
 
 </resources>

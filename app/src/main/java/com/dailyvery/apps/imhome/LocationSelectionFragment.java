@@ -16,6 +16,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -85,7 +86,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView;
+         final View rootView;
 
         firstLocation = true;
 
@@ -165,7 +166,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                                         .position(location);
 
                                 marker = googleMap.addMarker(options);
-                                btValider.setEnabled(true);
+                                //btValider.setEnabled(true);
                             }
                         });
                 }
@@ -175,11 +176,15 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
             btValider.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showValidLocationDialog(marker.getPosition(), address);
+                    if(marker != null){
+                        showValidLocationDialog(marker.getPosition(), address);
+                    }else{
+                        Snackbar.make(getView(), getString(R.string.noMarkerPlaced),Snackbar.LENGTH_LONG).show();
+                    }
                 }
             });
             //Tant qu'on a pas de marker, on n'active pas le bouton
-            btValider.setEnabled(false);
+            //btValider.setEnabled(false);
 
             geo_autocomplete_clear = (ImageView) rootView.findViewById(R.id.geo_autocomplete_clear);
 

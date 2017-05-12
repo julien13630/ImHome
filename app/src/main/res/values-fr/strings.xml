@@ -98,4 +98,6 @@
     <string name="btAdd">Ajouter</string>
     <string name="btNext">Suivant</string>
     <string name="tvMyWifi">Mes réseaux WIFI</string>
+    <string name="noWifiSelected">Pas de wifi selectionné</string>
+    <string name="noMarkerPlaced">Pas de destination choisie</string>
 </resources>

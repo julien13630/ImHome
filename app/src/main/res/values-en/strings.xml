@@ -98,4 +98,6 @@
     <string name="btAdd">Add</string>
     <string name="btNext">Next</string>
     <string name="tvMyWifi">My WIFI networks</string>
+    <string name="noWifiSelected">No Wifi selected</string>
+    <string name="noMarkerPlaced">Please choose your destination</string>
 </resources>
