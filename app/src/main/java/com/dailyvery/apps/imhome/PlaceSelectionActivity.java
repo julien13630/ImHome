@@ -67,7 +67,7 @@ public class PlaceSelectionActivity extends AppCompatActivity {
     }
 
     private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("D5A8DAD5CA5255B4AC95409FF5DB1D2E").build();
+        AdRequest adRequest = new AdRequest.Builder().build();
 
         mInterstitialAd.loadAd(adRequest);
     }
