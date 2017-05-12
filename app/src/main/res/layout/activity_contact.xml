@@ -53,7 +53,8 @@
             <View
                 android:layout_width="1sp"
                 android:layout_height="match_parent"
-                android:orientation="vertical"/>
+                android:background="@color/colorPrimaryDark"
+                android:orientation="vertical" />
 
             <Button
                 android:id="@+id/fabOk"

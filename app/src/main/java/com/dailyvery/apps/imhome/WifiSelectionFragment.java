@@ -35,6 +35,8 @@ import com.dailyvery.apps.imhome.Data.WifiDataSource;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -126,6 +128,21 @@ public class WifiSelectionFragment extends Fragment {
         listAndroidWifi = wifiManager.getConfiguredNetworks();
         addWifiToWifiRegistered();
 
+        Collections.sort(arrayListWifiRegistered, new Comparator<Wifi>() {
+            @Override public int compare(Wifi p1, Wifi p2) {
+                boolean b1 = p1.isFavorite();
+                boolean b2 = p2.isFavorite();
+                if( b1 && ! b2 ) {
+                    return -1;
+                }
+                if( ! b1 && b2 ) {
+                    return 1;
+                }
+                return p1.getSsid().compareTo(p2.getSsid());
+            }
+
+        });
+
         AdapterWifi adapterRegistered = new AdapterWifi(getActivity(), 0, arrayListWifiRegistered);
         lvWifiRegistered = (ListView)view.findViewById(R.id.listRegistered);
         lvWifiRegistered.setAdapter(adapterRegistered);
@@ -152,6 +169,9 @@ public class WifiSelectionFragment extends Fragment {
 
 
     private void addWifiToWifiRegistered() {
+        try {
+
+
         if (listAndroidWifi == null | arrayListWifi == null )
             return;
         for(int i = 0 ; i < listAndroidWifi.size() ; i++){
@@ -164,12 +184,19 @@ public class WifiSelectionFragment extends Fragment {
             for(int j = 0 ; j < arrayListWifi.size() ; j++){
                 if(arrayListWifi.get(j).getSsid().compareTo(temp.getSsid()) == 0){
                     exists = true;
+                    arrayListWifiRegistered.add(arrayListWifi.get(j));
                     j = arrayListWifi.size();
                 }
             }
             if(!exists){
+                temp.setFavorite(false);
                 arrayListWifiRegistered.add(temp);
             }
+        }
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 
