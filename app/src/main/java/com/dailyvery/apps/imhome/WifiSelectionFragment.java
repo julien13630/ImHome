@@ -9,6 +9,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.text.InputFilter;
 import android.text.format.DateFormat;
@@ -138,7 +139,7 @@ public class WifiSelectionFragment extends Fragment {
                 int position = ((AdapterWifi)lvWifiRegistered.getAdapter()).getSelectedPosition();
                 if (position < 0)
                 {
-
+                    Snackbar.make(view, getString(R.string.noWifiSelected),Snackbar.LENGTH_LONG).show();
                 }
                 else
                 {
