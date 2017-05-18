@@ -68,7 +68,7 @@ public class WifiSettings extends ListActivity {
         }
 
         ArrayList<Wifi> arrayListWifi = (ArrayList<Wifi>)wifiList;
-        AdapterWifi adapter = new AdapterWifi(WifiSettings.this, 0, arrayListWifi);
+        AdapterWifi adapter = new AdapterWifi(WifiSettings.this, 0, arrayListWifi, WifiSettings.this.getListView());
         WifiSettings.this.setListAdapter(adapter);
     }
 
@@ -105,7 +105,7 @@ public class WifiSettings extends ListActivity {
                             wifiList = wds.getAllWifi();
 
                             ArrayList<Wifi> arrayListWifi = (ArrayList<Wifi>)wifiList;
-                            AdapterWifi adapter = new AdapterWifi(WifiSettings.this, 0, arrayListWifi);
+                            AdapterWifi adapter = new AdapterWifi(WifiSettings.this, 0, arrayListWifi,  WifiSettings.this.getListView());
                             WifiSettings.this.setListAdapter(adapter);
 
                         } catch (SQLException e) {

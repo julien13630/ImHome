@@ -35,6 +35,8 @@ import com.dailyvery.apps.imhome.Data.WifiDataSource;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -126,8 +128,10 @@ public class WifiSelectionFragment extends Fragment {
         listAndroidWifi = wifiManager.getConfiguredNetworks();
         addWifiToWifiRegistered();
 
-        AdapterWifi adapterRegistered = new AdapterWifi(getActivity(), 0, arrayListWifiRegistered);
+
         lvWifiRegistered = (ListView)view.findViewById(R.id.listRegistered);
+        AdapterWifi adapterRegistered = new AdapterWifi(getActivity(), 0, arrayListWifiRegistered,lvWifiRegistered );
+
         lvWifiRegistered.setAdapter(adapterRegistered);
 
         //lvWifiRegistered.setOnItemClickListener(listListenerRegistered);
@@ -152,6 +156,9 @@ public class WifiSelectionFragment extends Fragment {
 
 
     private void addWifiToWifiRegistered() {
+        try {
+
+
         if (listAndroidWifi == null | arrayListWifi == null )
             return;
         for(int i = 0 ; i < listAndroidWifi.size() ; i++){
@@ -164,12 +171,19 @@ public class WifiSelectionFragment extends Fragment {
             for(int j = 0 ; j < arrayListWifi.size() ; j++){
                 if(arrayListWifi.get(j).getSsid().compareTo(temp.getSsid()) == 0){
                     exists = true;
+                    arrayListWifiRegistered.add(arrayListWifi.get(j));
                     j = arrayListWifi.size();
                 }
             }
             if(!exists){
+                temp.setFavorite(false);
                 arrayListWifiRegistered.add(temp);
             }
+        }
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
         }
     }
 

@@ -10,9 +10,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listContact"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/listContact"/>
 
     <RelativeLayout android:id="@+id/emptyListContact"
         android:layout_width="match_parent" android:layout_height="match_parent">

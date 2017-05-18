@@ -28,6 +28,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -79,6 +81,15 @@ public class MainActivity extends AppCompatActivity {
 
         Button BtnAdd = (Button) findViewById(R.id.BtnAddMessage);
         BtnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ContactActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageView ImgBtnAdd = (ImageView) findViewById(R.id.iv_NoPendingMessage);
+        ImgBtnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ContactActivity.class);

@@ -6,7 +6,9 @@
     <EditText
         android:id="@+id/etMessageToSend"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"/>
 
     <!--<CheckBox
         android:id="@+id/cbMessageReccurent"

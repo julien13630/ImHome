@@ -31,7 +31,7 @@ import android.util.Log;
         public static final String COLUMN_A_FLAGRECCURENCE = "flagnumber";
 
         private static final String DATABASE_NAME = "ImHome.db";
-        private static final int DATABASE_VERSION = 3;
+        private static final int DATABASE_VERSION = 4;
 
         // Commande sql pour la création de la base de données
         private static final String DATABASE_CREATE_WIFI = "CREATE TABLE `wifi` (" +
@@ -39,7 +39,7 @@ import android.util.Log;
                 " `ssid` MEDIUMTEXT NULL DEFAULT NULL," +
                 " `hashcode` INTEGER NOT NULL DEFAULT NULL, " +
                 " `favorite` bit NULL DEFAULT NULL, " +
-                " PRIMARY KEY (`hashcode`)" +
+                " PRIMARY KEY (`ssid`)" +
                 " );" ;
 
         // Commande sql pour la création de la base de données

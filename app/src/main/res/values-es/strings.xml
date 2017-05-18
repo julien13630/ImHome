@@ -99,4 +99,6 @@
     <string name="tvMyWifi">Mis redes wifi</string>
     <string name="noWifiSelected">No hay wifi seleccionado</string>
     <string name="noMarkerPlaced">Elija su destino</string>
+    <string name="GpsDisabled">GPS no disponible</string>
+    <string name="tvPleaseEnterNickname">Escriba un apodo para este wifi</string>
 </resources>

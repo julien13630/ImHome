@@ -3,6 +3,7 @@ package com.dailyvery.apps.imhome.Data;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.SQLException;
@@ -42,12 +43,14 @@ public class WifiDataSource {
         values.put(MySQLiteHelper.COLUMN_W_FAVORIT, favorit);
         long insertId = database.insert(MySQLiteHelper.TABLE_WIFI, null,
                 values);
+
         Cursor cursor = database.query(MySQLiteHelper.TABLE_WIFI,
-                allColumns, MySQLiteHelper.COLUMN_W_HASHCODE + " = " + hashcode, null,
+                allColumns, MySQLiteHelper.COLUMN_W_SSID + " = " +   ssid.replaceAll("'", "\''")  + "'", null,
                 null, null, null);
         cursor.moveToFirst();
         Wifi newWifi = cursorToWifi(cursor);
         cursor.close();
+
         return newWifi;
     }
 
@@ -60,12 +63,33 @@ public class WifiDataSource {
         long insertId = database.insert(MySQLiteHelper.TABLE_WIFI, null,
                 values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_WIFI,
-                allColumns, MySQLiteHelper.COLUMN_W_HASHCODE + " = " + wifi.getHashcode(), null,
+                allColumns, MySQLiteHelper.COLUMN_W_SSID + " = '" +   wifi.getSsid().replaceAll("'", "\''")+"'", null,
                 null, null, null);
         cursor.moveToFirst();
         Wifi newWifi = cursorToWifi(cursor);
         cursor.close();
         return newWifi;
+    }
+
+    public boolean update(Wifi wifi) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_W_LIBELLE, wifi.getLabel());
+        values.put(MySQLiteHelper.COLUMN_W_SSID, wifi.getSsid());
+        values.put(MySQLiteHelper.COLUMN_W_HASHCODE, wifi.getHashcode());
+        values.put(MySQLiteHelper.COLUMN_W_FAVORIT, wifi.isFavorite());
+
+            addWifi(wifi);
+            try {
+                database.update(MySQLiteHelper.TABLE_WIFI,values,MySQLiteHelper.COLUMN_W_SSID + " = '" +   wifi.getSsid().replaceAll("'", "\''") +"'",null);
+            }catch (Exception ex)
+            {
+                ex.printStackTrace();
+                return false;
+            }
+
+
+           return true;
+
     }
 
     public void deleteComment(Wifi comment) {
