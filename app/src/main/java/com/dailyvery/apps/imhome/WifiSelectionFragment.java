@@ -128,23 +128,10 @@ public class WifiSelectionFragment extends Fragment {
         listAndroidWifi = wifiManager.getConfiguredNetworks();
         addWifiToWifiRegistered();
 
-        Collections.sort(arrayListWifiRegistered, new Comparator<Wifi>() {
-            @Override public int compare(Wifi p1, Wifi p2) {
-                boolean b1 = p1.isFavorite();
-                boolean b2 = p2.isFavorite();
-                if( b1 && ! b2 ) {
-                    return -1;
-                }
-                if( ! b1 && b2 ) {
-                    return 1;
-                }
-                return p1.getSsid().compareTo(p2.getSsid());
-            }
 
-        });
-
-        AdapterWifi adapterRegistered = new AdapterWifi(getActivity(), 0, arrayListWifiRegistered);
         lvWifiRegistered = (ListView)view.findViewById(R.id.listRegistered);
+        AdapterWifi adapterRegistered = new AdapterWifi(getActivity(), 0, arrayListWifiRegistered,lvWifiRegistered );
+
         lvWifiRegistered.setAdapter(adapterRegistered);
 
         //lvWifiRegistered.setOnItemClickListener(listListenerRegistered);

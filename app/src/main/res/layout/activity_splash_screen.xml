@@ -11,7 +11,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.dailyvery.apps.imhome.SplashScreenActivity"
-    android:background="@color/colorPrimaryDark">
+    android:background="#00519B">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0sp"
+        android:layout_weight="0.3"
+        android:src="@drawable/ic_logo"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="0.7">
 
     <TextView
     android:layout_width="match_parent"
@@ -22,10 +34,10 @@
     android:layout_alignParentStart="true"
     android:textAllCaps="true"
     android:textColor="@color/colorWhite"
-    android:textSize="20sp"
+    android:textSize="14sp"
     android:layout_marginTop="25sp"
     android:layout_marginBottom="25sp"
-    android:textStyle="normal|bold" />
+    android:textStyle="normal" />
 
     <TextView
         android:layout_width="match_parent"
@@ -36,9 +48,9 @@
         android:layout_alignParentStart="true"
         android:textAllCaps="true"
         android:textColor="@color/colorWhite"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:layout_marginBottom="25sp"
-        android:textStyle="normal|bold" />
+        android:textStyle="normal" />
 
     <TextView
         android:layout_width="match_parent"
@@ -49,9 +61,9 @@
         android:layout_alignParentStart="true"
         android:textAllCaps="true"
         android:textColor="@color/colorWhite"
-        android:textSize="20sp"
+        android:textSize="14sp"
         android:layout_marginBottom="25sp"
-        android:textStyle="normal|bold" />
+        android:textStyle="normal" />
 
     <TextView
         android:layout_width="match_parent"
@@ -62,9 +74,9 @@
         android:layout_alignParentStart="true"
         android:textAllCaps="true"
         android:textColor="@color/colorWhite"
-        android:textSize="20sp"
-        android:layout_marginBottom="25sp"
-        android:textStyle="normal|bold" />
+        android:textSize="14sp"
+        android:textStyle="normal" />
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton android:id="@+id/fabSplash"
         android:layout_width="wrap_content" android:layout_height="wrap_content"

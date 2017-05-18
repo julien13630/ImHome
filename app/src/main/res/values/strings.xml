@@ -50,6 +50,7 @@
     <string name="pref_title_category_synchronization">Synchronisation</string>
 
     <string name="pref_header_data_sync">Autorisations</string>
+    <string name="wifiDisabled">Wifi désactivé</string>
 
     <string name="pref_title_sync_frequency">Fréquence d\'actualisation</string>
     <string-array name="pref_sync_frequency_titles">
@@ -130,5 +131,7 @@
     <string name="tvMyWifi">Mes réseaux WIFI</string>
     <string name="noWifiSelected">Pas de wifi selectionné</string>
     <string name="noMarkerPlaced">Pas de destination choisie</string>
+    <string name="GpsDisabled">GPS inaccessible</string>
+    <string name="tvPleaseEnterNickname">Saisissez un surnom pour ce wifi</string>
 
 </resources>
