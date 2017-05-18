@@ -11,6 +11,8 @@ import android.support.v7.app.ActionBar;
 import android.preference.PreferenceFragment;
 import android.view.MenuItem;
 
+import com.vungle.publisher.VunglePub;
+
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
  * handset devices, settings are presented as a single list. On tablets,
@@ -24,6 +26,8 @@ import android.view.MenuItem;
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
     static public String versionName;
+    // get the VunglePub instance
+    final VunglePub vunglePub = VunglePub.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,5 +82,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        vunglePub.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        vunglePub.onResume();
     }
 }

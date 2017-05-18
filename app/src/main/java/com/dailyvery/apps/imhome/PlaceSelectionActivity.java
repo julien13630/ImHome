@@ -11,10 +11,19 @@ import com.dailyvery.apps.imhome.Adapter.PagerAdapter;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.vungle.publisher.EventListener;
+import com.vungle.publisher.VunglePub;
 
 public class PlaceSelectionActivity extends AppCompatActivity {
 
     InterstitialAd mInterstitialAd;
+
+    // get the VunglePub instance
+    final VunglePub vunglePub = VunglePub.getInstance();
+
+    private void onLevelComplete() {
+        vunglePub.playAd();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +39,7 @@ public class PlaceSelectionActivity extends AppCompatActivity {
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
-                Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                finishNewMessage();
             }
         });
 
@@ -64,6 +71,41 @@ public class PlaceSelectionActivity extends AppCompatActivity {
 
             }
         });
+
+        final EventListener vungleListener = new EventListener(){
+
+            @Deprecated
+            @Override
+            public void onVideoView(boolean isCompletedView, int watchedMillis, int videoDurationMillis) {
+                // This method is deprecated and will be removed. Please do not use it.
+                // Please use onAdEnd instead.
+            }
+
+            @Override
+            public void onAdStart() {
+                // Called before playing an ad
+            }
+
+            @Override
+            public void onAdEnd(boolean wasSuccessfulView, boolean wasCallToActionClicked) {
+                finishNewMessage();
+            }
+
+            @Override
+            public void onAdPlayableChanged(boolean isAdPlayable) {
+                // Called when the playability state changes. if isAdPlayable is true, you can now
+                // play an ad.
+                // If false, you cannot yet play an ad.
+            }
+
+            @Override
+            public void onAdUnavailable(String reason) {
+                // Called when VunglePub.playAd() was called, but no ad was available to play
+            }
+
+        };
+
+        vunglePub.addEventListeners(vungleListener);
     }
 
     private void requestNewInterstitial() {
@@ -73,12 +115,32 @@ public class PlaceSelectionActivity extends AppCompatActivity {
     }
 
     public void showAd(){
-        if (mInterstitialAd.isLoaded()) {
+        if (vunglePub.isAdPlayable()) {
+            onLevelComplete();
+        } else if(mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
-        } else {
-            Intent intent=new Intent(getApplicationContext(),MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+        } else{
+            finishNewMessage();
         }
     }
+
+    private void finishNewMessage() {
+        Intent intent=new Intent(getApplicationContext(),MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        vunglePub.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        vunglePub.onResume();
+    }
+
+
 }

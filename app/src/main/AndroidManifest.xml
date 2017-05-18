@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -79,6 +80,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.vungle.publisher.VideoFullScreenAdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+
+        <activity android:name="com.vungle.publisher.MraidFullScreenAdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"/>
+
     </application>
 
 </manifest>

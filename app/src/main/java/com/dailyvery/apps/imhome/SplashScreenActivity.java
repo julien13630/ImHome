@@ -6,7 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.vungle.publisher.VunglePub;
+
 public class SplashScreenActivity extends AppCompatActivity {
+
+    // get the VunglePub instance
+    final VunglePub vunglePub = VunglePub.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +27,17 @@ public class SplashScreenActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        vunglePub.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        vunglePub.onResume();
     }
 }

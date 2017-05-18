@@ -30,6 +30,7 @@ import com.dailyvery.apps.imhome.Adapter.AdapterMain;
 import com.dailyvery.apps.imhome.Data.Avert;
 import com.dailyvery.apps.imhome.Data.AvertDataSource;
 import com.dailyvery.apps.imhome.Interface.BtnClickListener;
+import com.vungle.publisher.VunglePub;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,8 @@ public class ContactActivity extends AppCompatActivity {
     private ListView lvContact;
     private ImageView iv_NoRecipient;
     BtnClickListener btnListenerDelete;
+    // get the VunglePub instance
+    final VunglePub vunglePub = VunglePub.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,5 +260,17 @@ public class ContactActivity extends AppCompatActivity {
         }else{
             startActivityContactForResult();
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        vunglePub.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        vunglePub.onResume();
     }
 }

@@ -40,6 +40,7 @@ import com.dailyvery.apps.imhome.Interface.BtnClickListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.vungle.publisher.VunglePub;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -51,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
     private AdapterMain adapter = null;
     private static LayoutInflater inflater = null;
     private ListView lvMain;
-
+    // get the VunglePub instance
+    final VunglePub vunglePub = VunglePub.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
         if(avertList.size() > 0){
             askIgnoreBatteryOptimizations();
         }
+
+        // get your App ID from the app's main page on the Vungle Dashboard after setting up your app
+        final String app_id = "591dad009044f51c730020ae";
+        // initialize the Publisher SDK
+        vunglePub.init(this, app_id);
     }
 
     private void askIgnoreBatteryOptimizations() {
@@ -162,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        vunglePub.onResume();
         getDataSetList();
     }
 
@@ -250,4 +257,9 @@ public class MainActivity extends AppCompatActivity {
         lvMain.setAdapter(adapter);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        vunglePub.onPause();
+    }
 }
