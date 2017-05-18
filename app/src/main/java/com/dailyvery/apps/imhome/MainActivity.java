@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-7386174591450774~4697714843");
 
         AdView mAdView = (AdView) findViewById(R.id.adView);
-        /*AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);*/
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
         Button BtnAdd = (Button) findViewById(R.id.BtnAddMessage);
