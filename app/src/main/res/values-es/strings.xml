@@ -101,4 +101,9 @@
     <string name="noMarkerPlaced">Elija su destino</string>
     <string name="GpsDisabled">GPS no disponible</string>
     <string name="tvPleaseEnterNickname">Escriba un apodo para este wifi</string>
+    <string name="TwoDestinationWay">Dos formas de definir su destino</string>
+    <string name="WIFIExplain">Elija la red wifi disponible en su lugar de destino. Cuando su teléfono se conecte a esta red, ImHome sabrá que ha llegado.</string>
+    <string name="GPSExplain">" Seleccione su destino en el mapa. La aplicación utilizará la ubicación GPS del teléfono para detectar cuándo llegue."</string>
+    <string name="wifiDisabled">Wifi deshabilitado</string>
+    <string name="Understood">Entendido</string>
 </resources>
