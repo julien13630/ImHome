@@ -1,72 +1,72 @@
 <resources>
-    <string name="app_name">"Estoy en casa"</string>
-    <string name="action_settings">"Ajustes"</string>
-    <string name="cbRecurrence">\"Volver recurrente\"</string>
-    <string name="cbRecurrenceSet">\"Volver recurrente es:\"</string>
-    <string name="label_pref_version">\"Versión aplicación\"</string>
-    <string name="pref_description_authorize_gps">\"Permite a ImHome obtener una descripción de la ubicación precisa mediante GPS\"</string>
-    <string name="pref_description_authorize_wifi">\"Permite a ImHome consumir menos batería usando wifi que GPS\"</string>
-    <string name="pref_header_data_sync">"Autorizaciones"</string>
-    <string name="pref_header_general">"Generales"</string>
-    <string name="pref_header_notifications">"Notificaciones"</string>
-    <string name="pref_ringtone_silent">"Modo silencioso"</string>
-    <string name="pref_summary_localisation_slider">"precisión GPS (en metros)"</string>
-    <string name="pref_title_authorize_gps">"Autorizar el acceso GPS"</string>
-    <string name="pref_title_authorize_wifi">"Autorizar el acceso wifi"</string>
-    <string name="pref_title_category_localisation">"localizando"</string>
-    <string name="pref_title_category_notification">"Notificación"</string>
-    <string name="pref_title_category_synchronization">"Sincronización"</string>
-    <string name="pref_title_language">"Idioma"</string>
-    <string name="pref_title_new_message_notifications">\"ver notificación mensaje enviado\"</string>
+    <string name="app_name">ImHome</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="cbRecurrence">Volver recurrente</string>
+    <string name="cbRecurrenceSet">Volver recurrente es:</string>
+    <string name="label_pref_version">Versión aplicación</string>
+    <string name="pref_description_authorize_gps">Permite a ImHome obtener una descripción de la ubicación precisa mediante GPS</string>
+    <string name="pref_description_authorize_wifi">Permite a ImHome consumir menos batería usando wifi que GPS</string>
+    <string name="pref_header_data_sync">Autorizaciones</string>
+    <string name="pref_header_general">Generales</string>
+    <string name="pref_header_notifications">Notificaciones</string>
+    <string name="pref_ringtone_silent">Modo silencioso</string>
+    <string name="pref_summary_localisation_slider">precisión GPS (en metros)</string>
+    <string name="pref_title_authorize_gps">Autorizar el acceso GPS</string>
+    <string name="pref_title_authorize_wifi">Autorizar el acceso wifi</string>
+    <string name="pref_title_category_localisation">localizando</string>
+    <string name="pref_title_category_notification">Notificación</string>
+    <string name="pref_title_category_synchronization">Sincronización</string>
+    <string name="pref_title_language">Idioma</string>
+    <string name="pref_title_new_message_notifications">ver notificación mensaje enviado</string>
     <string name="pref_title_notification_distance">Distancia de localizacion</string>
-    <string name="pref_title_ringtone">"Tono de llamada"</string>
-    <string name="pref_title_sync_frequency">"Frecuencia de actualización"</string>
-    <string name="pref_title_system_sync_settings">"Sincronizar con Google"</string>
-    <string name="title_activity_settings">"ajustes"</string>
-    <string name="tvContactPrevenir">\"Contactos a avisar:\"</string>
-    <string name="tvListWifi">\"Lista de wifi registrados:\"</string>
-    <string name="tvMessagesEnAttente">\"Mensajes en espera de envio:\"</string>
+    <string name="pref_title_ringtone">Tono de llamada</string>
+    <string name="pref_title_sync_frequency">Frecuencia de actualización</string>
+    <string name="pref_title_system_sync_settings">Sincronizar con Google</string>
+    <string name="title_activity_settings">ajustes</string>
+    <string name="tvContactPrevenir">Contactos a avisar:</string>
+    <string name="tvListWifi">Lista de wifi registrados:</string>
+    <string name="tvMessagesEnAttente">Mensajes en espera de envio:</string>
     <string name="cancel">Suggérer une modification</string>
-    <string name="defaultMessage">"Llegué. "</string>
-    <string name="tvPleaseEnableWifi">\"Por favor, active wifi\"</string>
-    <string name="tvPleaseEnterMessageText">\"Escriba texto a enviar:\"</string>
+    <string name="defaultMessage">Llegué. </string>
+    <string name="tvPleaseEnableWifi">Por favor, active wifi</string>
+    <string name="tvPleaseEnterMessageText">Escriba texto a enviar:</string>
     <string name="validate">Validar</string>
-    <string name="GPS">\"GPS\"</string>
-    <string name="Wifi">"WiFi"</string>
-    <string name="notifMessageSentTo">"Mensaje enviado a "</string>
-    <string name="notifName">"ImHome mensaje enviado"</string>
-    <string name="tstRecipientTwiceForbidden">"Prohibido añadir dos veces el mismo número"</string>
-    <string name="tvNoMessages">"Ningún mensaje !"</string>
+    <string name="GPS">GPS</string>
+    <string name="Wifi">WiFi</string>
+    <string name="notifMessageSentTo">Mensaje enviado a </string>
+    <string name="notifName">ImHome mensaje enviado</string>
+    <string name="tstRecipientTwiceForbidden">Prohibido añadir dos veces el mismo número</string>
+    <string name="tvNoMessages">Ningún mensaje !</string>
     <string name="tvNoRecipient">Sin destinatario</string>
-    <string name="tvPleaseEnterMessageTextNew">\"Escriba un nuevo texto para enviar:\"</string>
-    <string name="tvSelectNumber">"Seleccionar un número de teléfono:"</string>
-    <string name="pref_title_vibrate">"Vibración"</string>
+    <string name="tvPleaseEnterMessageTextNew">Escriba un nuevo texto para enviar:</string>
+    <string name="tvSelectNumber">Seleccionar un número de teléfono:</string>
+    <string name="pref_title_vibrate">Vibración</string>
 
     <string-array name="pref_sync_frequency_titles">
-        <item>"15 minutos"</item>
-        <item>"30 minutos"</item>
-        <item>"1 heure"</item>
+        <item>15 minutos</item>
+        <item>30 minutos</item>
+        <item>1 heure</item>
     </string-array>
     <string-array name="pref_sync_frequency_values">
-        <item>"15"</item>
-        <item>"30"</item>
-        <item>"60 "</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60 </item>
     </string-array>
 
     <string-array name="list_preference_entries">
-        <item>"// Entrada (Entry)"</item>
-        <item>"// Entrada (Entry)"</item>
-        <item>"// Entrada (Entry)"</item>
+        <item>// Entrada (Entry)</item>
+        <item>// Entrada (Entry)</item>
+        <item>// Entrada (Entry)</item>
     </string-array>
 
     <string-array name="list_preference_entry_values">
-        <item>"1 "</item>
-        <item>"2"</item>
-        <item>"3 "</item>
+        <item>1 </item>
+        <item>2</item>
+        <item>3 </item>
     </string-array>
-    <string name="messageCriticalBattery">\"Estoy casi sin batería te envío mi mensaje de llegada cuando me reavivó mi telefono\"</string>
-    <string name="notifMessageCriticalBattery">\"Nivel crítico de batería\"</string>
-    <string name="recipientAlerted">\"fue advertido\"</string>
+    <string name="messageCriticalBattery">Estoy casi sin batería te envío mi mensaje de llegada cuando me reavivó mi telefono</string>
+    <string name="notifMessageCriticalBattery">Nivel crítico de batería</string>
+    <string name="recipientAlerted">fue advertido</string>
     <string name="banner_ad_unit_id">ca-app-pub-7386174591450774/6174448046</string>
     <string name="tvNoMessagesPlus">(Pulse la tecla +)</string>
     <string name="hintAddresstoSearch">Dirección de destino</string>
@@ -103,7 +103,7 @@
     <string name="tvPleaseEnterNickname">Escriba un apodo para este wifi</string>
     <string name="TwoDestinationWay">Dos formas de definir su destino</string>
     <string name="WIFIExplain">Elija la red wifi disponible en su lugar de destino. Cuando su teléfono se conecte a esta red, ImHome sabrá que ha llegado.</string>
-    <string name="GPSExplain">" Seleccione su destino en el mapa. La aplicación utilizará la ubicación GPS del teléfono para detectar cuándo llegue."</string>
+    <string name="GPSExplain"> Seleccione su destino en el mapa. La aplicación utilizará la ubicación GPS del teléfono para detectar cuándo llegue.</string>
     <string name="wifiDisabled">Wifi deshabilitado</string>
     <string name="Understood">Entendido</string>
 </resources>

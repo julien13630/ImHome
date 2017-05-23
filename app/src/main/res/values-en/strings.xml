@@ -103,8 +103,8 @@
     <string name="GpsDisabled">GPS unavailable</string>
     <string name="tvPleaseEnterNickname">Enter a nickname for this wifi</string>
     <string name="TwoDestinationWay">There are two ways to define your destination</string>
-    <string name="WIFIExplain">Choose the wifi network available at your destination place. As soon your phone will connect to this network, ImHome will know that you\'re arrived.</string>
-    <string name="GPSExplain">Select your destination on the map. The app will use your phone GPS location to detect when you\'re arrived.</string>
+    <string name="WIFIExplain">Choose the wifi network available at your destination place. As soon as your phone is connected to this network, ImHome will know that you arrived.</string>
+    <string name="GPSExplain">Select your destination on the map. The app will use your phone location to detect when you arrived.</string>
     <string name="wifiDisabled">Wifi disabled</string>
     <string name="Understood">Understood</string>
 </resources>
