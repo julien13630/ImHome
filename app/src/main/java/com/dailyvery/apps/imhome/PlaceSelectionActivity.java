@@ -1,11 +1,16 @@
 package com.dailyvery.apps.imhome;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.dailyvery.apps.imhome.Adapter.PagerAdapter;
 import com.google.android.gms.ads.AdListener;
@@ -64,6 +69,29 @@ public class PlaceSelectionActivity extends AppCompatActivity {
 
             }
         });
+
+        final LinearLayout ll_tuto = (LinearLayout) findViewById(R.id.tuto_layout) ;
+
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyDisplayed = prefs.getBoolean("TutoAlreadyDisplayed", false);
+        if(previouslyDisplayed) {
+                    ll_tuto.setVisibility(View.GONE);
+        }
+        else
+        {
+            Button bOk = (Button) findViewById(R.id.bTutoUnderstood);
+            bOk.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                     SharedPreferences.Editor edit = prefs.edit();
+                    edit.putBoolean("TutoAlreadyDisplayed", Boolean.TRUE);
+                    edit.commit();
+                    ll_tuto.setVisibility(View.GONE);
+                }
+            });
+
+
+        }
     }
 
     private void requestNewInterstitial() {
