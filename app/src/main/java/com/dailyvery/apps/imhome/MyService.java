@@ -50,6 +50,10 @@ public class MyService extends Service
         {
             Log.e(TAG, "onLocationChanged: " + location);
             mLastLocation.set(location);
+            if(avertList == null || avertList.size() == 0){
+                //Rustine pour empecher un plantage si jamais le service ne s'est pas correctement eteint
+                return;
+            }
             int notifID = avertList.get(0).getHashcode();
             for(Avert a : avertList){
                 // On récupère les positions a comparer
