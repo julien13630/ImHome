@@ -50,17 +50,17 @@ public class WifiReceiver extends BroadcastReceiver {
                             for (Avert a : avertList) {
                                 if (a.getSsid().compareTo(ssid.substring(1, ssid.length() - 1)) == 0) {
 
-                                    if(a.getFlagReccurence() == 0){
-                                        MessageManager.getInstance().sendSMS(context, notifID, a);
-                                        ads.deleteAvert(a, true);
-                                    }else if(checkReccurence(a)){
+                                    //if(a.getFlagReccurence() == 0){
+                                    MessageManager.getInstance().sendSMS(context, notifID, a);
+                                    ads.deleteAvert(a, true);
+                                    /*}else if(checkReccurence(a)){
                                         MessageManager.getInstance().sendSMS(context, notifID, a);
                                         Calendar cal = Calendar.getInstance();
                                         cal.setTime(a.getAddDate());
                                         cal.add(Calendar.DAY_OF_YEAR, 1);
                                         a.setAddDate(cal.getTime());
                                         ads.editAvert(a);
-                                    }
+                                    }*/
                                 }
                             }
                         }

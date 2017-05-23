@@ -71,11 +71,11 @@ public class MyService extends Service
                     AvertDataSource ads = new AvertDataSource(getApplicationContext());
                     try {
                         ads.open();
-                        if(a.getFlagReccurence() == 0){
-                            MessageManager.getInstance().sendSMS(getApplicationContext(), notifID, a);
-                            ads.deleteAvert(a, true);
-                            checkMessageLeft(ads);
-                        }else if(checkReccurence(a)){
+                        //if(a.getFlagReccurence() == 0){
+                        MessageManager.getInstance().sendSMS(getApplicationContext(), notifID, a);
+                        ads.deleteAvert(a, true);
+                        checkMessageLeft(ads);
+                        /*}else if(checkReccurence(a)){
                             MessageManager.getInstance().sendSMS(getApplicationContext(), notifID, a);
                             Calendar cal = Calendar.getInstance();
                             cal.setTime(a.getAddDate());
@@ -83,7 +83,7 @@ public class MyService extends Service
                             a.setAddDate(cal.getTime());
                             ads.editAvert(a);
                             checkMessageLeft(ads);
-                        }
+                        }*/
                     } catch (SQLException e) {
                         e.printStackTrace();
                     } finally {
