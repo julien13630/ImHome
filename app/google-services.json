@@ -1,0 +1,50 @@
+{
+  "project_info": {
+    "project_number": "64130410558",
+    "firebase_url": "https://imhomead.firebaseio.com",
+    "project_id": "imhomead",
+    "storage_bucket": "imhomead.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64130410558:android:e557e9413cb12731",
+        "android_client_info": {
+          "package_name": "com.dailyvery.apps.imhome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64130410558-ehvpq2pi7q9qsdnr6628eu4jt8ra9kiu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dailyvery.apps.imhome",
+            "certificate_hash": "3cd046804a63d502000ce7e5f95c4b805f66e2b5"
+          }
+        },
+        {
+          "client_id": "64130410558-g0l4sjdafl46i7jv233jjg90uf4o17rt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA104Fh3XlA0iubNq1kMr7hLA6_wp4Bi5s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
