@@ -29,6 +29,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -37,6 +38,7 @@ import android.widget.Toast;
 
 import com.dailyvery.apps.imhome.Data.Avert;
 import com.dailyvery.apps.imhome.Data.AvertDataSource;
+import com.dailyvery.apps.imhome.Data.LocationDataSource;
 import com.dailyvery.apps.imhome.SearchBar.DelayAutoCompleteTextView;
 import com.dailyvery.apps.imhome.SearchBar.GeoAutoCompleteAdapter;
 import com.dailyvery.apps.imhome.SearchBar.GeoSearchResult;
@@ -78,6 +80,7 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     private TimePickerDialog.OnTimeSetListener timeSetListener = null;
     private Date dateReccurence;
     private boolean firstLocation;
+    private LocationDataSource lds;
 
     private Integer THRESHOLD = 2;
     private DelayAutoCompleteTextView geo_autocomplete;
@@ -86,9 +89,11 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-         final View rootView;
+        final View rootView;
 
         firstLocation = true;
+
+        lds = new LocationDataSource(getActivity());
 
         if (ContextCompat.checkSelfPermission(getContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -185,6 +190,26 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
             });
             //Tant qu'on a pas de marker, on n'active pas le bouton
             //btValider.setEnabled(false);
+
+            Button btFavLocations = (Button)rootView.findViewById(R.id.btFavoriteLocations);
+            btFavLocations.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        lds.open();
+                        List<com.dailyvery.apps.imhome.Data.Location> listLocations;
+                        listLocations = lds.getAllLocations();
+                        lds.close();
+                        if(listLocations != null && listLocations.size() > 0){
+                            displayFavorites(listLocations);
+                        }else{
+                            Snackbar.make(getView(), R.string.tvNoFavLocation,Snackbar.LENGTH_LONG).show();
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
             geo_autocomplete_clear = (ImageView) rootView.findViewById(R.id.geo_autocomplete_clear);
 
@@ -362,6 +387,10 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         }
     }
 
+    private void displayFavorites(List<com.dailyvery.apps.imhome.Data.Location> listLocations){
+        //TODO Display list location
+    }
+
     public void statusCheck() {
         final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
@@ -482,100 +511,64 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         viewAlertDialog = inflaterDialog.inflate(R.layout.alert_dialog_layout, null);
         //final CheckBox cbMessageReccurent = (CheckBox)viewAlertDialog.findViewById(R.id.cbMessageReccurent);
         final EditText et = (EditText) viewAlertDialog.findViewById(R.id.etMessageToSend);
+        final CheckBox cb = (CheckBox) viewAlertDialog.findViewById(R.id.cbAddFavorite);
         final AvertDataSource ads = new AvertDataSource(getActivity());
         et.setText(getString(R.string.defaultMessage), TextView.BufferType.EDITABLE);
-        /*final Calendar c = Calendar.getInstance();
-        int hour = c.get(Calendar.HOUR_OF_DAY);
-        int minute = c.get(Calendar.MINUTE);
-
-        timeSetListener = new TimePickerDialog.OnTimeSetListener() {
-            @Override
-            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.HOUR_OF_DAY, hour);
-                cal.set(Calendar.MINUTE, minute);
-                cal.add(Calendar.DAY_OF_YEAR, - 1);
-                dateReccurence = cal.getTime();
-
-                cbMessageReccurent.setText(getString(R.string.cbRecurrenceSet) + cal.get(Calendar.HOUR_OF_DAY) +
-                                    "h" + cal.get(Calendar.MINUTE) + "min");
-            }
-        };
-
-        final TimePickerDialog tpd = new TimePickerDialog(getActivity(), timeSetListener,
-                hour, minute, DateFormat.is24HourFormat(getActivity()));
-        tpd.setCancelable(false);
-        tpd.setOnCancelListener(new DialogInterface.OnCancelListener() {
-            @Override
-            public void onCancel(DialogInterface dialogInterface) {
-                cbMessageReccurent.setChecked(false);
-                cbMessageReccurent.setText(getString(R.string.cbRecurrence));
-            }
-        });
-
-        cbMessageReccurent.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                if(checked){
-                    tpd.show();
-                }else {
-                    cbMessageReccurent.setText(getString(R.string.cbRecurrence));
-                }
-            }
-        });
-
-        //On limite le text a 160 caractères
-        InputFilter[] filterArray = new InputFilter[1];
-        filterArray[0] = new InputFilter.LengthFilter(160);
-        et.setFilters(filterArray);
-
-        cbMessageReccurent.setText(getString(R.string.cbRecurrence));
-        cbMessageReccurent.setChecked(false);*/
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getString(R.string.tvPleaseEnterMessageText))
                 .setPositiveButton(getString(R.string.validate), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                try {
-                                    ads.open();
-                                    for (Avert a : avertList) {
-                                        if (dateReccurence != null){
-                                            a.setAddDate(dateReccurence);
-                                        }
-
-                                        String properAddress = String.format("%s, %s",
-                                                address.getMaxAddressLineIndex() > 0 ? address.getAddressLine(0) : "",
-                                                address.getLocality());
-                                        if(properAddress.length() > 25){
-                                            properAddress = properAddress.substring(0, 25) + "...";
-                                        }
-
-                                        a.setMessageText(et.getText().toString());
-                                        a.setLatitude(location.latitude);
-                                        a.setLongitude(location.longitude);
-                                        a.setFlagReccurence(false);
-                                        a.setLabel(properAddress);
-                                        //a.setFlagReccurence(cbMessageReccurent.isChecked());
-
-                                        ads.addAvert(a);
-
-                                        locationManager = null;
-
-                                    }
-                                } catch (SQLException e) {
-                                    e.printStackTrace();
-                                } finally {
-                                    ads.close();
+                    public void onClick(DialogInterface dialog, int id) {
+                        try {
+                            ads.open();
+                            for (Avert a : avertList) {
+                                if (dateReccurence != null){
+                                    a.setAddDate(dateReccurence);
                                 }
 
-                                getContext().startService(new Intent(getActivity().getApplicationContext(), MyService.class));
+                                String properAddress = String.format("%s, %s",
+                                        address.getThoroughfare(),
+                                        address.getLocality());
 
-                                ((PlaceSelectionActivity)getActivity()).showAd();
+                                if(cb.isChecked()){
+                                    lds.open();
+                                    com.dailyvery.apps.imhome.Data.Location locToSave = new com.dailyvery.apps.imhome.Data.Location();
+                                    locToSave.setAddress(properAddress);
+                                    locToSave.setNick("");
+                                    locToSave.setLat(location.latitude);
+                                    locToSave.setLong(location.longitude);
+                                    lds.addLocation(locToSave);
+                                    lds.close();
+                                }
+
+                                if(properAddress.length() > 25){
+                                    properAddress = properAddress.substring(0, 25) + "...";
+                                }
+
+                                a.setMessageText(et.getText().toString());
+                                a.setLatitude(location.latitude);
+                                a.setLongitude(location.longitude);
+                                a.setFlagReccurence(false);
+                                a.setLabel(properAddress);
+                                //a.setFlagReccurence(cbMessageReccurent.isChecked());
+
+                                ads.addAvert(a);
+
+                                locationManager = null;
 
                             }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        } finally {
+                            ads.close();
                         }
 
-                ).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        getContext().startService(new Intent(getActivity().getApplicationContext(), MyService.class));
+
+                        ((PlaceSelectionActivity)getActivity()).showAd();
+
+                    }
+                }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
                     }

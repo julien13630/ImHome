@@ -106,4 +106,7 @@
     <string name="GPSExplain"> Seleccione su destino en el mapa. La aplicación utilizará la ubicación GPS del teléfono para detectar cuándo llegue.</string>
     <string name="wifiDisabled">Wifi deshabilitado</string>
     <string name="Understood">Entendido</string>
+    <string name="btFavLocations">Favoritos</string>
+    <string name="cbAddFavLocations">Añadir a favoritos</string>
+    <string name="tvNoFavLocation">Nessun preferito salvato</string>
 </resources>

@@ -107,4 +107,7 @@
     <string name="GPSExplain">Select your destination on the map. The app will use your phone location to detect when you arrived.</string>
     <string name="wifiDisabled">Wifi disabled</string>
     <string name="Understood">Understood</string>
+    <string name="btFavLocations">Favorites</string>
+    <string name="cbAddFavLocations">Add to favorites</string>
+    <string name="tvNoFavLocation">No favorite saved</string>
 </resources>

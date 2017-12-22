@@ -79,15 +79,29 @@
             android:padding="150dp"
             android:layout_weight="2" />
 
-        <Button
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btFavoriteLocations"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:text="@string/btFavLocations"
+                android:padding="20sp"
+                android:textColor="#FFFFFF" />
+
+            <Button
                 android:id="@+id/btValiderDestination"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:text="@string/validate"
                 android:padding="20sp"
                 android:textColor="#FFFFFF" />
-
-
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

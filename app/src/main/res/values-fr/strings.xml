@@ -107,4 +107,7 @@
     <string name="GPSExplain">Sélectionnez votre destination sur la carte. L\'application se servira de la position GPS de votre téléphone pour détecter votre arrivée.</string>
     <string name="wifiDisabled">Wifi désactivé</string>
     <string name="Understood">J\'ai compris</string>
+    <string name="btFavLocations">Favoris</string>
+    <string name="cbAddFavLocations">Ajouter aux favoris</string>
+    <string name="tvNoFavLocation">Pas de favoris</string>
 </resources>

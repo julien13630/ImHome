@@ -137,5 +137,8 @@
     <string name="WIFIExplain">Choisissez le réseau wifi qui se trouve sur votre lieu de destination. Dès que votre téléphone se connectera à ce réseau, ImHome saura que vous êtes bien arrivé.</string>
     <string name="TwoDestinationWay">Deux façons de choisir sa destination</string>
     <string name="Understood">J\'ai compris</string>
+    <string name="btFavLocations">Favoris</string>
+    <string name="cbAddFavLocations">Ajouter aux favoris</string>
+    <string name="tvNoFavLocation">Pas de favoris</string>
 
 </resources>

@@ -10,6 +10,12 @@
         android:layout_marginLeft="15sp"
         android:layout_marginRight="15sp"/>
 
+    <CheckBox
+        android:id="@+id/cbAddFavorite"
+        android:layout_width="wrap_content"
+        android:text="@string/cbAddFavLocations"
+        android:layout_height="wrap_content" />
+
     <!--<CheckBox
         android:id="@+id/cbMessageReccurent"
         android:layout_width="wrap_content"

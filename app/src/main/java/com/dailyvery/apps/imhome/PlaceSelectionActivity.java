@@ -83,7 +83,7 @@ public class PlaceSelectionActivity extends AppCompatActivity {
             bOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                     SharedPreferences.Editor edit = prefs.edit();
+                    SharedPreferences.Editor edit = prefs.edit();
                     edit.putBoolean("TutoAlreadyDisplayed", Boolean.TRUE);
                     edit.commit();
                     ll_tuto.setVisibility(View.GONE);
@@ -95,7 +95,7 @@ public class PlaceSelectionActivity extends AppCompatActivity {
     }
 
     private void requestNewInterstitial() {
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("28D1BA9946A1BB6526982E1CBE179939").build();
 
         mInterstitialAd.loadAd(adRequest);
     }

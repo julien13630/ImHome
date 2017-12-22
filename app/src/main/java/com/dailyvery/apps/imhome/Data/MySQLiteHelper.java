@@ -30,8 +30,14 @@ import android.util.Log;
         public static final String COLUMN_A_DATE = "adddate";
         public static final String COLUMN_A_FLAGRECCURENCE = "flagnumber";
 
+        public static final String TABLE_LOCATION = "location";
+        public static final String COLUMN_L_ADDRESS = "address";
+        public static final String COLUMN_L_NICK = "nick";
+        public static final String COLUMN_L_LAT = "lat";
+        public static final String COLUMN_L_LONG = "long";
+
         private static final String DATABASE_NAME = "ImHome.db";
-        private static final int DATABASE_VERSION = 4;
+        private static final int DATABASE_VERSION = 5;
 
         // Commande sql pour la création de la base de données
         private static final String DATABASE_CREATE_WIFI = "CREATE TABLE `wifi` (" +
@@ -57,6 +63,13 @@ import android.util.Log;
             "`flagnumber` INTEGER NOT NULL DEFAULT NULL"+
             " );";
 
+    // Commande sql pour la création de la base de données
+    private static final String DATABASE_CREATE_LOCATION = "CREATE TABLE `location` (" +
+            " `address` MEDIUMTEXT NULL DEFAULT NULL," +
+            " `nick` MEDIUMTEXT NULL DEFAULT NULL" +
+            " `lat` MEDIUMTEXT NULL DEFAULT NULL" +
+            " `long` MEDIUMTEXT NULL DEFAULT NULL" +
+            " );" ;
 
 
         public MySQLiteHelper(Context context) {
@@ -67,6 +80,7 @@ import android.util.Log;
         public void onCreate(SQLiteDatabase database) {
             database.execSQL(DATABASE_CREATE_WIFI);
             database.execSQL(DATABASE_CREATE_AVERT);
+            database.execSQL(DATABASE_CREATE_LOCATION);
         }
 
         @Override
@@ -76,6 +90,7 @@ import android.util.Log;
                             + newVersion + ", which will destroy all old data");
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_WIFI);
             db.execSQL("DROP TABLE IF EXISTS " + TABLE_AVERT);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_LOCATION);
 
             onCreate(db);
         }
