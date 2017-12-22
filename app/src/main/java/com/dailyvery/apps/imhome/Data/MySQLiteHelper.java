@@ -66,9 +66,9 @@ import android.util.Log;
     // Commande sql pour la création de la base de données
     private static final String DATABASE_CREATE_LOCATION = "CREATE TABLE `location` (" +
             " `address` MEDIUMTEXT NULL DEFAULT NULL," +
-            " `nick` MEDIUMTEXT NULL DEFAULT NULL" +
-            " `lat` MEDIUMTEXT NULL DEFAULT NULL" +
-            " `long` MEDIUMTEXT NULL DEFAULT NULL" +
+            " `nick` MEDIUMTEXT NULL DEFAULT NULL," +
+            " `lat` DOUBLE NULL DEFAULT NULL," +
+            " `long` DOUBLE NULL DEFAULT NULL" +
             " );" ;
 
 

@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -232,10 +233,6 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
                         e.printStackTrace();
                     }
 
-                    if (marker != null) {
-                        marker.remove();
-                    }
-
                     address = gotAddresses.get(0);
 
                     String properAddress = String.format("%s, %s",
@@ -244,25 +241,13 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
 
                     LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
 
-                    MarkerOptions options = new MarkerOptions()
-                            .title(properAddress)
-                            .position(location);
-
-                    marker = googleMap.addMarker(options);
-
-                    CameraPosition cameraPosition = new CameraPosition.Builder()
-                            .target(location) // Center Set
-                            .zoom(18.0f)                // Zoom
-                            .build();                   // Creates a CameraPosition from the builder
-                    googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                    setNewMarker(properAddress, location);
 
                     InputMethodManager inputManager = (InputMethodManager)
                             getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
                     inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
                             InputMethodManager.HIDE_NOT_ALWAYS);
-
-                    btValider.setEnabled(true);
                 }
             });
 
@@ -300,6 +285,26 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         }
 
         return rootView;
+    }
+
+    private void setNewMarker(String properAddress, LatLng location) {
+        if (marker != null) {
+            marker.remove();
+        }
+
+        MarkerOptions options = new MarkerOptions()
+                .title(properAddress)
+                .position(location);
+
+        marker = googleMap.addMarker(options);
+
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(location) // Center Set
+                .zoom(18.0f)                // Zoom
+                .build();                   // Creates a CameraPosition from the builder
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+        btValider.setEnabled(true);
     }
 
     @Override
@@ -387,8 +392,33 @@ public class LocationSelectionFragment extends Fragment implements GoogleApiClie
         }
     }
 
-    private void displayFavorites(List<com.dailyvery.apps.imhome.Data.Location> listLocations){
-        //TODO Display list location
+    private void displayFavorites(final List<com.dailyvery.apps.imhome.Data.Location> listLocations){
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(getActivity());
+        builderSingle.setTitle("Sélectionnez un lieu favori");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.select_dialog_singlechoice);
+        for (com.dailyvery.apps.imhome.Data.Location location : listLocations) {
+            arrayAdapter.add(location.getAddress());
+        }
+
+        builderSingle.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                com.dailyvery.apps.imhome.Data.Location location = listLocations.get(which);
+                String strName = location.getAddress();
+                LatLng latlng = new LatLng(location.getLat(), location.getLong());
+                setNewMarker(strName, latlng);
+                dialog.dismiss();
+            }
+        });
+        builderSingle.show();
     }
 
     public void statusCheck() {
