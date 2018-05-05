@@ -175,7 +175,7 @@ class LocationSelectionFragment : Fragment(), GoogleApiClient.ConnectionCallback
                     val listLocations: List<com.dailyvery.apps.imhome.Data.Location>?
                     listLocations = lds!!.allLocations
                     lds!!.close()
-                    if (listLocations != null && listLocations.size > 0) {
+                    if (listLocations.size > 0) {
                         displayFavorites(listLocations)
                     } else {
                         Snackbar.make(view!!, R.string.tvNoFavLocation, Snackbar.LENGTH_LONG).show()
@@ -193,13 +193,13 @@ class LocationSelectionFragment : Fragment(), GoogleApiClient.ConnectionCallback
 
             geo_autocomplete!!.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, position, id ->
                 val result = adapterView.getItemAtPosition(position) as GeoSearchResult
-                geo_autocomplete!!.setText(result.address)
+                geo_autocomplete!!.setText(result.toString())
 
                 val geo = Geocoder(context)
                 var gotAddresses: List<Address>? = null
                 try {
 
-                    gotAddresses = geo.getFromLocationName(result.address, 1)
+                    gotAddresses = geo.getFromLocationName(result.toString(), 1)
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
@@ -425,6 +425,11 @@ class LocationSelectionFragment : Fragment(), GoogleApiClient.ConnectionCallback
         } else {
             Log.i(TAG, "Location services connection failed with code " + connectionResult.errorCode)
         }
+    }
+
+    protected fun finalize() {
+        // finalization logic
+        //TODO destroy object ? KOTLIN
     }
 
     private fun handleNewLocation(location: Location) {
